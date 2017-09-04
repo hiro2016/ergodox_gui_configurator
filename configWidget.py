@@ -35,8 +35,9 @@ class ConfigurationManager:
     def load_settings():
         # default
         c = ConfigurationManager
-        c.qmk_path = os.path.join(get_exe_path() + "/qmk_firmware")
-        c.ergodox_root_path = os.path.join(c.qmk_path,"/keyboards/ergodox")
+        # prepending / causes os.path.join to ingore earlier parameters.
+        c.qmk_path = os.path.join(get_exe_path(), "qmk_firmware/")
+        c.ergodox_root_path = os.path.join(c.qmk_path,"keyboards/ergodox")
 
         # loads last saved values
         # creates if the file does not exist.

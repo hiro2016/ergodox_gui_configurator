@@ -19,7 +19,8 @@ def get_exe_path():
         full_script_path = os.path.dirname(sys.executable)
         return os.path.realpath(full_script_path)
     else:
-        return os.path.dirname(os.path.realpath(sys.argv[0]))
+        # return os.path.dirname(os.path.realpath(sys.argv[0]))
+        return os.path.dirname(os.path.abspath(__file__))
 # set default behaviour
 
 logging.basicConfig(
