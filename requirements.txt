@@ -1,0 +1,8 @@
+six==1.10.0
+setuptools==20.7.0
+evdev==0.7.0
+PyQt5==5.9
+blessings==1.6
+intelhex==2.1
+pywinusb==0.4.2
+pyusb==1.0.0

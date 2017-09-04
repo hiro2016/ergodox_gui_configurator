@@ -1,0 +1,44 @@
+.dep
+*.o
+*.bin
+*.eep
+*.elf
+*.hex
+!util/bootloader.hex
+!quantum/tools/eeprom_reset.hex
+*.log
+*.lss
+*.lst
+*.map
+*.sym
+*.swp
+tags
+*~
+build/
+.build/
+*.bak
+.vagrant/
+quantum/version.h
+.idea/
+CMakeLists.txt
+.DS_STORE
+/util/wsl_downloaded
+/util/win_downloaded
+
+# Eclipse/PyCharm/Other IDE Settings
+.cproject
+.project
+.settings/
+.idea
+.browse.VC.db*
+*.stackdump
+util/Win_Check_Output.txt
+# Let these ones be user specific, since we have so many different configurations
+.vscode/launch.json
+.vscode/tasks.json
+.stfolder
+
+# ignore image files
+*.png
+*.jpg
+*.gif
