@@ -186,7 +186,7 @@ class MainWindow(QMainWindow):
                     break
 
             qmk_dir = os.path.dirname(
-                os.path.dirname(ConfigurationManager.qmk_path))
+                os.path.dirname(ConfigurationManager.ergodox_root_path))
             console.appendPlainText("Finished! See console for a prettier output.\n\n")
             console.appendPlainText("You should find the generated"
                                     " hex file at: %s/custom_keymap.hex"
