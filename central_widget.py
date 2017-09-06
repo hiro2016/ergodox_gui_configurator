@@ -261,6 +261,9 @@ class Tab(QWidget):
     def setFixedHeight(self, p_int):
         super().setFixedHeight(p_int)
 
+    def setFixedWidth(self, p_int):
+        super().setFixedWidth(p_int)
+
     def __assign_handler_to_button_and_store(self,
                                              button: QPushButton,
                                              hand: "0 for left 1 for right",
@@ -346,6 +349,10 @@ class CentralWidget(QWidget):
     def setFixedHeight(self, p_int):
         super().setFixedHeight(p_int)
         self.tab_w.setFixedHeight(p_int)
+
+    def setFixedWidth(self, p_int):
+        super().setFixedWidth(p_int)
+        self.tab_w.setFixedWidth(p_int)
 
     def save_keymap(self,path):
         """

@@ -11,6 +11,7 @@ from configWidget import *
 
 __author__ = 'Hiro'
 import sys
+import platform
 import logging
 import os
 
@@ -48,6 +49,12 @@ class MainWindow(QMainWindow):
             c.setFixedHeight(height)
         super().setFixedHeight(p_int)
 
+    def setFixedWidth(self, p_int):
+        c = self.centralWidget()
+        if c is not None:
+            c.setFixedWidth(p_int)
+        super().setFixedWidth(p_int)
+
 
     def __init_ui(self):
         # self.setCentralWidget(self.center_w)
@@ -61,9 +68,13 @@ class MainWindow(QMainWindow):
         save_file.setShortcut("Ctrl+O")
         save_file.triggered.connect(self.on_save_keymap)
 
-        compile_file = QAction(QIcon(),"Compile", self)
+        if platform.system() == "Windows":
+            compile_file = QAction(QIcon(),'Generate keymap.c',self)
+            compile_file.triggered.connect(self.generate_keymap_c)
+        else:
+            compile_file = QAction(QIcon(),"Compile", self)
+            compile_file.triggered.connect(self.on_compile_requested)
         compile_file.setShortcut("Ctrl+Alt+x")
-        compile_file.triggered.connect(self.on_compile_requested)
 
         quit_this = QAction(QIcon(),"Quit", self)
         quit_this.setShortcut("Ctrl+q")
@@ -93,6 +104,41 @@ class MainWindow(QMainWindow):
         self.config_widget = w = ConfigWidget()
         w.show()
 
+    def generate_keymap_c(self):
+        self.w = w= QWidget()
+        geo = self.geometry()
+        w.setFixedWidth(geo.width()/2)
+        w.setFixedHeight(geo.height()/2)
+        l = QHBoxLayout(w)
+        self.font = QFont("monospace", 18)
+        self.font.setStyleHint(QFont.TypeWriter)
+
+        self.console_out = e = QPlainTextEdit()
+        e.setFont(self.font)
+        e.setPlainText("Generating keymap.c")
+        e.setSizePolicy(
+            QSizePolicy.Expanding,
+            QSizePolicy.Expanding
+        )
+        l.addWidget(e)
+        w.show()
+        QtGui.QGuiApplication.processEvents()
+
+        # compiling
+        self._generate_keymap_c_file()
+        keymap_c_file_path = os.path.join(os.getcwd(),"keymap.c")
+        msg = "keymap.c file generated at:" +keymap_c_file_path
+        e.appendPlainText('\n')
+        e.appendPlainText(msg)
+        e.appendPlainText('\n')
+        msg = "Compile via this script is not available" \
+              " for windows os.\n\n" \
+              "Place keymap.c in your qmk's eargodox dir\n" \
+              "e.g.\n" \
+              r" qmk_firmware\keyboards\ergodox\keymaps\custom_keymap\keymap.c" \
+              "\n\nand make via msys2\n\n " \
+              "How to set up msys for qmk: https://docs.qmk.fm/getting_started_build_tools.html"
+        e.appendPlainText(msg)
 
 
     def on_compile_requested(self):
@@ -144,11 +190,16 @@ class MainWindow(QMainWindow):
         self.centralWidget().load_keymap(path)
 
     def _generate_keymap_c_file(self):
-        new_map = self.centralWidget().get_keymap_as_string()
-        with open("keymap_source.c", "r") as f:
+        print('_generate_keymap_c called')
+        new_map = self.centralWidget()\
+            .get_keymap_as_string()
+        j = os.path.join
+        source = j(get_exe_path(), "keymap_source.c")
+        with open(source,'r') as f:
             data = f.read()
         data = data.replace("place_holder",new_map)
-        with open("keymap.c", "w") as f:
+        out_path = j(get_exe_path(),'keymap.c')
+        with open(out_path, "w") as f:
             f.write(data)
 
     def compile(self, console:QPlainTextEdit):

@@ -151,8 +151,11 @@ class KeyConfigurator(GUIBase):
         d2 = self.select_long_key_press_option_componont.getData()
         d3 = self.select_special_action.getData()
         d4 = self.select_modifier_mask_component.getData()
-        return {**d, **d2, **d3, **d4 }
-
+        d.update(d2)
+        d.update(d3)
+        d.update(d4)
+        # return {d, **d2, **d3, **d4 }
+        return d
     def addItem(self, i):
         if issubclass(type(i),QBoxLayout):
             self.main_v_layout.addLayout(i)
