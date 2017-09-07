@@ -1,19 +1,20 @@
-# Offline Ergodox gui configuration tool for Ubuntu
+# Offline Ergodox gui configuration tool for Ubuntu(and just maybe windows)
 ### You can configure your Ergodox for any layout 
 You press a key and this tool guesses what your keyboard sends and make 
 ergodox copy that. 
 
 ### WARNING  
-This tool has only been tested with ubuntu16LTS and a JIS keyboard, 
+This tool has only been tested with ubuntu16LTS and windows10 with a JIS keyboard, 
 thus likely contains uncaught bugs for other types of keyboards
 and platforms.  
-As of now, windows is not supported;adding support should be easy though.  
+When used with Windows os, this script only generates
+kemap.c file and you must compile the file yourself.  
 And as usual, this script comes with no warrant of fitness, no support, 
 you are on your own and a developer yourself.
 
 ### Drawbacks
 Keyboard layout you use to configure Ergodox and the keyboard layout you will be using
-with ergodox must match.  
+with your ergodox must match.  
 ![Alt text](image4288.png?raw=true "Title")
   
 Otherwise hilarity ensues.   
@@ -54,19 +55,54 @@ the translation rule in the above process. Only a guess though.
     
 qmk_firmware:https://github.com/qmk/qmk_firmware  
 pyxhook although it has been modified heavily: https://github.com/JeffHoogland/pyxhook
-    
+
+For windows, the following packages also need to be installed:  
+pyhook: https://pypi.python.org/pypi/pyHook  
+PyWin32  
+
 ## Installation
 
     sudo apt-get update
     sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
     sudo apt install python3.5 python3-pip evdev python3-xlib python3-pyqt5
-    git clone https://github.com/hiro2016/ergodox_gui_configurator.git 
-    
+    git clone https://github.com/hiro2016/ergodox_gui_configurator.git
+
+## Windows build instruction
+
+    # Download with you browser and install
+    Install python 3.6:https://www.python.org/downloads/release/python-362/
+    Install pyhoox # wheel available from http://www.lfd.uci.edu/~gohlke/pythonlibs
+    Install  PyWin32  # wheel available from http://www.lfd.uci.edu/~gohlke/pythonlibs
+    # command line
+    # Installing from wheel file: 
+    # e.g. 
+    #   pip install pyHook-1.5.1-cp36-cp36m-win_amd64.whl
+    # cp36 means python3.6, amd64 means 64bits processor compatible.
+    pip install six
+    pip --default-timeout=600000 install PyQt5
+    # At this point `python main.py` should be runnable.
+
+    #Creating an executable file.
+    pip install cx_freeze
+    # after installing cx_freeze you should run `python cxfreeze-postinstall` at`/python-dir/Scripts`
+    python setup.py build
+
 ## Running
+For linux:
 
     cd ergodox_gui_configurator.git
     python3 ./main.py
 
+For windows:
+
+    cd ergodox_gui_configurator.git
+    python ./main.py
+    # or if you have built it or have downloaded windows branch  
+    build\exe.win32-3.6\main.exe
+
+Compile button is not available for windows. 
+
+### General
 Ignore the configure button. It's for switching qmk_firmware dir.
     
 ![Alt text](Screenshot from 2017-09-03 23-22-27.png?raw=true "Title")  
@@ -131,3 +167,4 @@ The mapping between x11 keycodes and hid usage ids are
 incomplete; in type-to-configure-mode pressing some keys 
 may crash the script.  
 The code is ugly beyond words.  
+

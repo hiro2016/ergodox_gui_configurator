@@ -1,7 +1,15 @@
+import platform
 import time
+from PyQt5.QtWidgets import QApplication
+import sys
 
-from NoneGUIComponents import pyxhook
-from NoneGUIComponents.x11_to_hid_usage_id_map import *
+if platform.system() == "Windows":
+    import pyHook
+    from NoneGUIComponents.windows_scancode_to_hid_id_map import *
+else:
+    from NoneGUIComponents import pyxhook
+    from NoneGUIComponents.x11_to_hid_usage_id_map import *
+
 class KeyPressObserver:
     """""
     Scanner script for x11 keycode and key name.
@@ -37,18 +45,27 @@ class KeyPressObserver:
         'Escape'
     ]
 
-    def __init__(self, callback: "method(str,str)"):
-        # Create hookmanager
-        self.hookman = pyxhook.HookManager()
-        # Define our callback to fire when a key is pressed down
-        self.hookman.KeyDown = self.keyPressEvent
+    def __init__(self, callback):
+        pl = platform.system()
+        self.is_linux = pl == "Linux"
+
+        if self.is_linux:
+            # Create hookmanager
+            self.hookman = pyxhook.HookManager()
+            # Define our callback to fire when a key is pressed down
+            self.hookman.KeyDown = self.linuxKeyPressEvent
+        else:
+            self.hookman = pyHook.HookManager()
+            self.hookman.KeyDown = self.windowsKeyPressEvent
+
         # Hook the keyboard
         self.hookman.HookKeyboard()
         # Start our listener
-        self.hookman.start()
+        if self.is_linux:
+            self.hookman.start()
         self.callback = callback
 
-    def keyPressEvent(self, event: pyxhook.pyxhookkeyevent):
+    def linuxKeyPressEvent(self, event):
         # This method may be called after destroy mothed call.
         # e.g. user press windows key, this object's destroy method called,
         # then sometimes this KeyPressEvent method is called.
@@ -60,8 +77,11 @@ class KeyPressObserver:
             raise KeyError(
                 "There is no conversion rule for the given X11 keycode:" +
                 str(event.X11KeyCode) +
-                ". Edit `scancode_to_hid_usage_id_map.py` "
-                "and add translation rule for the scancode.")
+                ". Edit `x11_to_hid_usage_id_map.py` "
+                "and add translation rule for the keycode.\n"
+                "You can use `xev` command to see x11 key code\n"
+                "For hid usage ids, refer to: "
+                "http://www.usb.org/developers/hidpage/Hut1_12v2.pdf ")
 
         self.callback(hid_usage_id, event.Key)
         # block windows keypress and so on
@@ -71,21 +91,57 @@ class KeyPressObserver:
                 return False # prevent os from receiving keypress
         return True
 
+    def windowsKeyPressEvent(self,event):
+        if self.callback is None:
+            return True
+
+        try:
+            hid_usage_id = window_scancode_to_hid_id_map[str(event.ScanCode)]
+        except KeyError as e:
+            msg = "There is no conversion rule for the given X11 keycode:"
+            str(event.X11KeyCode)
+            ". \nEdit `scancode_to_hid_usage_id_map.py`\n"
+            "and add translation rule for the scancode.\n"
+            "For hid usage ids, refer to:\n"
+            "http://www.usb.org/developers/hidpage/Hut1_12v2.pdf "
+            raise KeyError(msg)
+        keyname = "" if event.Key is None else event.Key 
+        self.callback(hid_usage_id, keyname)
+        for name in self.keys_to_consume:
+            if name == event.Key:
+                print('blocking:' + event.Key)
+                return False # prevent os from receiving keypress
+        return True
+
+
 
     def destroy(self):
+        if not self.is_linux:
+            self.hookman.UnhookKeyboard()
         # Close the listener when we are done
         self.callback = None
         # Horror of asynchronous programing,
         # cancel does not immediately kills hookman.
         # self.hookman.KeyDown = None
-        self.hookman.cancel()
+        if self.is_linux:
+            self.hookman.cancel()
 
 
 if __name__ == "__main__":
+    import  pythoncom, platform
+
+    app = QApplication(sys.argv)
+
     def print_scancode_keyname(scancode, keyname):
         print('hid usage id:' + scancode)
         print('keyname:' + keyname)
     o = KeyPressObserver(print_scancode_keyname)
-    time.sleep(60)
+    # if platform.system() == "linux":
+    #     time.sleep(60)
+    # else:
+    #     pythoncom.PumpMessages()
+
+    r = app.exec_()
+    sys.exit(r)
     o.destroy()
 

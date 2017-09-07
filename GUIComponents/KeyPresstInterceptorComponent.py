@@ -1,14 +1,15 @@
+import platform
 from threading import Timer
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtGui import QTextCursor
-from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QTextEdit, QLabel, QSizePolicy, QLineEdit
+from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QTextEdit, QLabel, QSizePolicy, QLineEdit, QApplication, QWidget
+import sys
 
 from GUIComponents.GUIBase import GUIBase
 from NoneGUIComponents import keypress_observer
 from PyQt5.QtGui import QFont, QTextCursor, QFontMetrics, QIcon
-
 
 
 class KeyPressInterceptorComponent(QVBoxLayout, QObject):
@@ -86,10 +87,12 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
 
     def setFocus(self, reason=QtCore.Qt.NoFocusReason):
         self.literal_input_te.setFocus(reason)
+
     # Only connected when QTextEdit is selected.
     def connect_keypress_observer(self):
+        if self.is_keypress_observer_connected == True:
+            return
         self.signalKeyPressed.connect(self.on_key_pressed)
-
         # qwidget cannot be accessed by an external thread, so doing it via signal.
         def onKeyPress(hid_usage_id:str, keyname:str, trigger = self.signalKeyPressed ):
             trigger.emit(hid_usage_id,keyname)
@@ -112,12 +115,14 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         try:
             self.signalKeyPressed.disconnect()
         except TypeError as e:
+            print(e)
             msg = "disconnect() failed between 'signalKeyPressed' and all its connections"
             if msg not in str(e):
                 raise e
 
         if self.keypress_observer is not None:
-            self.keypress_observer.destroy()
+            if self.is_keypress_observer_connected:
+                self.keypress_observer.destroy()
             self.keypress_observer = None
 
         self.is_keypress_observer_connected = False
@@ -204,8 +209,7 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
 
     def eventFilter(self, source, event):
         if(source is not self.literal_input_te):
-            return super(KeyPressInterceptorComponent, self).eventFilter(source, event)
-
+            return super().eventFilter(source, event)
         # sometimes FocusIn is called twice.
         if event.type() == QtCore.QEvent.FocusOut:
             if self.is_keypress_observer_connected:
@@ -213,7 +217,7 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         elif event.type() == QtCore.QEvent.FocusIn:
             if not self.is_keypress_observer_connected:
                 self.connect_keypress_observer()
-        return super(KeyPressInterceptorComponent, self).eventFilter(source, event)
+        return super().eventFilter(source, event)
 
     def getData(self) -> dict:
         data = {
@@ -228,3 +232,14 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         self.literal_input_te.setEnabled(state)
         if state: self.setFocus()
 
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    # t = ScancodeViewer()
+    # t = KeyCodeViewer()
+    w = QWidget()
+    t = KeyPressInterceptorComponent()
+    w.setLayout(t)
+    w.show ()
+    r = app.exec_()
+    sys.exit(r)
+    print(t.getData())
