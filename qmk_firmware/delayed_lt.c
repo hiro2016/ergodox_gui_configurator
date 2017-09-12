@@ -1,3 +1,4 @@
+#define DLT_THRESHOLD 130
 #include "action_layer.h"
 enum macro_keycodes {
   //QK_MOD_TAP            = 0x6000,
@@ -108,11 +109,11 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
   if (ANOTHER_KEY_PRESSED){
     //DLT key was held down long enough? 
     //non DLT key pressed during DLT key press, is that non DLT key released yet?
-    if ((held_down_time > 200) && !prv_key_up){
+    if ((held_down_time > DLT_THRESHOLD) && !prv_key_up){
       //longer than 160 apparently means LT request
       mode = DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED;
       print("sslt long press and keydown1\n");
-    }else if(held_down_time > 200 && prv_key_up){
+    }else if(held_down_time > DLT_THRESHOLD && prv_key_up){
       //  full LT input cycle completed
       mode = DLT_MODE_LT;
       print("lt mode\n");
@@ -124,7 +125,7 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
       mode = DLT_MODE_SHORTPRESS_AND_KEYPRESS_DETECTED; 
       print("short_sslt_and_another_key_down\n");
     }
-  }else if(held_down_time > 300){
+  }else if(held_down_time > 200){
     mode = DLT_MODE_LT;
     print("lt mode\n");
   }else{
