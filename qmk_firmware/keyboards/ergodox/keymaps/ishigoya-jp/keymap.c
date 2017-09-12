@@ -847,19 +847,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			
 			break;
 		case SHIFT:
-		if (record->event.pressed) {
-			start = timer_read();
-			if (layer_state == (1<<JPKAZARI)) {
-				layer_state = (1<<JPTOPROW)| (1<<JPTRKZ);
-			} else {
-				layer_state = (1<<JPTOPROW);							
-			} 
+      if (record->event.pressed) {
+        start = timer_read();
+        if (layer_state == (1<<JPKAZARI)) {
+          layer_state = (1<<JPTOPROW)| (1<<JPTRKZ);
+        } else {
+          layer_state = (1<<JPTOPROW);							
+        } 
       } else {
-			layer_state = (0<<JPTOPROW);
-			clear_keyboard_but_mods();
-			if (timer_elapsed(start) < 100) {
-				return MACRO( I(1), T(SPC), END);
-			}
+          layer_state = (0<<JPTOPROW);
+          clear_keyboard_but_mods();
+          if (timer_elapsed(start) < 100) {
+            return MACRO( I(1), T(SPC), END);
+          }
       }
       break;
 		case KAZARI:
@@ -871,13 +871,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				layer_state = (1<<JPKAZARI);							
 			} 
 			break;
-      } else {
-		  	layer_state = (0<<JPKAZARI);
-			layer_state = (0<<JPTRKZ);
-		if (timer_elapsed(start) < 100) {
+    } else {
+      layer_state = (0<<JPKAZARI);
+      layer_state = (0<<JPTRKZ);
+      if (timer_elapsed(start) < 100) {
           return MACRO( T(ENTER), END);
-        }
       }
+    }
       break;  
 		case JPFN:
 			if (record->event.pressed) {

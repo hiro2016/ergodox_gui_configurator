@@ -1,11 +1,10 @@
 #include "ergodox.h"
-#include "debug.h"
 #include "action_layer.h"
 #include "version.h"
+#include "delayed_lt.c"
 
 #define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
+#define SYMB 1 // symbols #define MDIA 2 // media keys
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -18,16 +17,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
  0x29,0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
 0x2b,0x33,0x36,LT(2, 0x37),0x13,0x1c,0x39,
-LSFT(0x87),0x04,LT(5, 0x12),LT(6, 0x08),LT(4, 0x18),0x0c,
+LSFT(0x87),0x04,LT(5, 0x12),LT(6, 0x08),DLT(4, 0x18),0x0c,
 0xe1,LSFT(LSFT(0x24)),0x14,LT(2, 0x0d),LT(1, 0x0e),0x1b,KC_TRNS,
-0xe4,0xe3,0xe6,TT(2),TT(1),
+0xe4,0xe3,0xe6,TT(2),TT(2, 0x0d),
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 LT(3, 0x2c),0x4c,0x29,
  
  KC_TRNS,KC_TRNS,KC_TRNS,RSFT(0x33),KC_TRNS,LSFT(LSFT(0x1b)),0x87,
 LALT(0x54),0x09,0x0a,0x06,0x15,0x0f,0x38,
-0x07,LT(4, 0x0b),LT(6, 0x17),LT(5, 0x11),0x16,0x2d,
+0x07,DLT(4, 0x0b),LT(6, 0x17),LT(5, 0x11),0x16,0x2d,
 KC_TRNS,0x05,0x10,0x1a,0x19,CTL_T(0x1d),0xe5,
 TT(0),0x50,0x4f,0x51,0x52,
 KC_TRNS,KC_TRNS,
@@ -83,7 +82,7 @@ KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,RSFT(0x2f),RSFT(0x20),LSFT(0x30),LSFT(0x31),KC_TRNS,KC_TRNS,
 KC_TRNS,0x55,RSFT(0x25),RSFT(0x26),KC_TRNS,KC_TRNS,
 KC_TRNS,0x2e,LSFT(0x21),0x30,0x31,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
@@ -201,8 +200,10 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+
+
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
       switch(id) {
         case 0:
@@ -220,6 +221,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(!process_action_delayed_lt(keycode,record)) return false;
+ 
+  
   switch (keycode) {
     // dynamically generate these.
     case EPRM:
@@ -275,3 +279,4 @@ void matrix_scan_user(void) {
     }
 
 };
+

@@ -125,9 +125,7 @@ void matrix_init(void)
     matrix_timer = timer_read32();
     matrix_scan_count = 0;
 #endif
-
     matrix_init_quantum();
-
 }
 
 void matrix_power_up(void) {
