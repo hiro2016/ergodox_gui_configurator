@@ -108,29 +108,29 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
   if (ANOTHER_KEY_PRESSED){
     //DLT key was held down long enough? 
     //non DLT key pressed during DLT key press, is that non DLT key released yet?
-    if ((held_down_time > 160) && !prv_key_up){
+    if ((held_down_time > 200) && !prv_key_up){
       //longer than 160 apparently means LT request
       mode = DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED;
-      //print("sslt long press and keydown1\n");
-    }else if(ANOTHER_KEY_PRESSED && held_down_time > 180 && prv_key_up){
+      print("sslt long press and keydown1\n");
+    }else if(held_down_time > 200 && prv_key_up){
       //  full LT input cycle completed
       mode = DLT_MODE_LT;
-      //print("lt mode\n");
+      print("lt mode\n");
     }else{
       // A key pressed detected while DLT key was down, 
       // but DLT keypress as whole was too short.
       // Must be an unintentionl simultaneous key press.
-      // set flag to send the key in the default layer.
+      // set a flag to send the key in the default layer.
       mode = DLT_MODE_SHORTPRESS_AND_KEYPRESS_DETECTED; 
-      //print("short_sslt_and_another_key_down\n");
+      print("short_sslt_and_another_key_down\n");
     }
-  }else if(held_down_time > 250){
+  }else if(held_down_time > 300){
     mode = DLT_MODE_LT;
-    //print("lt mode\n");
+    print("lt mode\n");
   }else{
   // A single key tap 
     mode = DLT_MODE_SINGLE_TAP;
-    //print("single tap\n");
+    print("single tap\n");
   }
     
   custom_action_t action;
@@ -138,7 +138,8 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
   switch(mode){
     case DLT_MODE_SHORTPRESS_AND_KEYPRESS_DETECTED:
       //An unintentional simultaneous key press
-      _send_key(dlt_layer_to_toggle,prv_keypos);
+      register_code(action.key.code);
+      unregister_code(action.key.code );
       _send_key(dlt_start_layer,prv_keypos);
       break;
     case DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED:
@@ -177,9 +178,9 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
   }
   switch(keycode&(~0xff)){
     case DLT_LAYER_TAP ... DLT_LAYER_MAX:
-      dlt_start_layer = biton32(layer_state);
-      dlt_layer_to_toggle = GET_DLT_LAYER(keycode);
       if(record->event.pressed){
+        dlt_start_layer = biton32(layer_state);
+        dlt_layer_to_toggle = GET_DLT_LAYER(keycode);
         prv_key_up=true;//stack empty, no need to worry about releasing key
         dlt_toggler = record->event.key;
         prv_keypos = record->event.key;//used to check is new key is pressed
@@ -215,7 +216,7 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
             //LT cycle completed
             //SSLT is used as LT
             prv_key_up = true;
-            uint16_t kc = keymap_key_to_keycode(dlt_layer_to_toggle,prv_keypos);
+            //uint16_t kc = keymap_key_to_keycode(dlt_layer_to_toggle,prv_keypos);
             //print_val_bin16(kc);
             _send_key(dlt_layer_to_toggle,prv_keypos);
             return false;
