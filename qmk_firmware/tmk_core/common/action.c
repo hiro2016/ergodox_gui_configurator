@@ -149,6 +149,8 @@ void process_action(keyrecord_t *record, action_t action)
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
 #endif
+    //modified
+    uint8_t opt = action.func.opt;
 
     if (event.pressed) {
         // clear the potential weak mods left by previously pressed keys
@@ -486,7 +488,9 @@ void process_action(keyrecord_t *record, action_t action)
         /* Extentions */
 #ifndef NO_ACTION_MACRO
         case ACT_MACRO:
-            action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
+    //modified
+            action_macro_play(action_get_macro(record, action.func.id, opt));
+            //action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
 #ifdef BACKLIGHT_ENABLE

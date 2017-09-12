@@ -161,8 +161,9 @@ If you wish you can edit GUIComponents/SelectSpecialActionComponent:
 and add new hid usage id options. You can find ids at: http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
 
 ### Known issues  
-`CTL_T(LSFT(KC_*))` combination does not work.   
-`LALT_T(LSFT(KC_X))` is also not working.   
+With custom keycode DLT, failing to handle shift.  
+<strike>`CTL_T(LSFT(KC_*))` combination does not work.   
+`LALT_T(LSFT(KC_X))` is also not working.   </strike>  
 The mapping between x11 keycodes and hid usage ids are 
 incomplete; in type-to-configure-mode pressing some keys 
 may crash the script.  

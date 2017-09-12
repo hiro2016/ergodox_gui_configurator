@@ -68,7 +68,7 @@ enum quantum_keycodes {
     QK_LAYER_TAP_TOGGLE   = 0x5800,
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
     QK_MOD_TAP            = 0x6000,
-    QK_MOD_TAP_MAX        = 0x7FFF,
+    QK_MOD_TAP_MAX        = 0x7100,
 #if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
     #error "Cannot enable both UNICODEMAP && UNICODE"
 #endif

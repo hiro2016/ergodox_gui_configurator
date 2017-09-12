@@ -9,7 +9,7 @@ class SelectLongKeyPressOptionComponent(QVBoxLayout):
     qmk_options = {
         "None":None,
         "LT": "LT",
-        "TT":"TT",
+        "DLT": "DLT",
         "Shift(SFT_T)":"SFT_T",
         "Control(CTL_T)":"CTL_T",
         "Alt":"ALT_T"
@@ -63,7 +63,7 @@ class SelectLongKeyPressOptionComponent(QVBoxLayout):
         return data
 
     def onCurrentTextChanged(self, txt):
-        if str(txt) == "TT" or str(txt) == "LT":
+        if str(txt) == "LT" or str(txt) == "DLT":
             self.long_press_arg_combo_box.setEnabled(True)
         else:
             self.long_press_arg_combo_box.setEnabled(False)

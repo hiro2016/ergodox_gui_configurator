@@ -1,11 +1,10 @@
 #include "ergodox.h"
-#include "debug.h"
 #include "action_layer.h"
 #include "version.h"
+#include "delayed_lt.c"
 
 #define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
+#define SYMB 1 // symbols #define MDIA 2 // media keys
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -22,8 +21,10 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+
+
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
       switch(id) {
         case 0:
@@ -41,6 +42,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(!process_action_delayed_lt(keycode,record)) return false;
+ 
+  
   switch (keycode) {
     // dynamically generate these.
     case EPRM:
@@ -96,3 +100,4 @@ void matrix_scan_user(void) {
     }
 
 };
+

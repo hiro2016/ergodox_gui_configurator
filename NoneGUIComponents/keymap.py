@@ -38,6 +38,8 @@ class Key:
             self.special_action_param = ''
         if self.modifier_mask is None:
             self.modifier_mask = ''
+        if self.modifier_mask2 is None:
+            self.modifier_mask2 = ''
 
     def to_string(self):
         data = self.hid_usage_id
@@ -55,7 +57,7 @@ class Key:
         if self.modifier_mask != "":
             data = self.modifier_mask + '(' + data + ')'
         if self.modifier_mask2 != "":
-            data = self.modifier_mask + '(' + data + ')'
+            data = self.modifier_mask2 + '(' + data + ')'
 
         if self.long_press_param != '':
             data = self.long_press + "(" + self.long_press_param + ", " + data + ")"

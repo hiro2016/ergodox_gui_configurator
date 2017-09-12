@@ -125,7 +125,7 @@ enum action_kind_id {
     ACT_FUNCTION        = 0b1111
 };
 
-
+// It's union and not struct though
 /* Action Code Struct
  *
  * NOTE:
