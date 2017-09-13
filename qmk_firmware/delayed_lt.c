@@ -5,19 +5,24 @@
 // Keyboard dependent but for my board 180 is the safe value for
 // fast typable words like other, think; I'm using dvorak.
 // Simple key press takes about 120 ms.
-#define DLT_THRESHOLD 170
+#define DLT_THRESHOLD 160 
 
-// Threshhold when another key was pressed while DLT key was down and
+// threshold when another key was pressed while DLT key was down and
 // that key has not been released at the time DLT key is released.
-#define DLT_THRESHOLD_KEY_NOT_UP 170
+#define DLT_THRESHOLD_KEY_NOT_UP 160
 
 // Typically, there is some idling time before switching keyboard layers.
-// Detect that and dynamically reduce the above DLT_THRESHOLD by 50
-#define PRE_DLT_KEYPRESS_IDLING 200
+// Detect that and dynamically reduce the above DLT_THRESHOLD by 
+// DLT_THRESHOLD_REDUCTION
+// My idle time is about 50 to 80 for typing `think`, `the` etc;where `h` 
+// is DLT key and the layout I'm using is dvorak.
+// 
+#define PRE_DLT_KEYPRESS_IDLING 85
 // If there was an idling time exceeds PRE_DLT_KEYPRESS_IDLING 
 // before DLT keypress, treat key hold longer by DLT_THRESHOLD,
 // else reduce the same value.
-#define DLT_THRESHOLD_REDUCTION 50
+// Keep this value low.
+#define DLT_THRESHOLD_REDUCTION 25
 
 #include "action_layer.h"
 enum macro_keycodes {
@@ -177,10 +182,25 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
   int16_t held_down_time = timer_elapsed(dlt_timer);
   if(pre_dlt_idling_time > PRE_DLT_KEYPRESS_IDLING){
     held_down_time += DLT_THRESHOLD_REDUCTION;
+#ifdef DLT_DEBUG_PRINT
+    print("DLT hold down time added\n");
+    print_val_dec(held_down_time);
+    print("before addition\n");
+    print_val_dec(held_down_time-DLT_THRESHOLD_REDUCTION);
+    print("timers\n");
+    print_val_dec(timer_read());
+    print_val_dec(pre_dlt_idling_time);
+#endif
   }else{
     held_down_time -= DLT_THRESHOLD_REDUCTION;
 #ifdef DLT_DEBUG_PRINT
-    print("reduced\n");
+    print("DLT hold down time reduced\n");
+    print_val_dec(held_down_time);
+    print("before reduction\n");
+    print_val_dec(held_down_time-DLT_THRESHOLD_REDUCTION);
+    print("timers\n");
+    print_val_dec(timer_read());
+    print_val_dec(pre_dlt_idling_time);
 #endif
   }
 
@@ -226,8 +246,9 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
   switch(mode){
     case DLT_MODE_SHORTPRESS_AND_KEYPRESS_DETECTED:
       //An unintentional simultaneous key press
-      register_code(action.key.code);
-      unregister_code(action.key.code );
+      //do not trigger DLT again
+      register_code(keycode & 0xff);
+      unregister_code(keycode & 0xff);
       _send_key(dlt_start_layer,prv_keypos);
       return false;
     case DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED:
