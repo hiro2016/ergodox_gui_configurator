@@ -1,28 +1,45 @@
 //#define DLT_DEBUG_PRINT
 
-// The duration of key DLT key must be held down to trigger 
-// DLT action defined in thin file.
-// Keyboard dependent but for my board 180 is the safe value for
-// fast typable words like other, think; I'm using dvorak.
-// Simple key press takes about 120 ms.
+// The duration of time DLT key must be held down to trigger 
+// DLT action;what is defined in this file.
+//
+// Different keyboard has different key down time for
+// a simple tap, so the required value is different for each 
+// keyboard or mechanical switch used.
+//
+// My board has 130ms or so keydown time for a simple tap 
+// and 180 is the safe value for fast typable words like other, 
+// think; I'm using dvorak.
+//
+// When I used DLT on qwerty L or S key, DLT was too sensitive
+// and LT performed better as I seem to press L and S key too 
+// long;allowing different threshold seems necessary but it cannot
+// be done via keycode. Maybe make DLT a callable function in macro.
 #define DLT_THRESHOLD 160 
 
-// threshold when another key was pressed while DLT key was down and
-// that key has not been released at the time DLT key is released.
+// Same as above except the value below is for when another key was 
+// pressed while DLT key was still down and that another key has not 
+// been released at the time DLT key is released.
 #define DLT_THRESHOLD_KEY_NOT_UP 160
 
 // Typically, there is some idling time before switching keyboard layers.
-// Detect that and dynamically reduce the above DLT_THRESHOLD by 
-// DLT_THRESHOLD_REDUCTION
-// My idle time is about 50 to 80 for typing `think`, `the` etc;where `h` 
-// is DLT key and the layout I'm using is dvorak.
-// 
+// The value below is for detecting that and reducing or adding to the 
+// duration of DLT hold;so when typing fast, DLT becomes less sensitive
+// and unlikely to switch layer. 
+//
+// Do note what matters here is the time interval between two key
+// presses;the intervals between t and t key presses are about 
+// 60 to 80ms for typing `think`, `the` my case;I'm using is dvorak.
 #define PRE_DLT_KEYPRESS_IDLING 85
-// If there was an idling time exceeds PRE_DLT_KEYPRESS_IDLING 
-// before DLT keypress, treat key hold longer by DLT_THRESHOLD,
-// else reduce the same value.
+
+// If there was an idling time that exceeds the above value 
+// before an DLT keypress, add the value below to the time 
+// DLT key was held down; held_down_time += DLT_THRESHOLD_CHANGE.  
+//
+// Conversely, if the idling time was less than the above, 
+// held_down_time -= DLT_THRESHOLD_CHANGE.  
 // Keep this value low.
-#define DLT_THRESHOLD_REDUCTION 25
+#define DLT_THRESHOLD_CHANGE 25
 
 #include "action_layer.h"
 enum macro_keycodes {
@@ -65,30 +82,48 @@ enum macro_keycodes {
 //#define DLT(layer,kc) (kc | DLT_LAYER_TAP | (layer & 0xf) << 9)
 
 #define DLT_MODE_SHORTPRESS_AND_KEYPRESS_DETECTED 1
-//DLT key down, then a key pressed but not released before DLT key release
-//DLT down and the key tap dif < 60, a request for sending a key in a different layer.
+
+//State where a DLT key was pressed down, then another key 
+//was pressed but that key was not released before the DLT 
+//key release.
+//The duration of the DLT key hold, however, was greater than
+//DLT_THRESHOLD_KEY_NOT_UP.
 #define DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED 2
-//DLT key down, anothere key tapped, SLT key released 
-//A request for LT functionality.
+
+//DLT key down, anothere key tapped, DLT key released.
+//Full LT cycle completed.
 #define DLT_MODE_LT 3
-//DLT key tapped.
+
+//A DLT key tapped and no other key was pressed while 
+//the DLT key was down.
 //A requeset for sending a key.
 #define DLT_MODE_SINGLE_TAP 4
 
-// Checks whether the key pressed while DLT key was down
-// has already been lifted;differentiates key tap and key down.
+//DLT captures key events.
+//DLT sends a keypress and keyrelease events for keys pressed 
+//while DLT key is held and have not yet been released when DLT 
+//key is released.
+//The above behaviour causes two keyrelase events to be registered 
+//if key release events are not filtered after DLT key release.
+//The line below controls that filtering behaviour.
+#define DLT_DISABLE_KEYRELEASE_FILTER(keypos) (keypos.col=128)
+#define DLT_IS_KEYRELASE_FILTER_ENABLED(keypos) (keypos.col<128)
+
+// Holds a key's state. 
+// Changed only if another key was pressed while DLT key was
+// held.
+// If that non-DLT key was released before DLT key release, 
+// then set back to true.
+// Needed to differentiate a key tap(keydown and keyrelease) 
+// and keydown event that occured during DLT key hold.
 bool prv_key_up = true;
 
-//Holds DLT key pressed down time.
+//Holds the MPU timer time at which a DLT key press occured. 
 int16_t dlt_timer = 0;
 
-// The length of time key was not pressed before
-// a DLT key was pressed.
-// People hold key down longer in while typing a 
-// long word; my h key hold was longer than 160 
-// for typing `think` or `another`; I'm using dvorak.
-// If this is longer than PRE_DLT_KEYPRESS_IDLING,
-// -50 to DLT_THRESHOLD.
+// Time interval between a keypress and a DLT key press.
+// Before a DLT key is pressed, pre_dlt_idling_time 
+// holds the time at which the last key was pressed. 
 int16_t pre_dlt_idling_time = 0;
 
 // Holds the last pressed key position.
@@ -96,10 +131,9 @@ int16_t pre_dlt_idling_time = 0;
 // key was pressed down.
 keypos_t prv_keypos;//8col, 8row
 
-// The position of the key that has triggered the DLT action 
-// defined in this file.
+// The position of the key that has triggered the DLT action. 
 // Until this key is released, futher DLT key presses result in 
-// sending short tap keycodes and not layer change.
+// sending keys and not layer changes.
 keypos_t dlt_toggler;
 bool dlt_on = false;
 uint8_t dlt_start_layer = 0;
@@ -123,8 +157,10 @@ typedef union {
 
 void inline _send_key(uint32_t layer, keypos_t key ){
   uint16_t keycode = keymap_key_to_keycode(layer,key);
-  //detect shift
-  //For the time being supporting shift only
+  //detect shift.
+  //For the time being supporting shift only.
+  
+  
   //    /* Modifiers */
   //KC_LCTRL            = 0xE0,
   //KC_LSHIFT, //'11100001'
@@ -181,23 +217,23 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
     
   int16_t held_down_time = timer_elapsed(dlt_timer);
   if(pre_dlt_idling_time > PRE_DLT_KEYPRESS_IDLING){
-    held_down_time += DLT_THRESHOLD_REDUCTION;
+    held_down_time += DLT_THRESHOLD_CHANGE;
 #ifdef DLT_DEBUG_PRINT
     print("DLT hold down time added\n");
     print_val_dec(held_down_time);
     print("before addition\n");
-    print_val_dec(held_down_time-DLT_THRESHOLD_REDUCTION);
+    print_val_dec(held_down_time-DLT_THRESHOLD_CHANGE);
     print("timers\n");
     print_val_dec(timer_read());
     print_val_dec(pre_dlt_idling_time);
 #endif
   }else{
-    held_down_time -= DLT_THRESHOLD_REDUCTION;
+    held_down_time -= DLT_THRESHOLD_CHANGE;
 #ifdef DLT_DEBUG_PRINT
     print("DLT hold down time reduced\n");
     print_val_dec(held_down_time);
     print("before reduction\n");
-    print_val_dec(held_down_time-DLT_THRESHOLD_REDUCTION);
+    print_val_dec(held_down_time+DLT_THRESHOLD_CHANGE);
     print("timers\n");
     print_val_dec(timer_read());
     print_val_dec(pre_dlt_idling_time);
@@ -241,12 +277,13 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
 #endif
   }
     
-  custom_action_t action;
-  action.code = keycode;//mods are not available for dlt, bit section used for layer number.
+  ////higher 8bits are all set to zero when action_for_key is used.
+  //custom_action_t action;
+  //action.code = keycode;
   switch(mode){
     case DLT_MODE_SHORTPRESS_AND_KEYPRESS_DETECTED:
       //An unintentional simultaneous key press
-      //do not trigger DLT again
+      //Treat this as an normal input request.
       register_code(keycode & 0xff);
       unregister_code(keycode & 0xff);
       _send_key(dlt_start_layer,prv_keypos);
@@ -257,6 +294,8 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
       return false;
     case DLT_MODE_LT:
       //full lt cycle completed
+      //There is no key release event that needs to be capured.
+      DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);
       return false;
     case DLT_MODE_SINGLE_TAP:
       //single tap
@@ -264,80 +303,130 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
       /*print_val_bin8(prv_keypos.row);*/
       /*print_val_bin8(record->event.key.col);*/
       /*print_val_bin8(record->event.key.row);*/
-      register_code(action.key.code);
-      unregister_code(action.key.code );
+      register_code(keycode & 0xff);
+      unregister_code(keycode & 0xff);
+      //There is no key release event that needs to be capured.
+      DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);
       return false;
     }
   return true;
 }
 
+
+bool inline _action_delayed_lt_pressed(uint16_t keycode,keyrecord_t *record){
+  //record the layer to move back to.
+  dlt_start_layer = biton32(layer_state);
+  //get the layer to move to
+  dlt_layer_to_toggle = GET_DLT_LAYER(keycode);
+  //prv_key_up tracks whether a key was pressed while
+  //DLT key was pressed down and not yet released at 
+  //the time DLT key is released. 
+  prv_key_up=true;
+
+  //The key that is bound to DLT action.
+  //Only when the key bound O dlt_toggler 
+  //is released DLT action ends.
+  dlt_toggler = record->event.key;
+
+  //Holds the key that was pressed down while DLT key
+  //was held down. 
+  //Used to fetch the keycode to send when the key 
+  //assigned to prv_keypos is released.
+  //Used to detect the keypress that occured while DLT 
+  //key was down in _action_delayed_lt_released.
+  prv_keypos = record->event.key;
+  //Time at which DLT keypress occured.
+  //Used to compute the duration of DLT key hold.
+  dlt_timer = record->event.time;
+
+  //record the interval between the last key press and DLT key press.
+  pre_dlt_idling_time = TIMER_DIFF_16(dlt_timer, pre_dlt_idling_time);
+  //don't call downstream code as what must be done has already been done.
+  return false;
+}
+
 bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
-  //keycode contain the keycode found in the toggled on layer and not 
-  //the before-dlt-key-pressed-layer keycode.
-  //
   if(dlt_on){
+    //Ending DLT layer toggle.
+    if(IS_KEYPOS_SAME(record->event.key, dlt_toggler)){    
+      //keycode variable contains the hid usage id found in the toggled 
+      //layer and not the value found in before-dlt-key-pressed-layer.
+      keycode = keymap_key_to_keycode(dlt_start_layer, record->event.key);
+      layer_off(dlt_layer_to_toggle);
+      //dlt_timer = 0;//not needed
+      dlt_on = false;
+      _action_delayed_lt_released(keycode, record);
+      return false;
+    }
+
     //upstream code sets higher 8bits of the keycode to all zero
     //for DLT key release. Re-fetcheng keycode.
-	if(IS_KEYPOS_SAME(record->event.key, dlt_toggler)){    
-		keycode = keymap_key_to_keycode(dlt_start_layer, record->event.key);
-	}
-    //action_for_key does not work, it returns bits all set to zero aciton.
+    //action_for_key does not work, it returns action_t whose 
+    //higher 8 bits all set to zeros.
     //print_val_bin16(keycode);
     //print(" - raw keycode printed\n");
-  }
-  switch(keycode&(~0xff)){
-    case DLT_LAYER_TAP ... DLT_LAYER_MAX:
-      if(record->event.pressed){
-        dlt_start_layer = biton32(layer_state);
-        dlt_layer_to_toggle = GET_DLT_LAYER(keycode);
-        prv_key_up=true;//stack empty, no need to worry about releasing key
-        dlt_toggler = record->event.key;
-        prv_keypos = record->event.key;//used to check is new key is pressed
-        dlt_timer = record->event.time;
-        dlt_on = true;
-
-        //record time key press did not happen before dlt key press 
-        pre_dlt_idling_time = TIMER_DIFF_16(dlt_timer, pre_dlt_idling_time);
-        layer_on(dlt_layer_to_toggle);
-      }else{
-        _action_delayed_lt_released(keycode, record);
-        layer_off(dlt_layer_to_toggle);
-        dlt_timer = 0;
-        dlt_on = false;
-      }
-      return false;
-    default:
-      if(!dlt_on){
-        // To reduce field variable number, the variable is used to 
-        // record the last keypress time before dlt_on is set to true;
+  }else{
+    //dlt_on is false
+    if(record->event.pressed){
+      //DLT action not request, let other functions handle this.
+      if(!((keycode&(~0xff))>=DLT_LAYER_TAP && 
+          (keycode&(~0xff))<DLT_LAYER_MAX)){
+        //just record the keypress time.
         pre_dlt_idling_time = record->event.time;
-        return true;// dlt is off
+        return true;
       }
-      if(record->event.pressed){
-        prv_key_up = false;
-        prv_keypos = record->event.key;
-      // Do not send a keypress immidiately when dlt key is being pressed down. 
-      // So when dlt key is up, the non-dlt key press event can be evaluated 
-      // and then released before dlt key.
-      // But if a tap was made while dlt was key down, then report that tap. 
-      //
+      //DLT action request, turning it on.
+      _action_delayed_lt_pressed(keycode, record);
+      layer_on(dlt_layer_to_toggle);
+      dlt_on = true;
+      return false;
+    }else{
+      //DLT captures key presses while it's on.
+      //If there is non-DLT key pressed and not released
+      //at the time DLT key release. DLT generates key 
+      //release event for that key.
+      //But the actual key is still pressed down and 
+      //waiting to be released, so key release will 
+      //be registered twice.
+      //The line below prevents that.
+      if(DLT_IS_KEYRELASE_FILTER_ENABLED(prv_keypos)){
+#ifdef DLT_DEBUG_PRINT
+        print("filtering keyrelease");
+#endif
+        DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);
         return false;
-      }else{//key release
-            //Capturing a key release for a key that was pressed down
-            //before DLT key was pressed causes extra keys to be 
-            //send to pc. The line below prevents that.
-            //If no key has been pressed since SSLT key pressed 
-            //prv_key_up must be true.
-            if(prv_key_up) return true;
+      }
+    }
+  }
 
-            //LT cycle completed
-            //SSLT is used as LT
-            prv_key_up = true;
-            //uint16_t kc = keymap_key_to_keycode(dlt_layer_to_toggle,prv_keypos);
-            //print_val_bin16(kc);
-            _send_key(dlt_layer_to_toggle,prv_keypos);
-            return false;
-        }
+
+  // Only called while dlt_on is true.
+  // Capturing and uncapture keypresses.
+  if(record->event.pressed){
+    prv_key_up = false;
+    prv_keypos = record->event.key;
+    // Do not send a keypress immidiately while dlt key is being 
+    // held to allow later evaluation of non-dlt key press events  
+    // when DLT key is released.
+    //
+    // But taps must be registered. 
+    return false;
+  }else{
+    //key releases handled here.
+    //Capturing a key release for a key that was pressed 
+    //before DLT key was pressed causes extra keys to be 
+    //registered. The line below prevents that.
+    //prv_key_up is true when no key has been pressed since 
+    //DLT key pressed 
+    if(prv_key_up) return true;
+
+    //LT cycle completed
+    //SSLT is used as LT
+    prv_key_up = true;
+    //uint16_t kc = keymap_key_to_keycode(dlt_layer_to_toggle,prv_keypos);
+    //print_val_bin16(kc);
+    _send_key(dlt_layer_to_toggle,prv_keypos);
+    return false;
   }
   return true;
 };
