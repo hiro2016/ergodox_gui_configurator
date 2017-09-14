@@ -107,7 +107,7 @@ enum macro_keycodes {
 //if key release events are not filtered after DLT key release.
 //The line below controls that filtering behaviour.
 #define DLT_DISABLE_KEYRELEASE_FILTER(keypos) (keypos.col=128)
-#define DLT_IS_KEYRELASE_FILTER_ENABLED(keypos) (keypos.col<128)
+#define DLT_IS_KEYRELASE_FILTER_ENABLED(keypos) (keypos.col!=128)
 
 // Holds a key's state. 
 // Changed only if another key was pressed while DLT key was
@@ -247,7 +247,9 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
     //non DLT key pressed during DLT key press, is that non DLT key released yet?
     if ((held_down_time > DLT_THRESHOLD_KEY_NOT_UP) && !prv_key_up){ //longer than thresh hold, LT request
       mode = DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED;
+#ifdef DLT_DEBUG_PRINT
       print("dlt long press and keypres not tap\n");
+#endif
     }else if(held_down_time > DLT_THRESHOLD && prv_key_up){
       //  full LT input cycle completed
       mode = DLT_MODE_LT;
@@ -389,6 +391,7 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
       //waiting to be released, so key release will 
       //be registered twice.
       //The line below prevents that.
+      print_val_dec(prv_keypos.col);
       if(DLT_IS_KEYRELASE_FILTER_ENABLED(prv_keypos)){
 #ifdef DLT_DEBUG_PRINT
         print("filtering keyrelease");
@@ -396,6 +399,7 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
         DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);
         return false;
       }
+      return true;
     }
   }
 
