@@ -15,12 +15,12 @@
 // and LT performed better as I seem to press L and S key too 
 // long;allowing different threshold seems necessary but it cannot
 // be done via keycode. Maybe make DLT a callable function in macro.
-#define DLT_THRESHOLD 160 
+#define DLT_THRESHOLD 180 
 
 // Same as above except the value below is for when another key was 
 // pressed while DLT key was still down and that another key has not 
 // been released at the time DLT key is released.
-#define DLT_THRESHOLD_KEY_NOT_UP 160
+#define DLT_THRESHOLD_KEY_NOT_UP 180
 
 // Typically, there is some idling time before switching keyboard layers.
 // The value below is for detecting that and reducing or adding to the 
@@ -30,16 +30,47 @@
 // Do note what matters here is the time interval between two key
 // presses;the intervals between t and t key presses are about 
 // 60 to 80ms for typing `think`, `the` my case;I'm using is dvorak.
-#define PRE_DLT_KEYPRESS_IDLING 85
+#define DLT_PRE_KEYPRESS_IDLING 85
 
 // If there was an idling time that exceeds the above value 
 // before an DLT keypress, add the value below to the time 
-// DLT key was held down; held_down_time += DLT_THRESHOLD_CHANGE.  
+// DLT key was held down; held_down_time += DLT_THRESHOLD_INCREASED_BY.  
 //
 // Conversely, if the idling time was less than the above, 
-// held_down_time -= DLT_THRESHOLD_CHANGE.  
+// held_down_time -= DLT_THRESHOLD_.DLT_THRESHOLD_INCREASED_BY  
 // Keep this value low.
-#define DLT_THRESHOLD_CHANGE 25
+#define DLT_HOLD_INCREASED_BY 25
+#define DLT_HOLD_DECREASED_BY 25
+uint8_t dlt_threshold =DLT_THRESHOLD;
+uint8_t dlt_threshold_key_not_up = DLT_THRESHOLD_KEY_NOT_UP;
+uint8_t dlt_pre_keypress_idling = DLT_PRE_KEYPRESS_IDLING;
+uint8_t dlt_hold_increased_by = DLT_HOLD_INCREASED_BY;
+uint8_t dlt_hold_decreased_by = DLT_HOLD_DECREASED_BY;
+//Make pressing the keys of the same keyboard half less
+//likely to trigger DLT action.
+//e.g.
+//Given K is a DLT key, pressing fast `jkjk` might cause j to be
+//pressed while k is still down. Setting this option true decrease
+//the holding time of k prior to deciding whether DLT actian is
+//requested.
+//I needed this as I use dvorak and typing `kjd` to input `the`.
+bool dlt_restrict_same_hand_dlt_action = true;
+
+//These numbers are for ergodox
+//left hand range row 0 to 6 and col 0 to 5
+//right hand range row 7 to 13 and col 0 to 5
+#define IS_LEFT_HAND_KEY(keypos) (keypos.row < 7)
+#define IS_SAME_HAND_KEY(key1, key2) (IS_LEFT_HAND_KEY(key1)==IS_LEFT_HAND_KEY(key2))
+
+
+inline void dlt_reset(void){
+  dlt_threshold =DLT_THRESHOLD;
+  dlt_threshold_key_not_up = DLT_THRESHOLD_KEY_NOT_UP;
+  dlt_pre_keypress_idling = DLT_PRE_KEYPRESS_IDLING;
+  dlt_hold_increased_by = DLT_HOLD_INCREASED_BY;
+  dlt_hold_decreased_by = DLT_HOLD_DECREASED_BY;
+  dlt_restrict_same_hand_dlt_action = true;
+}
 
 #include "action_layer.h"
 enum macro_keycodes {
@@ -109,6 +140,16 @@ enum macro_keycodes {
 #define DLT_DISABLE_KEYRELEASE_FILTER(keypos) (keypos.col=128)
 #define DLT_IS_KEYRELASE_FILTER_ENABLED(keypos) (keypos.col!=128)
 
+//The variable below:
+//  1. store DLT key pressed time while dlt_on.
+//  So the timers are available for next DLT key press.
+//  2. needed by process_action_delayed_lt_from_macro.
+//  As process_action_delayed_lt sets pre_dlt_idling_time before
+//  action_get_macro is called, getting the last key pressed time 
+//  in macro is not possible without below.
+//
+uint16_t pre_pre_dlt_idling_time = 0;
+
 // Holds a key's state. 
 // Changed only if another key was pressed while DLT key was
 // held.
@@ -129,7 +170,7 @@ int16_t pre_dlt_idling_time = 0;
 // Holds the last pressed key position.
 // Used to check whether a keypress occured while DLT 
 // key was pressed down.
-keypos_t prv_keypos;//8col, 8row
+keypos_t prv_keypos ={128,128};//8col, 8row, set it to 128 to disable filtering
 
 // The position of the key that has triggered the DLT action. 
 // Until this key is released, futher DLT key presses result in 
@@ -216,41 +257,53 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
                            prv_keypos.row == record->event.key.row);*/
     
   int16_t held_down_time = timer_elapsed(dlt_timer);
-  if(pre_dlt_idling_time > PRE_DLT_KEYPRESS_IDLING){
-    held_down_time += DLT_THRESHOLD_CHANGE;
+
+  if(pre_dlt_idling_time > dlt_pre_keypress_idling){
+    held_down_time += dlt_hold_increased_by;
 #ifdef DLT_DEBUG_PRINT
-    print("DLT hold down time added\n");
+    print("DLT held down time added\n");
     print_val_dec(held_down_time);
     print("before addition\n");
-    print_val_dec(held_down_time-DLT_THRESHOLD_CHANGE);
+    print_val_dec(held_down_time-dlt_hold_increased_by);
     print("timers\n");
     print_val_dec(timer_read());
     print_val_dec(pre_dlt_idling_time);
 #endif
   }else{
-    held_down_time -= DLT_THRESHOLD_CHANGE;
+    held_down_time -= dlt_hold_decreased_by;
 #ifdef DLT_DEBUG_PRINT
-    print("DLT hold down time reduced\n");
+    print("DLT held down time reduced\n");
     print_val_dec(held_down_time);
     print("before reduction\n");
-    print_val_dec(held_down_time+DLT_THRESHOLD_CHANGE);
+    print_val_dec(held_down_time+dlt_hold_decreased_by);
     print("timers\n");
     print_val_dec(timer_read());
     print_val_dec(pre_dlt_idling_time);
 #endif
   }
 
+
   //IS_KEYPOS_SAME(record->event.key,prv_keypos);
   //print_val_bin8(anotherKeyPressed);
   if (ANOTHER_KEY_PRESSED){
+    //layer switching and input not allowed with the same keyboard half.
+    if(dlt_restrict_same_hand_dlt_action && \
+        (!prv_key_up) && \
+        IS_SAME_HAND_KEY(prv_keypos, dlt_toggler)){
+      held_down_time = 0;
+#ifdef DLT_DEBUG_PRINT
+      print("key pressed and dlt key belongs to the same keyboard half. holding time set to zero\n");
+#endif
+    }
     //DLT key was held down long enough? 
     //non DLT key pressed during DLT key press, is that non DLT key released yet?
-    if ((held_down_time > DLT_THRESHOLD_KEY_NOT_UP) && !prv_key_up){ //longer than thresh hold, LT request
+    if ((held_down_time > dlt_threshold_key_not_up) && !prv_key_up){ 
+      //longer than thresh hold, LT request
       mode = DLT_MODE_LONGPRESS_AND_KEYPRESS_DETECTED;
 #ifdef DLT_DEBUG_PRINT
       print("dlt long press and keypres not tap\n");
 #endif
-    }else if(held_down_time > DLT_THRESHOLD && prv_key_up){
+    }else if(held_down_time > dlt_threshold && prv_key_up){
       //  full LT input cycle completed
       mode = DLT_MODE_LT;
 #ifdef DLT_DEBUG_PRINT
@@ -305,6 +358,7 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
       /*print_val_bin8(prv_keypos.row);*/
       /*print_val_bin8(record->event.key.col);*/
       /*print_val_bin8(record->event.key.row);*/
+      print_val_dec(keycode);
       register_code(keycode & 0xff);
       unregister_code(keycode & 0xff);
       //There is no key release event that needs to be capured.
@@ -341,6 +395,9 @@ bool inline _action_delayed_lt_pressed(uint16_t keycode,keyrecord_t *record){
   //Used to compute the duration of DLT key hold.
   dlt_timer = record->event.time;
 
+  //Keep the time DLT key is pressed, so it's available for next
+  //DLT key press.
+  pre_pre_dlt_idling_time = pre_dlt_idling_time;
   //record the interval between the last key press and DLT key press.
   pre_dlt_idling_time = TIMER_DIFF_16(dlt_timer, pre_dlt_idling_time);
   //don't call downstream code as what must be done has already been done.
@@ -354,10 +411,21 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
       //keycode variable contains the hid usage id found in the toggled 
       //layer and not the value found in before-dlt-key-pressed-layer.
       keycode = keymap_key_to_keycode(dlt_start_layer, record->event.key);
+      //let other function handle this if not DLT action, 
+      //without this calling process_action_delayed_lt_from_macro 
+      //in macro works only for key press.
+      if(!((keycode&(~0xff))>=DLT_LAYER_TAP) && 
+          ((keycode&(~0xff))<DLT_LAYER_MAX)){
+        return true;
+      }
+
       layer_off(dlt_layer_to_toggle);
       //dlt_timer = 0;//not needed
       dlt_on = false;
       _action_delayed_lt_released(keycode, record);
+      //pre_pre_dlt_idling_time holds last pressed key time
+      //so timer works for the nex round.
+      pre_dlt_idling_time = pre_pre_dlt_idling_time;
       return false;
     }
 
@@ -374,6 +442,7 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
       if(!((keycode&(~0xff))>=DLT_LAYER_TAP && 
           (keycode&(~0xff))<DLT_LAYER_MAX)){
         //just record the keypress time.
+        pre_pre_dlt_idling_time = pre_dlt_idling_time;
         pre_dlt_idling_time = record->event.time;
         return true;
       }
@@ -391,7 +460,6 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
       //waiting to be released, so key release will 
       //be registered twice.
       //The line below prevents that.
-      print_val_dec(prv_keypos.col);
       if(DLT_IS_KEYRELASE_FILTER_ENABLED(prv_keypos)){
 #ifdef DLT_DEBUG_PRINT
         print("filtering keyrelease");
@@ -409,6 +477,9 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
   if(record->event.pressed){
     prv_key_up = false;
     prv_keypos = record->event.key;
+    //Since pre_dlt_idling_time is in use, use 
+    //pre_pre_dlt_idling_time to record key press time.
+    pre_pre_dlt_idling_time = record->event.time;
     // Do not send a keypress immidiately while dlt key is being 
     // held to allow later evaluation of non-dlt key press events  
     // when DLT key is released.
@@ -434,3 +505,6 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
   }
   return true;
 };
+
+
+
