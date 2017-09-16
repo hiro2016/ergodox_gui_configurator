@@ -232,7 +232,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             uint16_t kc = DLT(6,0x17);
             dlt_threshold = 200;
             dlt_threshold_key_not_up = 200;
-            dlt_hold_decreased_by =25;
+            dlt_hold_decreased_by =60;
             dlt_hold_increased_by =25;
             dlt_pre_keypress_idling =90;
             process_action_delayed_lt_from_macro(kc,record);
@@ -248,7 +248,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             dlt_threshold = 200;
             dlt_threshold_key_not_up = 200;
             dlt_pre_keypress_idling =90;
-            dlt_hold_decreased_by =25;
+            dlt_hold_decreased_by =60;
             dlt_hold_increased_by =25;
             process_action_delayed_lt_from_macro(kc,record);
           }else{
@@ -262,8 +262,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  print_val_dec(record->event.key.col);
-  print_val_dec(record->event.key.row);
+  /*print_val_dec(record->event.key.col);*/
+  /*print_val_dec(record->event.key.row);*/
   if(!process_action_delayed_lt(keycode,record)) return false;
  
   

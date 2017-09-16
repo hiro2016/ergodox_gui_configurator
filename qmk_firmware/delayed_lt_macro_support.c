@@ -21,12 +21,12 @@ bool inline process_action_delayed_lt_from_macro(uint16_t keycode, keyrecord_t *
 #ifdef DLT_DEBUG_PRINT
       print("layer toggle off\n");
 #endif
-      //keycode variable contains the hid usage id found in the toggled 
-      //layer and not the value found in before-dlt-key-pressed-layer.
+      
       layer_off(dlt_layer_to_toggle);
-      //dlt_timer = 0;//not needed
       dlt_on = false;
-      _action_delayed_lt_released(keycode, record);
+      //here hid id generated in macro is available
+      _handle_action_delayed_lt_released( 
+          keycode,_get_action_for_delayed_lt_released(keycode,record));
       //pre_pre_dlt_idling_time holds last pressed key time,
       //so timer works for the nex round.
       pre_dlt_idling_time = pre_pre_dlt_idling_time;
@@ -76,24 +76,27 @@ bool inline process_action_delayed_lt_from_macro(uint16_t keycode, keyrecord_t *
       //waiting to be released, so key release will 
       //be registered twice.
       //The line below prevents that.
-      if(DLT_IS_KEYRELASE_FILTER_ENABLED(prv_keypos)){
+      //
+      //for macro should never be called.
+      /*if(DLT_IS_KEYRELASE_FILTER_ENABLED(prv_keypos)){*/
 #ifdef DLT_DEBUG_PRINT
-        print("filtering keyrelease");
+        /*print("filtering keyrelease");*/
 #endif
-        DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);
+        /*DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);*/
         return false;
       }
       return true;
     }
-  }
+  
+  // Section below part is handled by process_action_delayed_lt
 
 
   // Only called while dlt_on is true.
   // Capturing and uncapture non-dlt keypresses.
-  // This part is handled by process_action_delayed_lt
-  //if(record->event.pressed){
-    //prv_key_up = false;
-    //prv_keypos = record->event.key;
+  //
+  /*if(record->event.pressed){*/
+    /*prv_key_up = false;*/
+    /*prv_keypos = record->event.key;*/
 
     //This part is handled by process_action_delayed_lt.
     //Since pre_dlt_idling_time is in use, use 
@@ -105,24 +108,25 @@ bool inline process_action_delayed_lt_from_macro(uint16_t keycode, keyrecord_t *
     // when DLT key is released.
     //
     // But taps must be registered. 
-    //return false;
-  //}else{
+    /*return false;*/
+  /*}else{*/
     //key releases handled here.
     //Capturing a key release for a key that was pressed 
     //before DLT key was pressed causes extra keys to be 
     //registered. The line below prevents that.
     //prv_key_up is true when no key has been pressed since 
     //DLT key pressed 
-    //macro does not have key position, 
-    //if(prv_key_up) return true;
+    /*if(prv_key_up) return true;*/
 
     //LT cycle completed
     //SSLT is used as LT
-    //prv_key_up = true;
-    //uint16_t kc = keymap_key_to_keycode(dlt_layer_to_toggle,prv_keypos);
+    /*prv_key_up = true;*/
+    /*uint16_t kc = keymap_key_to_keycode(dlt_layer_to_toggle,prv_keypos);*/
     //print_val_bin16(kc);
-    //_send_key(dlt_layer_to_toggle,prv_keypos);
-    //return false;
-  //}
+    //
+    //When macro calls macro, it's because keycode is not available
+    /*_send_key(dlt_layer_to_toggle,prv_keypos);*/
+    /*return false;*/
+  /*}*/
   return true;
 };

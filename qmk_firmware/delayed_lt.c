@@ -228,6 +228,19 @@ void inline _send_key(uint32_t layer, keypos_t key ){
     QK_RALT               = 0x1400,
     QK_RGUI               = 0x1800,
     QK_MODS_MAX           = 0x1FFF,*/
+  if(QK_MACRO <= keycode && keycode <QK_MACRO_MAX){
+      action_t action;
+      keyrecord_t record;
+      action.code = keycode;
+      record.event.key = prv_keypos;
+      record.event.pressed = true;
+      record.event.time = timer_read();
+      //id contain opt alh opt contain id!
+      action_get_macro(&record,action.func.id, action.func.id);
+      record.event.pressed = false;
+      action_get_macro(&record,action.func.id, action.func.id);
+      return;
+  }
   switch(keycode>>8){
     case(0x2):
       register_code(KC_LSHIFT);
@@ -247,7 +260,7 @@ void inline _send_key(uint32_t layer, keypos_t key ){
   }
 }
 
-bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
+uint8_t inline _get_action_for_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
   // A flag for controlling the input handling downstream.
   uint8_t mode = 0;
 
@@ -331,7 +344,10 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
     print("single tap\n");
 #endif
   }
-    
+  return mode;
+}
+
+bool inline _handle_action_delayed_lt_released(uint16_t keycode, uint8_t mode){
   ////higher 8bits are all set to zero when action_for_key is used.
   //custom_action_t action;
   //action.code = keycode;
@@ -358,7 +374,7 @@ bool inline _action_delayed_lt_released(uint16_t keycode, keyrecord_t *record){
       /*print_val_bin8(prv_keypos.row);*/
       /*print_val_bin8(record->event.key.col);*/
       /*print_val_bin8(record->event.key.row);*/
-      print_val_dec(keycode);
+      /*print_val_dec(keycode);*/
       register_code(keycode & 0xff);
       unregister_code(keycode & 0xff);
       //There is no key release event that needs to be capured.
@@ -419,10 +435,11 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
         return true;
       }
 
+      _handle_action_delayed_lt_released(\
+          keycode, _get_action_for_delayed_lt_released(keycode,record));
       layer_off(dlt_layer_to_toggle);
       //dlt_timer = 0;//not needed
       dlt_on = false;
-      _action_delayed_lt_released(keycode, record);
       //pre_pre_dlt_idling_time holds last pressed key time
       //so timer works for the nex round.
       pre_dlt_idling_time = pre_pre_dlt_idling_time;

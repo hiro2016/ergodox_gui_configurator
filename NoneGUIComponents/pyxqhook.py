@@ -1,14 +1,71 @@
 #!/usr/bin/python
 #
+#
+# pyxhook -- an extension to emulate some of the PyHook library on linux.
+#
+#    Copyright (C) 2008 Tim Alexander <dragonfyre13@gmail.com>
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#    Thanks to Alex Badea <vamposdecampos@gmail.com> for writing the Record
+#    demo for the xlib libraries. It helped me immensely working with these
+#    in this library.
+#
+#    Thanks to the python-xlib team. This wouldn't have been possible without
+#    your code.
+#
+#    This requires:
+#    at least python-xlib 1.4
+#    xwindows must have the "record" extension present, and active.
+#
+#    This file has now been somewhat extensively modified by
+#    Daniel Folkinshteyn <nanotube@users.sf.net>
+#    So if there are any bugs, they are probably my fault. :)
+#
+
+
+#    Modified by hiroyuki notomi 3/9/2017
+#        Now python 3.5 compatible
+#        Filters user inputs using grab_keyboard and send_event.
+#        Displays are now closed properly.
+#        pyxhookkeyevent.Scancode is now renamed to X11KeyCode
+#
+#    For record_enable_context method see:https://www.x.org/releases/X11R7.7/doc/libXtst/recordlib.html
+#    For finding the code for the above method:
+#        pip3 show python3-xlib
+#        cd /usr/local/lib/python3.5/dist-packages/Xlib
+#        ag "record_enable_context"
+#
+#    Other resources that were useful:
+#        http://python-xlib.sourceforge.net/doc/html/index.html
+#        https://github.com/python-xlib/python-xlib/tree/master/examples
+#        https://tronche.com/gui/x/xlib/
+#
+#   Moved to qthread from thread and the original functionalities
+#   no longer available.
+
+
+
+
+from Xlib.protocol import rq
 import signal
 import sys
 import re
 import time
-import threading
 # need the latest Xlib https://github.com/python-xlib/python-xlib
 from PyQt5.QtCore import QThread, QObject, pyqtSignal
 from PyQt5.QtWidgets import QApplication
-
 import Xlib
 import atexit
 from Xlib import X, XK, display
@@ -20,12 +77,8 @@ from Xlib.protocol import rq
 
 class HookManager(QObject):
     finished = pyqtSignal()
-    pipe = pyqtSignal(str)
     def __init__(self):
         super(HookManager,self).__init__()
-        self.pipe.connect(self.pipe_signaled)
-
-
 
         self.ison = {"shift":False, "caps":False}
 
@@ -57,21 +110,17 @@ class HookManager(QObject):
 
         self.count = 0
         self.ctx = None
+        self.stop_process =False
 
-    @staticmethod
-    def pipe_signaled(msg):
-        print(msg)
-
-    def print(self, *msg):
-        self.pip.emit("".join(msg))
 
     def start(self):
         self.run()
 
     def run(self):
-        self.qtherad = QThread()
-        self.moveToThread(self.qtherad)
-        self.qtherad.start()
+        self.qthread = QThread()
+        self.moveToThread(self.qthread)
+        self.qthread.started.connect(self.process)
+        self.qthread.start()
 
     def process(self):
         # since this is all async, displays could be closed before run completes.
@@ -137,7 +186,8 @@ class HookManager(QObject):
         # fineshed.set is dangerous because it really stops
         # the thread, if clean up code is in run, fineshed.set
         # won't let it run.
-        self.finished.set()
+        self.finished.emit()
+        self.stop_process = True
 
 
     def printevent(self, event):
@@ -157,6 +207,8 @@ class HookManager(QObject):
         data = reply.data
         while len(data):
             event, data = rq.EventField(None).parse_binary_value(data, self.record_dpy.display, None, None)
+            if self.stop_process:
+                break
             if event.type == X.KeyPress:
                 # print("data:"+ str(data))
                 hookevent = self.keypressevent(event)
@@ -166,17 +218,6 @@ class HookManager(QObject):
             elif event.type == X.KeyRelease:
                 hookevent = self.keyreleaseevent(event)
                 self.KeyUp(hookevent)
-            elif event.type == X.ButtonPress:
-                hookevent = self.buttonpressevent(event)
-                self.MouseAllButtonsDown(hookevent)
-            elif event.type == X.ButtonRelease:
-                hookevent = self.buttonreleaseevent(event)
-                self.MouseAllButtonsUp(hookevent)
-            elif event.type == X.MotionNotify:
-                # use mouse moves to record mouse position, since press and release events
-                # do not give mouse position info (event.root_x and event.root_y have
-                # bogus info).
-                self.mousemoveevent(event)
 
     def start_grabbing_keyboard(self):
         # screen root window
@@ -409,13 +450,13 @@ class pyxhookkeyevent:
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     hm = HookManager()
-    def filter_winwods_button_pres(e:pyxhookkeyevent):
+    def filter_windows_button_press(e:pyxhookkeyevent):
         print(e)
         if e.Key is "Super_L":
             return False # block input
         else:
             return True
-    hm.KeyDown = filter_winwods_button_pres
+    hm.KeyDown = filter_windows_button_press
     hm.start()
     sys.exit(app.exec_())
     hm.cancel()
@@ -424,8 +465,7 @@ if __name__ == '__main__':
     # Xlib.error.DisplayConnectionError: Can't connect to display ":0": b'Maximum number of clients reached'
     # for c in range(0,500):
     #     hm = HookManager()
-    #     hm.HookKeyboard()
-    #     hm.KeyDown = filter_winwods_button_pres
+    #     hm.KeyDown = filter_windows_button_press
     #     hm.start()
     #     hm.cancel()
     # print('done')
