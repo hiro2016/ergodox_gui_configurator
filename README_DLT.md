@@ -1,5 +1,5 @@
 # DLT - an extended TL 
-#####Like LT but with more control  
+##### Like LT but with more control  
   
 ### What is Layer
 ##### Keyboards without layers always send the same signal.    
@@ -97,6 +97,15 @@ Too many configuration options and each parameters require fairly
 delicate treatment. But once it is configured properly, DLT macro
 works like a charm. 
 
+### How to use 
+Download these two files:  
+https://github.com/hiro2016/ergodox_gui_configurator/blob/master/qmk_firmware/delayed_lt.c  
+https://github.com/hiro2016/ergodox_gui_configurator/blob/master/qmk_firmware/delayed_lt_macro_support.c  
+  
+Include them in your keymap.c
+
+        #include "delayed_lt.c"
+        #include "delayed_lt_macro_support.c"
 
 ### GUI configuration option for ergodox  
 Run the configurator and click any button and you will see the below.  
