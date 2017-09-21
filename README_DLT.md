@@ -107,6 +107,8 @@ Include them in your keymap.c
         #include "delayed_lt.c"
         #include "delayed_lt_macro_support.c"
 
+Insert ` if(!process_action_delayed_lt(keycode,record)) return false;` to your process_record_user.  
+
 ### GUI configuration option for ergodox  
 Run the configurator and click any button and you will see the below.  
   
@@ -130,6 +132,7 @@ Edit the following section in `delayed_lt.c` for your keyboard.
     //right hand keys range row 7 to 13 and col 0 to 5
     #define IS_LEFT_HAND_KEY(keypos) (keypos.row < 7)
     #define IS_SAME_HAND_KEY(key1, key2) (IS_LEFT_HAND_KEY(key1)==IS_LEFT_HAND_KEY(key2))
+    
   
 
 
