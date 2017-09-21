@@ -191,16 +191,10 @@ class MainWindow(QMainWindow):
 
     def _generate_keymap_c_file(self):
         print('_generate_keymap_c called')
-        new_map = self.centralWidget()\
-            .get_keymap_as_string()
         j = os.path.join
         source = j(get_exe_path(), "keymap_source.c")
-        with open(source,'r') as f:
-            data = f.read()
-        data = data.replace("place_holder",new_map)
         out_path = j(get_exe_path(),'keymap.c')
-        with open(out_path, "w") as f:
-            f.write(data)
+        self.centralWidget().load_keymapc_from_and_write_to(source, out_path)
 
     def compile(self, console:QPlainTextEdit):
         self._generate_keymap_c_file()

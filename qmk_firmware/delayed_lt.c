@@ -1,46 +1,71 @@
 //#define DLT_DEBUG_PRINT
-
+// For controlling threshold and other variables for individual 
+// keys, use macro.
+//
+//e.g.
+//  
+      /*case 3:*/
+        /*if(record->event.pressed){*/
+          /*uint16_t kc = DLT(6,0x08);*/
+          /*dlt_threshold = 200;*/
+          /*dlt_threshold_key_not_up = 200;*/
+          /*dlt_pre_keypress_idling =90;*/
+          /*dlt_hold_decreased_by =60;*/
+          /*dlt_hold_increased_by =25;*/
+          /*dlt_restrict_same_hand_dlt_action = true;*/
+          /*dlt_no_layer_toggle_while_modifier_on = true;*/
+          /*process_action_delayed_lt_from_macro(kc,record);*/
+        /*}else{*/
+          /*uint16_t kc = DLT(6,0x08);*/
+          /*process_action_delayed_lt_from_macro(kc,record);*/
+          /*dlt_reset();*/
+        /*}*/
+        /*break;*/
+//
 // The duration of time DLT key must be held down to trigger 
-// DLT action;what is defined in this file.
+// DLT action;layer toggle while the key is down.
 //
-// Different keyboard has different key down time for
-// a simple tap, so the required value is different for each 
-// keyboard or mechanical switch used.
+// Different keyboard has a different tapping term, you
+// must set this to what your mechanical switch requires.
+// Tapping term for my board is 130ms.
 //
-// My board has 130ms or so keydown time for a simple tap 
-// and 180 is the safe value for fast typable words like other, 
-// think; I'm using dvorak.
-//
-// When I used DLT on qwerty L or S key, DLT was too sensitive
-// and LT performed better as I seem to press L and S key too 
-// long;allowing different threshold seems necessary but it cannot
-// be done via keycode. Maybe make DLT a callable function in macro.
 #define DLT_THRESHOLD 180 
 
-// Same as above except the value below is for when another key was 
-// pressed while DLT key was still down and that another key has not 
-// been released at the time DLT key is released.
+// Same as above except the value below is applied when another key is 
+// pressed while DLT key is still down and that another key is not 
+// released before DLT key.
 #define DLT_THRESHOLD_KEY_NOT_UP 180
 
 // Typically, there is some idling time before switching keyboard layers.
-// The value below is for detecting that and reducing or adding to the 
-// duration of DLT hold;so when typing fast, DLT becomes less sensitive
-// and unlikely to switch layer. 
+// The value below controls the threshold of that indling time. 
 //
-// Do note what matters here is the time interval between two key
-// presses;the intervals between t and t key presses are about 
-// 60 to 80ms for typing `think`, `the` my case;I'm using is dvorak.
+// (idling time < DLT_PRE_KEYPRESS_IDLING) -> 
+//    reduce the length of time key was held down.
+//
+// (indling time >= DLT_PRE_KEYPRESS_IDLING )
+//    increase the length of time key was held down.
+//
+// What is compared against DLT_PRE_KEYPRESS_IDLING is 
+// interval between non-dlt key press and dlt key press 
+// and not tapping term.
+//
+// My case, the intermal between typing k and j fast is about 60 to 80ms.
 #define DLT_PRE_KEYPRESS_IDLING 85
 
-// If there was an idling time that exceeds the above value 
-// before an DLT keypress, add the value below to the time 
-// DLT key was held down; held_down_time += DLT_THRESHOLD_INCREASED_BY.  
-//
-// Conversely, if the idling time was less than the above, 
-// held_down_time -= DLT_THRESHOLD_.DLT_THRESHOLD_INCREASED_BY  
-// Keep this value low.
+// Increase of decrease the duration of time dlt key was held down depending
+// on idling before dlt key press.
 #define DLT_HOLD_INCREASED_BY 25
 #define DLT_HOLD_DECREASED_BY 25
+
+#define DLT_OFF_WHILE_MODIFIER_ON true
+//Given K is a dlt key, prevent K to change the current layer 
+//when user press keys such as `KJ` or `KL` in sequence;when
+//J or L key is tapped while K is pressed down, DLT layer switch 
+//still happens.
+#define DLT_RESTRICT_SAME_HAND_DLT_ACTION true
+
+
+
 uint8_t dlt_threshold =DLT_THRESHOLD;
 uint8_t dlt_threshold_key_not_up = DLT_THRESHOLD_KEY_NOT_UP;
 uint8_t dlt_pre_keypress_idling = DLT_PRE_KEYPRESS_IDLING;
@@ -54,8 +79,10 @@ uint8_t dlt_hold_decreased_by = DLT_HOLD_DECREASED_BY;
 //the holding time of k prior to deciding whether DLT actian is
 //requested.
 //I needed this as I use dvorak and typing `kjd` to input `the`.
-bool dlt_restrict_same_hand_dlt_action = true;
+bool dlt_restrict_same_hand_dlt_action = DLT_RESTRICT_SAME_HAND_DLT_ACTION;
 
+//disables DLt action while shift is pressed down.
+bool dlt_no_layer_toggle_while_modifier_on= DLT_OFF_WHILE_MODIFIER_ON;
 //These numbers are for ergodox
 //left hand range row 0 to 6 and col 0 to 5
 //right hand range row 7 to 13 and col 0 to 5
@@ -69,7 +96,8 @@ inline void dlt_reset(void){
   dlt_pre_keypress_idling = DLT_PRE_KEYPRESS_IDLING;
   dlt_hold_increased_by = DLT_HOLD_INCREASED_BY;
   dlt_hold_decreased_by = DLT_HOLD_DECREASED_BY;
-  dlt_restrict_same_hand_dlt_action = true;
+  dlt_restrict_same_hand_dlt_action = DLT_RESTRICT_SAME_HAND_DLT_ACTION;
+  dlt_no_layer_toggle_while_modifier_on= DLT_OFF_WHILE_MODIFIER_ON;
 }
 
 #include "action_layer.h"
@@ -463,10 +491,19 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
         pre_dlt_idling_time = record->event.time;
         return true;
       }
-      //DLT action request, turning it on.
-      _action_delayed_lt_pressed(keycode, record);
-      layer_on(dlt_layer_to_toggle);
-      dlt_on = true;
+
+      //if shift key is being pressed down, do not start dlt action.
+      if(dlt_no_layer_toggle_while_modifier_on && \
+           keyboard_report->mods != 0){
+        register_code(keycode & 0xff);
+        //only sigle key press sent unlike in macro. 
+        unregister_code(keycode & 0xff);
+      }else{
+        //DLT action request, turning it on.
+        _action_delayed_lt_pressed(keycode, record);
+        layer_on(dlt_layer_to_toggle);
+        dlt_on = true;
+      }
       return false;
     }else{
       //DLT captures key presses while it's on.

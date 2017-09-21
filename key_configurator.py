@@ -1,4 +1,6 @@
 import sys
+
+from GUIComponents.DLTConfigComponent import DLTConfigComponent
 from GUIComponents.KeyPresstInterceptorComponent import  *
 from GUIComponents.GUIBase import  *
 from GUIComponents.SelectLongKeyPressOptionComponent import  *
@@ -8,8 +10,10 @@ from PyQt5 import QtCore
 
 from PyQt5.QtGui import QFont, QTextCursor, QFontMetrics, QIcon
 from PyQt5.QtWidgets import QWidget, QDialog, QHBoxLayout, QPlainTextEdit, QSizePolicy, QFileDialog, QVBoxLayout, \
-    QLabel, QTextEdit, QApplication, QComboBox, QBoxLayout, QRadioButton, QFrame
+    QLabel, QTextEdit, QApplication, QComboBox, QBoxLayout, QRadioButton, QFrame, QPushButton
 
+from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
+from macro_editor import MacroEditor
 
 
 class KeyCodeViewer(GUIBase):
@@ -58,11 +62,15 @@ class KeyConfigurator(GUIBase):
     What key should perform that is not managed by this script.
     """
 
-    def __init__(self):
+    def __init__(self, previous=None):
         super(KeyConfigurator,self).__init__()
+        self.previous_config = {} if previous is None else previous
         self.__init_gui()
+        self.macro_data = {}
+        self.data_to_return_on_getData = None
 
     def __init_gui(self):
+        p = KeyConfDictParser(self.previous_config)
         self.main_v_layout = QVBoxLayout()
 
         # fetches user input
@@ -81,7 +89,8 @@ class KeyConfigurator(GUIBase):
         ihl.addWidget(rb)
         hl.addLayout(ihl)
         hl.addWidget(self.create_vertical_separator())
-        self.main_keypress_interceptor = c = KeyPressInterceptorComponent()
+        self.main_keypress_interceptor = c = KeyPressInterceptorComponent(
+            self.previous_config )
         rb.toggled.connect(self.first_radio_button_toggled)
         hl.addLayout(c)
         self.main_v_layout.addItem(hl)
@@ -90,7 +99,8 @@ class KeyConfigurator(GUIBase):
         # modifier such as shift, alt, ctl to be send with the above
         hl = QHBoxLayout()
         hl.setSpacing(10)
-        self.select_modifier_mask_component = SelectModifierMaskComponent()
+        self.select_modifier_mask_component = SelectModifierMaskComponent(
+            self.previous_config )
         hl.addLayout(self.select_modifier_mask_component)
         self.main_v_layout.addLayout(hl)
 
@@ -125,37 +135,133 @@ class KeyConfigurator(GUIBase):
         hl.addLayout(i)
         self.addItem(hl)
         self.main_keypress_interceptor.setFocus()
+        self.addItem(self.create_horizontal_separator())
 
-    @staticmethod
-    def create_horizontal_separator():
-        toto = QFrame()
-        toto.setFrameShape(QFrame.HLine)
-        toto.setFrameShadow(QFrame.Sunken)
-        return toto
-    @staticmethod
-    def create_vertical_separator():
-        toto = QFrame()
-        toto.setFrameShape(QFrame.VLine)
-        toto.setFrameShadow(QFrame.Sunken)
-        return toto
+        # Assign macro
+        hl = QHBoxLayout()
+        hl.setSpacing(10)
+        # label
+        ihl = QHBoxLayout()
+        rb = QRadioButton()
+        rb.toggled.connect(self.third_radio_button_toggled)
+        top_label = QLabel("Assign macro")
+        top_label.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        ihl.addWidget(top_label)
+        ihl.addWidget(rb)
+        hl.addLayout(ihl)
+        hl.addWidget(self.create_vertical_separator())
+
+        # buttons - too messy
+        iivl =QVBoxLayout() # to the right of radio button
+        hl.addLayout(iivl)
+        self.addItem(hl)
+
+        iihl = QHBoxLayout() #top row of iivl
+        self.assign_macro_button = b =QPushButton(QIcon(),"Start macro wizard")
+        b.clicked.connect(self.start_macro_wizard)
+        b.setEnabled(False)
+        iihl.addWidget(b)
+        iivl.addLayout(iihl)
+
+        iihl = QHBoxLayout() #bottom row of iivl
+        # Let user assign marco key name
+        hl = QHBoxLayout()
+        hl.setSpacing(10)
+        l = QLabel('Name of your macro')
+        hl.addWidget(l)
+        self.macro_name_line_edit = e = QLineEdit()
+        e.setText(p.macro_name)
+        e.setEnabled(False)
+        hl.addWidget(e)
+        iivl.addLayout(iihl)
+        iihl.addLayout(hl)
+        hl.addWidget(self.create_horizontal_separator())
+
+        #DLT configuration button
+        self.open_dlt_config_widget = b = QPushButton(
+            "Set this key as DLT key")
+        b.clicked.connect(self.configure_as_dlt_key)
+        self.addItem(b)
+        hl.addWidget(self.create_horizontal_separator())
+
+
+
+        # save or cancel button
+        hl = QHBoxLayout()
+        hl.setSpacing(10)
+        b = QPushButton("Cancel")
+        b.clicked.connect(self.cancel)
+        hl.addWidget(b)
+        b = QPushButton("Save")
+        b.clicked.connect(self.save)
+        hl.addWidget(b)
+        self.addItem(hl)
+
+    def configure_as_dlt_key(self):
+        c = DLTConfigComponent()
+        c.show()
+        c.exec_()
+        m = c.getData()
+        if m is not None or m != '':
+            self.macro_data = m
+            self.macro_name_line_edit.setText(m[DLTConfigComponent.key_macro_name])
+            self.save()
+
+    def save(self):
+        d = self.main_keypress_interceptor.getData()
+        d2 = self.select_long_key_press_option_componont.getData()
+        d3 = self.select_special_action.getData()
+        d4 = self.select_modifier_mask_component.getData()
+        d5 = self.macro_data
+        macro_name = self.macro_name_line_edit.text()
+        if macro_name:
+            d5['macro_name'] = macro_name
+        else:
+            d5['macro_name'] = 'undefined'
+
+        d.update(d2)
+        d.update(d3)
+        d.update(d4)
+        d.update(d5)
+        self.data_to_return_on_getData = d
+        self.close()
+
+    def cancel(self):
+        self.data_to_return_on_getData = self.previous_config
+        self.close()
 
     def first_radio_button_toggled(self, state):
         self.main_keypress_interceptor.setEnabled(state)
         self.select_modifier_mask_component.setEnabled(state)
 
     def second_radio_button_toggled(self,state):
+        state = state == True
         self.select_special_action.setEnabled(state)
+        self.main_keypress_interceptor.setEnabled(not state)
+        self.select_modifier_mask_component.setEnabled(not state)
+
+    def third_radio_button_toggled(self,state:bool):
+        state = state == True
+        self.main_keypress_interceptor.setEnabled(not state)
+        self.select_modifier_mask_component.setEnabled(not state)
+        self.select_special_action.setEnabled(not state)
+        self.select_long_key_press_option_componont.setEnabled(not state)
+        self.assign_macro_button.setEnabled(state)
+        self.macro_name_line_edit.setEnabled(state)
+
+    def start_macro_wizard(self):
+        p = KeyConfDictParser(self.previous_config)
+        e = MacroEditor(p.macro_code)
+        e.show()
+        e.exec_()
+        self.macro_data = e.getData()
 
     def getData(self) -> dict:
-        d = self.main_keypress_interceptor.getData()
-        d2 = self.select_long_key_press_option_componont.getData()
-        d3 = self.select_special_action.getData()
-        d4 = self.select_modifier_mask_component.getData()
-        d.update(d2)
-        d.update(d3)
-        d.update(d4)
-        # return {d, **d2, **d3, **d4 }
-        return d
+        if self.data_to_return_on_getData is not None:
+            return self.data_to_return_on_getData
+        else:
+            return self.previous_config
+
     def addItem(self, i):
         if issubclass(type(i),QBoxLayout):
             self.main_v_layout.addLayout(i)

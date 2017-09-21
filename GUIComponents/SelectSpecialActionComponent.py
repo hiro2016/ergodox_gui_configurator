@@ -22,9 +22,9 @@ class SelectSpecialActionComponent(QVBoxLayout):
         'Volume Down':  '0x81',
         'Henkan':'0x8a',
         'Muhenkan':'0x8b',
-        'comma/,':'0x8c'
-
-
+        'comma/,':'0x8c',
+        'power':'0x00',
+        'RGUI/RWIN': '0xe7'
     }
     qmk_options_params = [ str(v) for v in range(0,10) ]
 

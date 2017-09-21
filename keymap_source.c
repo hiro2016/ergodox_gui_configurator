@@ -2,6 +2,8 @@
 #include "action_layer.h"
 #include "version.h"
 #include "delayed_lt.c"
+#include "delayed_lt_macro_support.c"
+
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols #define MDIA 2 // media keys
@@ -14,7 +16,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-place_holder
+//keymap_place_holder
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -23,6 +25,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 
 
+//field_member_place_holder
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
@@ -37,14 +40,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           eeconfig_init();
         }
         break;
+        //macro_place_holder
       }
     return MACRO_NONE;
 };
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(!process_action_delayed_lt(keycode,record)) return false;
- 
-  
+
   switch (keycode) {
     // dynamically generate these.
     case EPRM:

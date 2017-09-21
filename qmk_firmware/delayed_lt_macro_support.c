@@ -45,7 +45,7 @@ bool inline process_action_delayed_lt_from_macro(uint16_t keycode, keyrecord_t *
       //DLT action not request, let other functions handle this.
       if(!((keycode&(~0xff))>=DLT_LAYER_TAP && 
           (keycode&(~0xff))<DLT_LAYER_MAX)){
-        //This timer has already been taken care of by 
+        //timer below has already been taken care of by 
         //managed by process_action_delayed_lt.
         //pre_dlt_idling_time = record->event.time;
         return true;
@@ -60,12 +60,20 @@ bool inline process_action_delayed_lt_from_macro(uint16_t keycode, keyrecord_t *
       t = pre_dlt_idling_time;
       pre_dlt_idling_time = pre_pre_dlt_idling_time;
       pre_pre_dlt_idling_time = t;
-      _action_delayed_lt_pressed(keycode, record);
-      layer_on(dlt_layer_to_toggle);
-      dlt_on = true;
+
+      //if shift key is being pressed down, do not start dlt action.
+      if(dlt_no_layer_toggle_while_modifier_on && \
+          (keyboard_report->mods != 0)){
+        register_code(keycode & 0xff);
+      }else{
+        //DLT action request, turning it on.
+        _action_delayed_lt_pressed(keycode, record);
+        layer_on(dlt_layer_to_toggle);
+        dlt_on = true;
 #ifdef DLT_DEBUG_PRINT
-      print("layer toggle on\n");
+        print("layer toggle on\n");
 #endif
+      }
       return false;
     }else{
       //DLT captures key presses while it's on.
@@ -75,21 +83,26 @@ bool inline process_action_delayed_lt_from_macro(uint16_t keycode, keyrecord_t *
       //But the actual key is still pressed down and 
       //waiting to be released, so key release will 
       //be registered twice.
-      //The line below prevents that.
       //
-      //for macro should never be called.
-      /*if(DLT_IS_KEYRELASE_FILTER_ENABLED(prv_keypos)){*/
-#ifdef DLT_DEBUG_PRINT
-        /*print("filtering keyrelease");*/
-#endif
-        /*DLT_DISABLE_KEYRELEASE_FILTER(prv_keypos);*/
+      //But the above is handled is process_action_delayed_lt and not here.
+      //Only time this section is called is when modifier prevented dlt to 
+      //be turned on and key release signal needs to be registered for hid
+      //usage id.
+        unregister_code(keycode & 0xff);
         return false;
       }
       return true;
     }
   
   // Section below part is handled by process_action_delayed_lt
-
+  // Save one exception; when this function is called while 
+  // non-macro DLT is active, not as a DLT action requst/layer 
+  // toggle request but as a requst to simply register the assigned
+  // keycode.
+  if(record->event.pressed){
+    register_code(keycode & 0xff);//using _send_key triggers recursive loop
+    unregister_code(keycode & 0xff);
+  }
 
   // Only called while dlt_on is true.
   // Capturing and uncapture non-dlt keypresses.

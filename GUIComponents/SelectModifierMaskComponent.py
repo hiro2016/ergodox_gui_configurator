@@ -1,5 +1,9 @@
+import sys
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QVBoxLayout, QApplication, QWidget
+
+from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
+
 
 class SelectModifierMaskComponent(QVBoxLayout):
     options = {
@@ -20,24 +24,29 @@ class SelectModifierMaskComponent(QVBoxLayout):
     }
     qmk_options_params = [ str(v) for v in range(0,10) ]
 
-    def __init__(self):
+    def __init__(self, previous_conf):
         super(SelectModifierMaskComponent, self).__init__()
-        self.__init_gui()
+        self.__init_gui(previous_conf)
 
-    def __init_gui(self):
+    def __init_gui(self,d):
+        p = KeyConfDictParser(d)
         hbl = QHBoxLayout()
         l = QLabel("Modifier mask")
         cb = self.modifier_selection_combobox = QComboBox()
         for o in self.options.keys():
             cb.addItem(QIcon(),o)
-        cb.setCurrentText("None")
+        pv = p.modifier_mask
+        pv = pv if pv != '' else 'None'
+        cb.setCurrentText(pv)
 
         hbl2 = QHBoxLayout()
         l2 = QLabel("Modifier mask 2")
         cb2 = self.modifier_selection_combobox2 = QComboBox()
         for o in self.options.keys():
             cb2.addItem(QIcon(),o)
-        cb2.setCurrentText("None")
+        pv = p.modifier_mask2
+        pv = pv if pv != '' else 'None'
+        cb2.setCurrentText(pv)
 
         hbl.addWidget(l)
         hbl.addWidget(cb)
@@ -64,5 +73,18 @@ class SelectModifierMaskComponent(QVBoxLayout):
 
     def setEnabled(self,state:bool):
         self.modifier_selection_combobox.setEnabled(state)
+        self.modifier_selection_combobox2.setEnabled(state)
 
 
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    w = QWidget()
+    # t = ScancodeViewer()
+    # t = KeyCodeViewer()
+    t = SelectModifierMaskComponent()
+    w.setLayout(t)
+    w.show()
+    r = app.exec_()
+    print(t.getData())
+    print("calling exit")
+    sys.exit(r)

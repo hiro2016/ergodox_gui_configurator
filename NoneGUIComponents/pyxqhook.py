@@ -117,10 +117,18 @@ class HookManager(QObject):
         self.run()
 
     def run(self):
-        self.qthread = QThread()
-        self.moveToThread(self.qthread)
-        self.qthread.started.connect(self.process)
-        self.qthread.start()
+        try:
+            self.qthread = QThread()
+            self.moveToThread(self.qthread)
+            self.qthread.started.connect(self.process)
+            self.qthread.start()
+        except KeyError as e:
+            raise e
+            self.cancel()
+        except OSError as e:
+            pass
+        except Exception as e:
+            pass
 
     def process(self):
         # since this is all async, displays could be closed before run completes.
@@ -154,8 +162,14 @@ class HookManager(QObject):
             # while calling the callback function in the meantime
             self.record_dpy.record_enable_context(self.ctx, self.processevents)
             self.local_dpy.flush()
+        except OSError as e:
+            pass
+        except KeyError as e:
+            raise e
+            self.cancel()
         except Exception as e:
             pass
+
 
     def close_displays(self):
         if self.local_dpy is not None:
@@ -451,12 +465,16 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     hm = HookManager()
     def filter_windows_button_press(e:pyxhookkeyevent):
-        print(e)
+        # print(e)
         if e.Key is "Super_L":
             return False # block input
         else:
             return True
+    def keyup(e):
+        print('key released')
+        print(e)
     hm.KeyDown = filter_windows_button_press
+    hm.KeyUp = keyup
     hm.start()
     sys.exit(app.exec_())
     hm.cancel()

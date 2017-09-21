@@ -8,7 +8,10 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QHBoxLayout, QApp
     QGridLayout, QLabel, QSpacerItem, QTabWidget
 
 import key_configurator
+from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
+from NoneGUIComponents.keymap_to_code_transformer import KeymapsToCodeTransformer
 from NoneGUIComponents.keymap import Keymap
+from NoneGUIComponents.macro_composer import MacroComposer
 
 
 class Tab(QWidget):
@@ -80,6 +83,15 @@ class Tab(QWidget):
         """
         return self.keymap.get_data()
 
+    def _set_button_label(self,d:dict, b:QPushButton):
+        p = KeyConfDictParser(d)
+        if p.is_macro():
+            t = 'Macro:\n' + p.macro_name
+        else:
+            t = p.to_keymap_element()
+            t = t.replace(p.hid_usage_id,p.keyname)
+        b.setText(t)
+
     def set_keymap_data(self,data):
         """
         sets unpickled data to Keymap.
@@ -92,19 +104,15 @@ class Tab(QWidget):
             for col, data in enumerate(l):
                 if data is None:
                     continue
-                t = Keymap.dict_to_name_string(data)
-                t = t.replace(data['hid_usage_id'],data['keyname'])
                 b = self.buttons_right[row][col]
-                b.setText(t)
+                self._set_button_label(data,b)
 
         for row, l in enumerate(keymap.left_hand_keymap):
             for col, data in enumerate(l):
                 if data is None:
                     continue
-                t = Keymap.dict_to_name_string(data)
-                t = t.replace(data['hid_usage_id'],data['keyname'])
                 b = self.buttons_left[row][col]
-                b.setText(t)
+                self._set_button_label(data,b)
 
 
 
@@ -280,7 +288,8 @@ class Tab(QWidget):
         """
         # onButtonPressed is here to keep reference to param values.
         def onButtonPressed(pressed, hand=hand, button = button,row=row,col=col):
-            sv = key_configurator.KeyConfigurator()
+            prv_config = self.keymap.get_key(hand, row, col)
+            sv = key_configurator.KeyConfigurator(prv_config)
             sv.show()
             sv.exec_()
             data =  sv.getData()
@@ -311,9 +320,14 @@ class Tab(QWidget):
         :param col:
         :return:
         """
-        s = Keymap.dict_to_name_string(data)
-        s = s.replace(data['hid_usage_id'], data['keyname'])
-        button.setText(s)
+        p = KeyConfDictParser(data)
+        s = p.to_keymap_element()
+        if p.is_macro():
+            button.setText('Macro:'+ "\n"+p.macro_name)
+        else:
+            if p.hid_usage_id != '':
+                s = s.replace(p.hid_usage_id, p.keyname)
+                button.setText(s)
         self.keymap.set_key(hand, row, col, data)
 
     def _compute_key_width(self):
@@ -324,7 +338,7 @@ class Tab(QWidget):
         b.setFixedHeight(self._compute_key_width())
 
     def get_keymap_as_string(self):
-        return self.keymap.to_string()
+        return self.keymap.to_KEYMAP()
 
 
 
@@ -336,7 +350,7 @@ class CentralWidget(QWidget):
     """
     def __init__(self):
         super(CentralWidget, self).__init__()
-        self.keyboard_layers = []
+        self.tabs = []
         self.__init_gui()
 
     def __init_gui(self):
@@ -344,7 +358,7 @@ class CentralWidget(QWidget):
         for c in range(0,10):
             t = Tab()
             self.tab_w.addTab(t, 'layer ' + str(c))
-            self.keyboard_layers.append(t)
+            self.tabs.append(t)
 
     def setFixedHeight(self, p_int):
         super().setFixedHeight(p_int)
@@ -361,7 +375,7 @@ class CentralWidget(QWidget):
         :return:
         """
         layers = []
-        for m in self.keyboard_layers:
+        for m in self.tabs:
             layers.append(m.get_keymap_data())
 
         with open(path,"wb") as f:
@@ -377,17 +391,27 @@ class CentralWidget(QWidget):
         with open(path,"rb") as f:
             layers = pickle.load(f)
             for i, l in enumerate(layers):
-                self.keyboard_layers[i].set_keymap_data(l)
+                self.tabs[i].set_keymap_data(l)
 
-    def get_keymap_as_string(self):
+    def load_keymapc_from_and_write_to(self, source, dest)->dict:
         """
+        source: the default keymap.c file to modify.
+        dest: path to the file to write into
         :return: what should be inserted into keymap_source.c
         """
-        out =  []
-        for i, l in enumerate(self.keyboard_layers):
-            map = l.get_keymap_as_string()
-            out.append('['+str(i)+'] = ' + map)
-        return '\n'.join(out)
+        t = KeymapsToCodeTransformer([t.keymap for t in self.tabs])
+        d = t.generate_code(source,dest)
+        keymap = d['keymap']
+        macro = d['macro']
+        members = d['members']
+        with open(source,'r') as f:
+            data = f.read()
+        data = data.replace(MacroComposer.keymap_place_holder, keymap)
+        data = data.replace(MacroComposer.macro_place_holder, macro)
+        data = data.replace(MacroComposer.field_member_place_holder, members)
+        with open(dest, "w") as f:
+            f.write(data)
+
 
 
 

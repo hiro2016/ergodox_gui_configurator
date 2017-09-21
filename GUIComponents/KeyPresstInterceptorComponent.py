@@ -11,6 +11,8 @@ from GUIComponents.GUIBase import GUIBase
 from NoneGUIComponents import keypress_observer
 from PyQt5.QtGui import QFont, QTextCursor, QFontMetrics, QIcon
 
+from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
+
 
 class KeyPressInterceptorComponent(QVBoxLayout, QObject):
     """""
@@ -67,9 +69,9 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
     # both Qt and keypress_observer callback are completed.
     fieldUpdateTimer = None
 
-    def __init__(self):
+    def __init__(self, prv_config:dict={}):
         super().__init__()
-        self.__init_gui()
+        self.__init_gui(prv_config)
         self.is_keypress_observer_connected = False
 
         # Enable user input scanning only when the top mont QTextEdit is
@@ -127,9 +129,10 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
 
         self.is_keypress_observer_connected = False
 
-    def __init_gui(self):
-        self.font = QFont()
-        self.font.setPointSize(13)
+    def __init_gui(self,d):
+        p = KeyConfDictParser(d)
+        # self.font = QFont()
+        # self.font.setPointSize(13)
 
         bl = self
         # bl = self.vertical_box_layout = QVBoxLayout()
@@ -140,6 +143,7 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         # literal row
         l_literal = QLabel("input literal")
         self.literal_input_te = input_literal = QLineEdit()
+
         # input_literal.setMaximumHeight(font_height)
         # input_literal.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         def filter():
@@ -172,6 +176,7 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         l_hid_usage_id = QLabel("HID usage id:")
         hl2.addWidget(l_hid_usage_id)
         self.hid_usage_id_display = QLabel()# contents will be set upon user input
+        self.hid_usage_id_display.setText(p.hid_usage_id)
         hl2.addWidget(self.hid_usage_id_display)
 
 
@@ -182,6 +187,7 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         l_key_name = QLabel("Key's name")
         hl3.addWidget(l_key_name)
         self.key_name = QLineEdit()# contents will be set upon user input
+        self.key_name.setText(p.keyname)
         # self.key_name.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         # self.key_name.setMaximumHeight(font_height)
         hl3.addWidget(self.key_name)
@@ -227,7 +233,6 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
         return data
 
     def setEnabled(self,state):
-        print (state)
         self.key_name.setEnabled(state)
         self.literal_input_te.setEnabled(state)
         if state: self.setFocus()

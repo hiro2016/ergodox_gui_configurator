@@ -1,5 +1,7 @@
 import platform
 import time
+
+from PyQt5.QtCore import QObject
 from PyQt5.QtWidgets import QApplication
 import sys
 
@@ -104,8 +106,13 @@ class KeyPressObserver:
         # This method may be called after destroy mothed call.
         # e.g. user press windows key, this object's destroy method called,
         # then sometimes this KeyPressEvent method is called.
+
+
         if self.keydown_callback is None:
             return True #do not block
+
+        keyname = event.Key
+        keyname = 'Unknown' if keyname is None or keyname == '' else keyname
         try:
             hid_usage_id = x11_to_hid_usage_id_map[str(event.X11KeyCode)]
         except KeyError as e:
@@ -118,11 +125,10 @@ class KeyPressObserver:
                 "For hid usage ids, refer to: "
                 "http://www.usb.org/developers/hidpage/Hut1_12v2.pdf ")
 
-        self.keydown_callback(hid_usage_id, event.Key)
+        self.keydown_callback(hid_usage_id, keyname)
         # block windows keypress and so on
         for name in self.keys_to_consume:
             if name == event.Key:
-                print('blocking:' + event.Key)
                 return False # prevent os from receiving keypress
         return True
 
