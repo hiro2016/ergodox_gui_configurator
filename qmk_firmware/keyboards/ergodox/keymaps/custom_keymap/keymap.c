@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 LSFT(0x87),0x04,0x12,M(96),DLT(4, 0x18),0x0c,
 0xe1,RSFT(0x24),0x14,M(95),M(94),0x1b,KC_TRNS,
 0xe4,0xe3,0xe6,TO(2),TO(1),
-KC_TRNS,KC_TRNS,
+TO(5),KC_TRNS,
 KC_TRNS,
 M(93),0x4c,0x29,
  
@@ -54,7 +54,7 @@ KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [2] = KEYMAP(  
  0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
-KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x58,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -99,31 +99,31 @@ KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,RSFT(0x24),0x54,0x0f,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,TO(5),0x54,0x0f,KC_TRNS,KC_TRNS,
 0x4c,TO(0),0x87,0x16,0x39,KC_TRNS,
 KC_TRNS,KC_TRNS,0x05,0x09,0x1d,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [5] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,0x33,0x1c,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,0x04,0x0c,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,LSFT(0x24),0x1b,KC_TRNS,KC_TRNS,
+KC_TRNS,0x12,0x37,DLT(2, 0x05),DLT(4, 0x09),0x26,KC_TRNS,
+KC_TRNS,0x14,0x16,DLT(3, 0x17),0x1a,0x10,
+0xe1,0x0d,0x0f,0x0c,DLT(1, 0x1b),0x18,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,
+M(91),OSL(8),KC_TRNS,
  
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,0x09,0x0f,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x07,0x16,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,0x05,0x1d,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,0x2a,
+KC_TRNS,0x0a,DLT(4, 0x0e),DLT(2, 0x0b),0x20,0x33,KC_TRNS,
+LSFT(0x27),0x08,DLT(3, 0x21),0x07,0x1c,KC_TRNS,
+KC_TRNS,0x15,0x1d,LSFT(0x36),RSFT(0x37),LSFT(0x1d),0xe5,
+TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS ),
+KC_TRNS,OSL(8),M(92) ),
 [6] = KEYMAP(  
  KC_TRNS,0x1e,0x1f,0x20,0x21,0x22,KC_TRNS,
 KC_TRNS,0x34,RSFT(0x36),RSFT(0x37),RSFT(0x13),RSFT(0x1c),KC_TRNS,
@@ -138,42 +138,42 @@ KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,RSFT(0x09),LSFT(0x0a),RSFT(0x06),RSFT(0x15),RSFT(0x0f),KC_TRNS,
 RSFT(0x07),RSFT(0x0b),RSFT(0x17),RSFT(0x11),RSFT(0x16),LSFT(0x87),
 KC_TRNS,RSFT(0x05),RSFT(0x10),RSFT(0x1a),RSFT(0x19),RSFT(0x1d),KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [7] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,0x19,0x06,0x2f,RSFT(0x24),0x2d,KC_TRNS,
+KC_TRNS,0x1e,0x36,RSFT(0x25),0x26,0x1f,
+KC_TRNS,RSFT(0x22),RSFT(0x23),0x13,0x25,0x2e,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,0x22,0x34,0x38,0x31,0x87,KC_TRNS,
+0x23,0x04,LSFT(0x89),0x11,0x24,KC_TRNS,
+KC_TRNS,0x27,RSFT(0x08),RSFT(0x20),0x30,RSFT(0x21),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [8] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,M(79),M(78),M(77),M(76),M(75),KC_TRNS,
+KC_TRNS,M(74),M(73),M(72),M(71),M(70),
+KC_TRNS,KC_TRNS,KC_TRNS,M(69),M(68),M(67),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,M(90),M(89),M(88),KC_TRNS,M(87),KC_TRNS,
+KC_TRNS,M(86),KC_TRNS,M(85),KC_TRNS,KC_TRNS,
+KC_TRNS,M(84),M(83),M(82),M(81),M(80),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -215,10 +215,34 @@ uint16_t gui_macro_editor_timer_93 = 0;
 
 
 
+uint16_t gui_macro_editor_timer_92 = 0;
+uint16_t gui_macro_editor_timer_91 = 0;
 
 
-
-
+uint16_t gui_macro_editor_timer_90 = 0;
+uint16_t gui_macro_editor_timer_89 = 0;
+uint16_t gui_macro_editor_timer_88 = 0;
+uint16_t gui_macro_editor_timer_87 = 0;
+uint16_t gui_macro_editor_timer_86 = 0;
+uint16_t gui_macro_editor_timer_85 = 0;
+uint16_t gui_macro_editor_timer_84 = 0;
+uint16_t gui_macro_editor_timer_83 = 0;
+uint16_t gui_macro_editor_timer_82 = 0;
+uint16_t gui_macro_editor_timer_81 = 0;
+uint16_t gui_macro_editor_timer_80 = 0;
+uint16_t gui_macro_editor_timer_79 = 0;
+uint16_t gui_macro_editor_timer_78 = 0;
+uint16_t gui_macro_editor_timer_77 = 0;
+uint16_t gui_macro_editor_timer_76 = 0;
+uint16_t gui_macro_editor_timer_75 = 0;
+uint16_t gui_macro_editor_timer_74 = 0;
+uint16_t gui_macro_editor_timer_73 = 0;
+uint16_t gui_macro_editor_timer_72 = 0;
+uint16_t gui_macro_editor_timer_71 = 0;
+uint16_t gui_macro_editor_timer_70 = 0;
+uint16_t gui_macro_editor_timer_69 = 0;
+uint16_t gui_macro_editor_timer_68 = 0;
+uint16_t gui_macro_editor_timer_67 = 0;
 
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -438,9 +462,395 @@ dlt_reset();}
 
 
 
+    case 92:
+        if(record->event.pressed){
+            gui_macro_editor_timer_92 = record->event.time;
+            layer_on(7);
+        }else{
+            layer_off(7);
+            if(200>timer_elapsed(gui_macro_editor_timer_92)){
+                register_code(0x58);
+                unregister_code(0x58);
+            }
+        }
+        break;
+    
+
+    case 91:
+        if(record->event.pressed){
+            layer_on(7);
+            gui_macro_editor_timer_91 = record->event.time;
+        }else{
+            if(200>timer_elapsed(gui_macro_editor_timer_91)){
+                register_code(0x2c);
+                unregister_code(0x2c);
+            }
+            layer_off(7);
+        }
+        break;
+    
 
 
 
+    case 90:
+        if(record->event.pressed){
+
+            register_code(0x0a);
+unregister_code(0x0a);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 89:
+        if(record->event.pressed){
+ 
+            register_code(0x34);
+unregister_code(0x34);
+
+register_code(0x2f);
+unregister_code(0x2f);
+        
+        }
+        break;
+    
+
+    case 88:
+        if(record->event.pressed){
+
+            register_code(0x0a);
+unregister_code(0x0a);
+
+register_code(0x18);
+unregister_code(0x18);
+
+        }
+        break;
+    
+
+    case 87:
+        if(record->event.pressed){
+
+            register_code(0x19);
+unregister_code(0x19);
+
+register_code(0x30);
+unregister_code(0x30);
+
+        
+        }
+        break;
+    
+
+    case 86:
+        if(record->event.pressed){
+
+            register_code(0x04);
+unregister_code(0x04);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 85:
+        if(record->event.pressed){
+            //timer_place_holder
+        }else{
+            
+        if(!record->event.pressed){
+            register_code(0x2d);
+unregister_code(0x2d);
+
+register_code(0x30);
+unregister_code(0x30);
+
+        }
+        
+        }
+        break;
+    
+
+    case 84:
+        if(record->event.pressed){
+
+            register_code(0x15);
+unregister_code(0x15);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        }
+        break;
+    
+
+    case 83:
+        if(record->event.pressed){
+
+            register_code(0x1d);
+unregister_code(0x1d);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        }
+        break;
+    
+
+    case 82:
+        if(record->event.pressed){
+
+            register_code(0x2e);
+unregister_code(0x2e);
+
+register_code(0x30);
+unregister_code(0x30);
+
+        
+        }
+        break;
+    
+
+    case 81:
+        if(record->event.pressed){
+            //timer_place_holder
+        }else{
+            
+        if(!record->event.pressed){
+            register_code(0x09);
+unregister_code(0x09);
+
+register_code(0x30);
+unregister_code(0x30);
+
+        }
+        
+        }
+        break;
+    
+
+    case 80:
+        if(record->event.pressed){
+            //timer_place_holder
+        }else{
+            
+        if(!record->event.pressed){
+            register_code(0x1f);
+unregister_code(0x1f);
+
+register_code(0x30);
+unregister_code(0x30);
+
+        }
+        
+        }
+        break;
+    
+
+    case 79:
+        if(record->event.pressed){
+
+            register_code(0x19);
+unregister_code(0x19);
+
+register_code(0x2f);
+unregister_code(0x2f);
+        
+        
+        }
+        break;
+    
+
+    case 78:
+        if(record->event.pressed){
+ 
+            register_code(0x06);
+unregister_code(0x06);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 77:
+        if(record->event.pressed){
+            
+            register_code(0x05);
+unregister_code(0x05);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 76:
+        if(record->event.pressed){
+
+            register_code(0x09);
+unregister_code(0x09);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 75:
+        if(record->event.pressed){
+
+            
+            register_code(0x05);
+unregister_code(0x05);
+
+register_code(0x12);
+unregister_code(0x12);
+
+        
+        }
+        break;
+    
+
+    case 74:
+        if(record->event.pressed){
+            
+            register_code(0x07);
+unregister_code(0x07);
+
+register_code(0x04);
+unregister_code(0x04);
+
+        
+        
+        }
+        break;
+    
+
+    case 73:
+        if(record->event.pressed){
+
+            register_code(0x16);
+unregister_code(0x16);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 72:
+        if(record->event.pressed){
+
+            register_code(0x17);
+unregister_code(0x17);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 71:
+        if(record->event.pressed){
+
+            register_code(0x1a);
+unregister_code(0x1a);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 70:
+        if(record->event.pressed){
+
+            register_code(0x1f);
+unregister_code(0x1f);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 69:
+        if(record->event.pressed){
+
+            register_code(0x13);
+unregister_code(0x13);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
+
+    case 68:
+        if(record->event.pressed){
+    
+            register_code(0x1d);
+unregister_code(0x1d);
+
+register_code(0x04);
+unregister_code(0x04);
+
+        
+        
+        }
+        break;
+    
+
+    case 67:
+        if(record->event.pressed){
+   
+            register_code(0x2e);
+unregister_code(0x2e);
+
+register_code(0x2f);
+unregister_code(0x2f);
+
+        
+        
+        }
+        break;
+    
 
       }
     return MACRO_NONE;

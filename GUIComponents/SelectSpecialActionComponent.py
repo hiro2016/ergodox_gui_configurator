@@ -8,6 +8,7 @@ class SelectSpecialActionComponent(QVBoxLayout):
         "None":None,
         "TT":"TT",
         "MO":"MO",
+        'OSL':"OSL",
         "TO":"TO",
         "TG":"TG",
         "RESET":"RESET",
@@ -78,7 +79,7 @@ class SelectSpecialActionComponent(QVBoxLayout):
     def onCurrentTextChanged(self, txt):
         enable = False
         txt = str(txt)
-        for selection in  [ "MO", "TO", "TG", "TL","TT"]:
+        for selection in  [ 'OSL',"MO", "TO", "TG", "TL","TT"]:
             if txt == selection:
                 enable = True
                 break

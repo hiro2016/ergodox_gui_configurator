@@ -12,7 +12,7 @@ from PyQt5.QtGui import QFont, QTextCursor, QFontMetrics, QIcon
 from PyQt5.QtWidgets import QWidget, QDialog, QHBoxLayout, QPlainTextEdit, QSizePolicy, QFileDialog, QVBoxLayout, \
     QLabel, QTextEdit, QApplication, QComboBox, QBoxLayout, QRadioButton, QFrame, QPushButton
 
-from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
+from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser, MacroIDPool
 from macro_editor import MacroEditor
 
 
@@ -70,6 +70,8 @@ class KeyConfigurator(GUIBase):
         self.data_to_return_on_getData = None
 
     def __init_gui(self):
+        # todo fix this, calling KeyConfParser fetches ID here needlessly
+        MacroIDPool.reset()
         p = KeyConfDictParser(self.previous_config)
         self.main_v_layout = QVBoxLayout()
 
@@ -250,8 +252,16 @@ class KeyConfigurator(GUIBase):
         self.macro_name_line_edit.setEnabled(state)
 
     def start_macro_wizard(self):
-        p = KeyConfDictParser(self.previous_config)
-        e = MacroEditor(p.macro_code)
+        macro = None
+        if self.macro_data is not None and self.macro_data != "":
+            for k in self.macro_data.keys():
+                macro = self.macro_data[k]
+
+        if macro is not None and macro != "":
+            e = MacroEditor(self.macro_data[MacroEditor.key_macro])
+        else:
+            p = KeyConfDictParser(self.previous_config)
+            e = MacroEditor(p.macro_code)
         e.show()
         e.exec_()
         self.macro_data = e.getData()

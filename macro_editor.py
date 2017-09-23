@@ -10,6 +10,7 @@ from NoneGUIComponents.macro_composer import MacroComposer
 
 
 class MacroEditor(GUIBase):
+    key_macro = "macro"
     def __init__(self,prv_macro):
         super(MacroEditor, self).__init__()
         self.code = ""

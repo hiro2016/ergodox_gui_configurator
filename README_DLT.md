@@ -119,10 +119,10 @@ Click set this key as DLT key and you will see the below.
 
 ![Alt text](dlt_config_screen.png?raw=true "Title")    
 
-Currently to see the generated code, you must save your setting first and 
-click the key you have configured and then select the bottom radio button 
+Currently to view the generated code, you must save your macro first and 
+click the key you have configured and then select the radio button 
 and click start macro wizard button.  There you can see the macro from your
-previous configuration and hand edit it.  
+previous configuration and you may hand edit the code.  
 
 ## Using the dlt_restrict_same_hand_dlt_action option with other than ergodox keyboard.
 Edit the following section in `delayed_lt.c` for your keyboard.
