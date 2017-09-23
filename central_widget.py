@@ -320,14 +320,7 @@ class Tab(QWidget):
         :param col:
         :return:
         """
-        p = KeyConfDictParser(data)
-        s = p.to_keymap_element()
-        if p.is_macro():
-            button.setText('Macro:'+ "\n"+p.macro_name)
-        else:
-            if p.hid_usage_id != '':
-                s = s.replace(p.hid_usage_id, p.keyname)
-                button.setText(s)
+        self._set_button_label(data,button)
         self.keymap.set_key(hand, row, col, data)
 
     def _compute_key_width(self):
