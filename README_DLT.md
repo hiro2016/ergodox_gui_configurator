@@ -112,7 +112,7 @@ Insert ` if(!process_action_delayed_lt(keycode,record)) return false;` to your p
 ### GUI configuration option for ergodox  
 Run the configurator and click any button and you will see the below.  
   
-![Alt text](key_conf_screen.png?raw=true "Key configurator")    
+![Alt text](key_configurator.png?raw=true "Key configurator")    
 
 Click set this key as DLT key and you will see the below.  
 

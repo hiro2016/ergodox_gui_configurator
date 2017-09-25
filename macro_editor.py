@@ -1,7 +1,10 @@
 import sys
+
+from GUIComponents.combo_emitter_macro_gw import ComboEmitterMacroGW
+from GUIComponents.combo_receiver_macro_gw import ComboReceiverMacroGW
 from GUIComponents.macro_recorder_gui import MacroRecorderGUI
 from GUIComponents.GUIBase import *
-from GUIComponents.dual_function_macro_generation_wizzard import DualFunctionMacroGW
+from GUIComponents.dual_function_macro_generation_wizard import DualFunctionMacroGW
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QSizePolicy, QVBoxLayout, QApplication, QLabel, QHBoxLayout, QPushButton, QTextEdit
@@ -11,7 +14,7 @@ from NoneGUIComponents.macro_composer import MacroComposer
 
 class MacroEditor(GUIBase):
     key_macro = "macro"
-    def __init__(self,prv_macro):
+    def __init__(self,prv_macro=''):
         super(MacroEditor, self).__init__()
         self.code = ""
         self.setSizePolicy(
@@ -52,6 +55,33 @@ class MacroEditor(GUIBase):
         tl.addLayout(hl)
         tl.addWidget(self.create_horizontal_separator())
 
+        # Create combo lt receiver macro
+        hl = QHBoxLayout()
+        hl.setSpacing(10)
+        L = QLabel("Create a macro: combo receiver.\n"
+                   "Switches to a different layer\n"
+                   "and register keycode/macro found\n"
+                   "there when pressed with emitter\n"
+                   "macro key.")
+        hl.addWidget(L)
+        self.create_combo_receiver_button= b = QPushButton(
+            QIcon(),"Create a combo receiver macro")
+        hl.addWidget(b)
+        tl.addLayout(hl)
+        tl.addWidget(self.create_horizontal_separator())
+
+        # Create combo lt emitter macro
+        hl = QHBoxLayout()
+        hl.setSpacing(10)
+        L = QLabel("Create a macro: combo emitter.\n"
+                   "Causes combo receiver macro\n"
+                   "to act as described in the above.")
+        hl.addWidget(L)
+        self.create_combo_emitter_button = b = QPushButton(
+            QIcon(),"Create a combo emitter macro")
+        hl.addWidget(b)
+        tl.addLayout(hl)
+        tl.addWidget(self.create_horizontal_separator())
         # generated code view
         l = QLabel("Generated macro code(Editable)")
         tl.addWidget(l)
@@ -79,9 +109,30 @@ class MacroEditor(GUIBase):
 
     def __init_listeners(self):
         self.recorder_button.clicked.connect(self.show_macro_recorder_gui)
-        self.create_dfm_button.clicked.connect(self.show_dfm_generator_wizzard)
+        self.create_dfm_button.clicked.connect(self.show_dfm_generator_wizard)
 
-    def show_dfm_generator_wizzard(self):
+        self.create_combo_emitter_button.clicked.connect(
+            self.show_combo_emitter_generator)
+        self.create_combo_receiver_button.clicked.connect(
+            self.show_combo_receiver_generator_wizard)
+
+    def show_combo_emitter_generator(self):
+        w = ComboEmitterMacroGW()
+        w.show()
+        w.exec_()
+        d = w.getData()
+        self.code = d[ComboEmitterMacroGW.key_macro]
+        self.code_view_text_edit.setPlainText(self.code)
+
+    def show_combo_receiver_generator_wizard(self):
+        w = ComboReceiverMacroGW()
+        w.show()
+        w.exec_()
+        d = w.getData()
+        self.code = d[ComboReceiverMacroGW.key_macro]
+        self.code_view_text_edit.setPlainText(self.code)
+
+    def show_dfm_generator_wizard(self):
         w = DualFunctionMacroGW()
         w.show()
         w.exec_()

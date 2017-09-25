@@ -1,9 +1,9 @@
 #include "ergodox.h"
-#include "action_layer.h"
-#include "version.h"
+//#include "action_layer.h"
+//#include "version.h"
 #include "delayed_lt.c"
 #include "delayed_lt_macro_support.c"
-
+#include "combo_lt.c"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols #define MDIA 2 // media keys
@@ -30,16 +30,16 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
       switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-        case 1:
-        if (record->event.pressed) { // For resetting EEPROM
-          eeconfig_init();
-        }
-        break;
+//        case 0:
+//        if (record->event.pressed) {
+//          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+//        }
+//        break;
+//        case 1:
+//        if (record->event.pressed) { // For resetting EEPROM
+//          eeconfig_init();
+//        }
+//        break;
         //macro_place_holder
       }
     return MACRO_NONE;
@@ -57,12 +57,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
+//    case VRSN:
+//      if (record->event.pressed) {
+//        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+//      }
+//      return false;
+//      break;
     case RGB_SLD:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE

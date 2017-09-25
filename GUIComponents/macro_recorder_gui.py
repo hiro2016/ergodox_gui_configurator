@@ -3,9 +3,7 @@ from NoneGUIComponents.macro_recorder import MacroRecorder
 from GUIComponents.GUIBase import GUIBase
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QTextEdit, QVBoxLayout, QApplication, QHBoxLayout, QLabel, QPushButton, QLineEdit, \
-    QDialog
-
-
+    QDialog, QCheckBox
 
 
 class MacroRecorderGUI(GUIBase):
@@ -14,6 +12,7 @@ class MacroRecorderGUI(GUIBase):
     Unless user canceled or did nothing, the generated code is
     available via getData method
     """
+    key_macro = 'macro'
     def __init__(self):
         super(MacroRecorderGUI, self).__init__()
         self.__init_gui()
@@ -32,6 +31,14 @@ class MacroRecorderGUI(GUIBase):
 
     def _update_text_edit_for_keyrelease(self, hid_id, keyname, code):
         self.keyname_list_text_edit.append( "released: "+keyname)
+        filter_up_to = None
+        if self.filter_sleep_time_cb.isChecked():
+            try:
+                filter_up_to = code.index('}')
+            except ValueError:
+                pass
+            if filter_up_to is not None and filter_up_to > 0:
+                code = code[filter_up_to + 1:]
         self.generated_code_text_edit.append(code)
 
     def onRecordingStartClicked(self):
@@ -72,6 +79,16 @@ class MacroRecorderGUI(GUIBase):
         hl.addWidget(e)
         hl.addWidget(e2)
         ml.addLayout(hl)
+
+        # Filter sleeps
+        hl = QHBoxLayout()
+        l = QLabel("filter sleep interval between key press and release")
+        hl.addWidget(l)
+        self.filter_sleep_time_cb = b = QCheckBox()
+        b.setChecked(True)
+        hl.addWidget(b)
+        ml.addLayout(hl)
+
 
         # Save and cancel buttons
         hl = QHBoxLayout()
@@ -138,8 +155,8 @@ class MacroRecorderGUI(GUIBase):
     def getData(self):
         code = self.generated_code_text_edit.toPlainText()
         if code is None or code == '':
-            return { "macro": ''}
-        return { "macro": code }
+            return { self.key_macro: ''}
+        return { self.key_macro: code }
 
 
 

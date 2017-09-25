@@ -224,7 +224,8 @@ typedef union {
 } custom_action_t;
 
 
-void inline _send_key(uint32_t layer, keypos_t key ){
+void _send_key(uint32_t layer, keypos_t key ){
+//void inline _send_key(uint32_t layer, keypos_t key ){
   uint16_t keycode = keymap_key_to_keycode(layer,key);
   //detect shift.
   //For the time being supporting shift only.
@@ -260,10 +261,11 @@ void inline _send_key(uint32_t layer, keypos_t key ){
       action_t action;
       keyrecord_t record;
       action.code = keycode;
-      record.event.key = prv_keypos;
+      //cannot remember why prv_keypos, why not key?
+      /*record.event.key = prv_keypos;*/
+      record.event.key = key;
       record.event.pressed = true;
       record.event.time = timer_read();
-      //id contain opt alh opt contain id!
       action_get_macro(&record,action.func.id, action.func.id);
       record.event.pressed = false;
       action_get_macro(&record,action.func.id, action.func.id);
@@ -492,7 +494,7 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
         return true;
       }
 
-      //if shift key is being pressed down, do not start dlt action.
+      //if modifier key is being pressed down, do not start dlt action.
       if(dlt_no_layer_toggle_while_modifier_on && \
            keyboard_report->mods != 0){
         register_code(keycode & 0xff);

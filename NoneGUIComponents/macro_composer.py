@@ -37,14 +37,14 @@ class MacroComposer:
     keymap_place_holder = "//keymap_place_holder"
     macro_place_holder = "//macro_place_holder"
     field_member_place_holder = '//field_member_place_holder'
+    gui_macro_editor_timer_name = 'gui_macro_editor_timer'
+    timer_init_code = "%s = record->event.time;" % \
+                           gui_macro_editor_timer_name
+    timer_init_code_place_holder = "//timer_place_holder"
+    code_place_holder = "//place_holder"
     def __init__(self):
         self._tap_code = ""
         self._hold_code = ""
-        self.gui_macro_editor_timer_name = 'gui_macro_editor_timer'
-        self.timer_init_code = "%s = record->event.time;" % \
-                               self.gui_macro_editor_timer_name
-        self.timer_init_code_place_holder = "//timer_place_holder"
-        self.code_place_holder = "//place_holder"
         self._hold_threshold = ""
         self._default_code = """
         if(record->event.pressed){
@@ -121,6 +121,11 @@ class MacroComposer:
         """%tc
         return dc.replace(self.code_place_holder,code)
 
+    @staticmethod
+    def is_contain_macro_gui_timer(macro_code):
+        if MacroComposer.gui_macro_editor_timer_name in macro_code:
+            return True
+
     def make_macro_timer_name_unique(self, macro_code, macro_id):
         """
         Takes macro code and macro id.
@@ -133,12 +138,22 @@ class MacroComposer:
         Definition example:
                 uint16_t gui_macro_editor_timer_56 = 0;
         """
+
         new_timer_name = self.gui_macro_editor_timer_name + "_%s" % str(macro_id)
         macro_code = macro_code.replace(
             self.gui_macro_editor_timer_name,
             new_timer_name )
         definition = 'uint16_t ' + new_timer_name + ' = 0;'
         return macro_code, definition
+
+    @staticmethod
+    def generate_combo_lt_emitter_macro(hid_id, layer):
+        c = [
+            'clt_layer = %s;' % layer,
+            'process_combo_lt(%s, record);'%hid_id,
+            'break;'
+            ]
+        return '\n'.join(c)
 
 if __name__ == "__main__":
     o = MacroComposer()

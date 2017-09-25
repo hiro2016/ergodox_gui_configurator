@@ -14,16 +14,25 @@ class KeymapsToCodeTransformer:
         self.field_members_to_add = []
 
 
-    def _dict_to_string(self, d:dict) -> str:
+    def _handle_key_dict(self, d:dict) -> str:
         p = KeyConfDictParser(d)
-        if p.is_macro():
-            code = p.to_macro_code()
-            m =MacroComposer()
-            # KeyConfDictParser already have assigned unique id to macro
-            m, d = m.make_macro_timer_name_unique(code,p.macro_id)
-            self.macro_code.append(m)
-            self.field_members_to_add.append(d)
+        p = self._handle_macro_timer(p)
         return p.to_keymap_element()
+
+    def _handle_macro_timer(self, p:KeyConfDictParser):
+        if not p.is_macro():
+            return p
+
+        code = p.to_macro_code()
+        m =MacroComposer()
+        # KeyConfDictParser already have assigned unique id to macro
+        if m.is_contain_macro_gui_timer(code):
+            m, d = m.make_macro_timer_name_unique(code,p.macro_id)
+            self.field_members_to_add.append(d)
+            self.macro_code.append(m)
+        else:
+            self.macro_code.append(code)
+        return p
 
     def dict_to_name_string(self, d):
         k = KeyConfDictParser(d)
@@ -37,7 +46,7 @@ class KeymapsToCodeTransformer:
         def format_and_add(d):
             if d is None:
                 d = {}
-            data = self._dict_to_string(d)
+            data = self._handle_key_dict(d)
             data += ","
             out.append(data)
 
@@ -126,5 +135,5 @@ class KeymapsToCodeTransformer:
 if __name__ == '__main__':
     d = {'a':'a'}
     t =KeymapsToCodeTransformer([])
-    data = t._dict_to_string(d)
+    data = t._handle_key_dict(d)
     print(data)

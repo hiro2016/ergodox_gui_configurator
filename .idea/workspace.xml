@@ -11,41 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="44" column="10" lean-forward="false" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="central_widget.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/central_widget.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="322" column="0" lean-forward="false" selection-start-line="322" selection-start-column="0" selection-end-line="322" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="keymap.c" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/keymap.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="119" column="26" lean-forward="false" selection-start-line="119" selection-start-column="26" selection-end-line="119" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="key_conf_dict_parser.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NoneGUIComponents/key_conf_dict_parser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1288">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="84">
+              <caret line="111" column="7" lean-forward="true" selection-start-line="111" selection-start-column="7" selection-end-line="111" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -66,10 +36,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/NoneGUIComponents.py" />
-        <option value="$PROJECT_DIR$/keypress_observer.py" />
-        <option value="$PROJECT_DIR$/NoneGUIComponents/__init__.py" />
-        <option value="$PROJECT_DIR$/keymap.py" />
         <option value="$PROJECT_DIR$/scancode_viewer.py" />
         <option value="$PROJECT_DIR$/GUIComponents/SelectQmkSpecifalActionComponent.py" />
         <option value="$PROJECT_DIR$/scripts/get_x11_keycode_table.sh" />
@@ -88,13 +54,10 @@
         <option value="$PROJECT_DIR$/GUIComponents/GUIBase.py" />
         <option value="$PROJECT_DIR$/GUIComponents/dual_function_macro_generation_wizard.py" />
         <option value="$PROJECT_DIR$/GUIComponents/ModifierSelector.py" />
-        <option value="$PROJECT_DIR$/GUIComponents/macro_recorder_gui.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/KeymapToCodeTransformer.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/Keymap_to_code_transformer.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/macro_recorder.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/keymap.py" />
-        <option value="$PROJECT_DIR$/NoneGUIComponents/keymap_to_code_transformer.py" />
-        <option value="$PROJECT_DIR$/NoneGUIComponents/macro_composer.py" />
         <option value="$PROJECT_DIR$/GUIComponents/KeyPresstInterceptorComponent.py" />
         <option value="$PROJECT_DIR$/GUIComponents/SelectModifierMaskComponent.py" />
         <option value="$PROJECT_DIR$/scripts/kernel_keycode_to_x11_map.py" />
@@ -106,17 +69,24 @@
         <option value="$PROJECT_DIR$/Xlib/protocol/display.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/pyxqhook.py" />
         <option value="$PROJECT_DIR$/GUIComponents/DLTConfigComponent.py" />
-        <option value="$PROJECT_DIR$/keymap_source.c" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/key_conf_dict_parser.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/README_JS.md" />
-        <option value="$PROJECT_DIR$/README_DLT.md" />
         <option value="$PROJECT_DIR$/GUIComponents/SelectSpecialActionComponent.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/macro_editor.py" />
-        <option value="$PROJECT_DIR$/key_configurator.py" />
-        <option value="$PROJECT_DIR$/keymap.c" />
         <option value="$PROJECT_DIR$/central_widget.py" />
+        <option value="$PROJECT_DIR$/GUIComponents/combo_receciver_macro_gw.py" />
+        <option value="$PROJECT_DIR$/GUIComponents/combo_emitter_macro_gw.py" />
+        <option value="$PROJECT_DIR$/macro_editor.py" />
+        <option value="$PROJECT_DIR$/GUIComponents/combo_receiver_macro_gw.py" />
+        <option value="$PROJECT_DIR$/GUIComponents/macro_recorder_gui.py" />
+        <option value="$PROJECT_DIR$/NoneGUIComponents/macro_composer.py" />
+        <option value="$PROJECT_DIR$/NoneGUIComponents/keymap_to_code_transformer.py" />
+        <option value="$PROJECT_DIR$/key_configurator.py" />
+        <option value="$PROJECT_DIR$/keymap_source.c" />
+        <option value="$PROJECT_DIR$/keymap.c" />
+        <option value="$PROJECT_DIR$/README_DLT.md" />
+        <option value="$PROJECT_DIR$/README_CLT.md" />
       </list>
     </option>
   </component>
@@ -161,7 +131,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -170,20 +139,11 @@
               <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
               <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
-              <item name="GUIComponents" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
-              <item name="NoneGUIComponents" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -214,23 +174,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="DLTConfigComponent" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUIComponents" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="GUIConfigurator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUIComponents/DLTConfigComponent.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -295,41 +238,41 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <configuration name="central_widget" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="combo_emitter_macro_gw" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUIComponents" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GUIConfigurator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/central_widget.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUIComponents/combo_emitter_macro_gw.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="key_configurator" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="combo_receciver_macro_gw" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUIComponents" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GUIConfigurator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/key_configurator.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUIComponents/combo_receiver_macro_gw.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="keypress_observer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="macro_composer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -341,7 +284,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GUIConfigurator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NoneGUIComponents/keypress_observer.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NoneGUIComponents/macro_composer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="macro_recorder_gui" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GUIComponents" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="GUIConfigurator" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUIComponents/macro_recorder_gui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -383,18 +343,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.pyxhook" />
       <item index="1" class="java.lang.String" itemvalue="Python.main" />
-      <item index="2" class="java.lang.String" itemvalue="Python.keypress_observer" />
-      <item index="3" class="java.lang.String" itemvalue="Python.DLTConfigComponent" />
-      <item index="4" class="java.lang.String" itemvalue="Python.key_configurator" />
-      <item index="5" class="java.lang.String" itemvalue="Python.central_widget" />
+      <item index="2" class="java.lang.String" itemvalue="Python.combo_receciver_macro_gw" />
+      <item index="3" class="java.lang.String" itemvalue="Python.macro_composer" />
+      <item index="4" class="java.lang.String" itemvalue="Python.combo_emitter_macro_gw" />
+      <item index="5" class="java.lang.String" itemvalue="Python.macro_recorder_gui" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.central_widget" />
-        <item index="2" class="java.lang.String" itemvalue="Python.DLTConfigComponent" />
-        <item index="3" class="java.lang.String" itemvalue="Python.key_configurator" />
-        <item index="4" class="java.lang.String" itemvalue="Python.keypress_observer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.macro_recorder_gui" />
+        <item index="2" class="java.lang.String" itemvalue="Python.combo_receciver_macro_gw" />
+        <item index="3" class="java.lang.String" itemvalue="Python.combo_emitter_macro_gw" />
+        <item index="4" class="java.lang.String" itemvalue="Python.macro_composer" />
       </list>
     </recent_temporary>
   </component>
@@ -428,14 +388,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-11" width="1282" height="732" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36547813" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.49675852" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.67147434" sideWeight="0.5032415" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32692307" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5448718" sideWeight="0.49027553" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5448718" sideWeight="0.49027553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959481" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.67147434" sideWeight="0.49675852" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -447,7 +407,6 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="297" y="402" width="1080" height="524" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959481" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -471,28 +430,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/NoneGUIComponents.py" />
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python3.5/timeit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="129" column="0" lean-forward="false" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1247971764/PyQt5/QtWidgets/QWidget.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
@@ -577,13 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GUIComponents/macro_recorder_gui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="160" column="12" lean-forward="true" selection-start-line="160" selection-start-column="12" selection-end-line="160" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1247971764/PyQt5/QtWidgets/QMainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -595,27 +525,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="49" column="73" lean-forward="false" selection-start-line="49" selection-start-column="73" selection-end-line="49" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/macro_recorder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-156">
-          <caret line="54" column="36" lean-forward="false" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/keymap_to_code_transformer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1120">
-          <caret line="123" column="36" lean-forward="false" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/macro_composer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="131" column="0" lean-forward="false" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -683,7 +592,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GUIComponents/dual_function_macro_generation_wizzard.py">
+    <entry file="file://$PROJECT_DIR$/GUIComponents/dual_function_macro_generation_wizard.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
@@ -725,20 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GUIComponents/DLTConfigComponent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/keymap_source.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/configWidget.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
@@ -747,28 +642,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README_JS.md" />
-    <entry file="file://$PROJECT_DIR$/README_DLT.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="112">
-            <caret line="121" column="17" lean-forward="false" selection-start-line="121" selection-start-column="17" selection-end-line="121" selection-end-column="17" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="-3948">
             <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -780,50 +665,147 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/central_widget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8652">
+          <caret line="322" column="0" lean-forward="false" selection-start-line="322" selection-start-column="0" selection-end-line="322" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUIComponents/DLTConfigComponent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/macro_recorder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUIComponents/combo_emitter_macro_gw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="79" column="57" lean-forward="true" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUIComponents/macro_recorder_gui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="33" column="26" lean-forward="false" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/macro_editor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        <state relative-caret-position="339">
+          <caret line="127" column="25" lean-forward="false" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUIComponents/combo_receiver_macro_gw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="75" column="15" lean-forward="false" selection-start-line="75" selection-start-column="15" selection-end-line="75" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/macro_composer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="125" column="23" lean-forward="false" selection-start-line="125" selection-start-column="23" selection-end-line="125" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/keymap_to_code_transformer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="33" column="38" lean-forward="false" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/key_configurator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="72" column="62" lean-forward="false" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="62" />
+        <state relative-caret-position="453">
+          <caret line="225" column="12" lean-forward="false" selection-start-line="225" selection-start-column="12" selection-end-line="225" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keymap_source.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="1" column="1" lean-forward="false" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/keymap.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="119" column="26" lean-forward="false" selection-start-line="119" selection-start-column="26" selection-end-line="119" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="44" column="10" lean-forward="false" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="10" />
+        <state relative-caret-position="4284">
+          <caret line="447" column="0" lean-forward="false" selection-start-line="447" selection-start-column="0" selection-end-line="447" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/NoneGUIComponents/key_conf_dict_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1288">
+        <state relative-caret-position="922">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/central_widget.py">
+    <entry file="file://$PROJECT_DIR$/README_DLT.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="336">
+            <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clt_emitter_config.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README_CLT.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="-479">
+            <caret line="121" column="58" lean-forward="false" selection-start-line="121" selection-start-column="58" selection-end-line="121" selection-end-column="58" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="322" column="0" lean-forward="false" selection-start-line="322" selection-start-column="0" selection-end-line="322" selection-end-column="0" />
+        <state relative-caret-position="84">
+          <caret line="111" column="7" lean-forward="true" selection-start-line="111" selection-start-column="7" selection-end-line="111" selection-end-column="7" />
           <folding />
         </state>
       </provider>
