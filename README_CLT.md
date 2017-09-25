@@ -10,8 +10,9 @@ subject to the effect of other OSL keys.
 
 e.g.  
 
- - press y then a inputs `や`  
- - press g then y and then a inputs `ぎゃ` 
+ - press A inputs `あ`
+ - press Y then A inputs `や`  
+ - press G then Y and then A inputs `ぎゃ` 
  
 `y` is an OSL key and at the same time its role changes when preceded by another OSL 
 key press.
@@ -20,8 +21,9 @@ key press.
 Some other systems use constant dedicated OSL keys that have a constant role in all layers.  
 
 e.g. 
- _ press a inputs `た`
- - press right shift with a inputs `ぬ`  
+
+ - press A inputs `た`
+ - press right shift with A inputs `ぬ`  
  
    
 Methods involve constant dedicated OSL keys generally accepts OSL key presses to be delayed 
@@ -47,7 +49,7 @@ Include the following files in your `keymap.c`
     
 And hand code!  
 
-###Or Use GUI configuration tool
+### Or Use GUI configuration tool
 
 #### Configure layer emitter key
 Run the configuration tool and click a key that represents a Right thumb button.   
@@ -97,13 +99,13 @@ At the configurator's top, select the tab for the layer to which
 the thumb key switches the layer to and configure the button found 
 in the same position as the receiver key you have just configured.  
   
-Configure it to send a different key sequence; if last time you have 
+Configure it to send a different key sequence; if you have 
 configured the receiver key to register `t@`, then this time maybe 
 configure the key to register `t` alone.  
   
    
 ### Done  
-Compile and flash and test.  
+Compile, flash and test.  
 When the thumb key and the receiver key is pressed down together, `t` should be sent.   
 When thumb key alone is topped enter should be sent.  
 When receiver key alone is tapped, `t@` should be sent.   
