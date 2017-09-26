@@ -25,6 +25,7 @@ uint16_t clt_timer = 0;
 *     1. 
 *         ----
 *          ++++
+*        another layer turned on first, callee knows nothing of clt
 *        need to set clt_pressed to false
 *     2.
 *          ----
@@ -36,6 +37,7 @@ uint16_t clt_timer = 0;
 *     4.
 *         ----
 *          ++ 
+*        another layer turned on first, callee knows nothing of clt
 *        need to set clt_pressed to false
 *
 * Since moving register_code and unregister_code lines
@@ -63,18 +65,39 @@ void process_combo_lt(uint16_t keycode, keyrecord_t *record){
     layer_off(clt_layer);
     if(CLT_ACCEPTABLE_DELAY > \
         (TIMER_DIFF_16(clt_timer,pre_pre_dlt_idling_time))\
-        //no key press after CLT key press
+        //check if no key press after CLT key press
         && (pre_dlt_idling_time == clt_timer)){
       //another key was pressed immidiately before CLT key and the
       //time approximity is close enough to treat this as a combo
       //request.
       //case 2 and 3. if macro key is already up, then clt_pressed 
-      //is set to false. Otherwise it will be set to false, do nothing.
+      //is already set to false. Otherwise it will be set to false, 
+      //do nothing.
     }else if(pre_dlt_idling_time == clt_timer) {
       // No key pressed while the caller key down 
       // or immidiately before the caller key down 
-      register_code16(keycode & 0xff);
-      unregister_code16(keycode & 0xff);
+
+      // Below is not gonna work, caller is macro
+      /*_send_key(biton32(layer_state),record->event.key);*/
+
+      // Handle OSL
+      if(keycode >= QK_ONE_SHOT_LAYER && keycode < QK_ONE_SHOT_LAYER_MAX){
+        /*[>register_code16 did not work<]*/
+        /*[>register_code16(keycode);<]*/
+        /*[>unregister_code16(keycode);<]*/
+        action_t action;
+        action.code = ACTION_LAYER_ONESHOT(keycode);
+        /*//order matters*/
+        layer_on(action.layer_tap.val);
+        set_oneshot_layer(action.layer_tap.val,ONESHOT_START);
+        clear_oneshot_layer_state(ONESHOT_PRESSED);//key up
+      }else{
+        // register tapped alone time keycode
+        register_code(keycode & 0xff);
+        unregister_code(keycode & 0xff);
+      }
+      /*register_code16(keycode & 0xff);*/
+      /*unregister_code16(keycode & 0xff);*/
       clt_pressed = false;
     } else{
       //case 4 and 1

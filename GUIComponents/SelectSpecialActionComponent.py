@@ -8,6 +8,7 @@ class SelectSpecialActionComponent(QVBoxLayout):
         "None":None,
         "TT":"TT",
         "MO":"MO",
+        'OSM':'OSM',
         'OSL':"OSL",
         "TO":"TO",
         "TG":"TG",
@@ -27,6 +28,16 @@ class SelectSpecialActionComponent(QVBoxLayout):
         'power':'0x00',
         'RGUI/RWIN': '0xe7'
     }
+    osm_options = [
+            'KC_LCTRL',
+            'KC_LSHIFT',
+            'KC_LALT',
+            'KC_LGUI',
+            'KC_RCTRL',
+            'KC_RSHIFT',
+            'KC_RALT',
+            'KC_RGUI' ]
+
     qmk_options_params = [ str(v) for v in range(0,10) ]
 
     def __init__(self):
@@ -34,13 +45,25 @@ class SelectSpecialActionComponent(QVBoxLayout):
         self.__init_gui()
         self.__init_listener()
 
+    def __init_special_actions_combo_box(self):
+        for o in self.qmk_options.keys():
+            self.special_action_combo_box.addItem(QIcon(),o)
+        self.special_action_combo_box.setCurrentText("None")
+
+    def __init_special_actions_param_combo_box(self):
+        self.special_actions_param_combo_box.clear()
+        if self.special_action_combo_box.currentText() == 'OSM':
+            for o in self.osm_options:
+                self.special_actions_param_combo_box.addItem(QIcon(),o)
+        else:
+            for o in self.qmk_options_params:
+                self.special_actions_param_combo_box.addItem(QIcon(),o)
+
     def __init_gui(self):
         hbl = QHBoxLayout()
         l = QLabel("sends")
         cb = self.special_action_combo_box = QComboBox()
-        for o in self.qmk_options.keys():
-            cb.addItem(QIcon(),o)
-        cb.setCurrentText("None")
+        self.__init_special_actions_combo_box()
 
         hbl.addWidget(l)
         hbl.addWidget(cb)
@@ -52,10 +75,9 @@ class SelectSpecialActionComponent(QVBoxLayout):
         hbl = QHBoxLayout()
         l = QLabel("Layer")
         hbl.addWidget(l)
-        cb = self.long_press_arg_combo_box = QComboBox()
-        cb.setEnabled(False)
-        for o in self.qmk_options_params:
-            cb.addItem(QIcon(),o)
+        cb = self.special_actions_param_combo_box = QComboBox()
+        self.__init_special_actions_param_combo_box()
+        self.special_actions_param_combo_box.setEnabled(False)
 
         hbl.addWidget(cb)
         self.addItem(hbl)
@@ -72,24 +94,25 @@ class SelectSpecialActionComponent(QVBoxLayout):
             return data
 
         data["special_action"] = v = self.qmk_options[ct]
-        if self.long_press_arg_combo_box.isEnabled():
-            data["special_action_param"] = self.long_press_arg_combo_box.currentText()
+        if self.special_actions_param_combo_box.isEnabled():
+            data["special_action_param"] = self.special_actions_param_combo_box.currentText()
         return data
 
     def onCurrentTextChanged(self, txt):
+        self.__init_special_actions_param_combo_box()
         enable = False
         txt = str(txt)
-        for selection in  [ 'OSL',"MO", "TO", "TG", "TL","TT"]:
+        for selection in  [ 'OSM','OSL',"MO", "TO", "TG", "TL","TT"]:
             if txt == selection:
                 enable = True
                 break
         if enable:
-            self.long_press_arg_combo_box.setEnabled(True)
+            self.special_actions_param_combo_box.setEnabled(True)
         else:
-            self.long_press_arg_combo_box.setEnabled(False)
+            self.special_actions_param_combo_box.setEnabled(False)
 
     def setEnabled(self,state:bool):
-        self.long_press_arg_combo_box.setEnabled(state)
+        self.special_actions_param_combo_box.setEnabled(state)
         self.special_action_combo_box.setEnabled(state)
 
 

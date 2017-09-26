@@ -227,6 +227,7 @@ typedef union {
 void _send_key(uint32_t layer, keypos_t key ){
 //void inline _send_key(uint32_t layer, keypos_t key ){
   uint16_t keycode = keymap_key_to_keycode(layer,key);
+  action_t action;
   //detect shift.
   //For the time being supporting shift only.
   
@@ -258,11 +259,16 @@ void _send_key(uint32_t layer, keypos_t key ){
     QK_RGUI               = 0x1800,
     QK_MODS_MAX           = 0x1FFF,*/
   if(QK_MACRO <= keycode && keycode <QK_MACRO_MAX){
-      action_t action;
+    /*register_code16 does not seem to support either macro or OSL*/
+      /*register_code16(keycode);*/
+      /*unregister_code16(keycode);*/
+      /*return;*/
       keyrecord_t record;
       action.code = keycode;
+
       //cannot remember why prv_keypos, why not key?
       /*record.event.key = prv_keypos;*/
+
       record.event.key = key;
       record.event.pressed = true;
       record.event.time = timer_read();
@@ -270,7 +276,19 @@ void _send_key(uint32_t layer, keypos_t key ){
       record.event.pressed = false;
       action_get_macro(&record,action.func.id, action.func.id);
       return;
+  }else if(keycode >= QK_ONE_SHOT_LAYER && keycode < QK_ONE_SHOT_LAYER_MAX){
+    /*register_code16 did not work*/
+    /*register_code16(keycode);*/
+    /*unregister_code16(keycode);*/
+    action.code = ACTION_LAYER_ONESHOT(keycode);
+    //order matters
+    layer_on(action.layer_tap.val);
+    set_oneshot_layer(4,ONESHOT_START);
+    clear_oneshot_layer_state(ONESHOT_PRESSED);//key up
+    return;
+
   }
+
   switch(keycode>>8){
     case(0x2):
       register_code(KC_LSHIFT);
