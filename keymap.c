@@ -107,14 +107,14 @@ KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [5] = KEYMAP(  
- M(80),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-0x2b,M(79),M(78),M(77),M(76),M(75),KC_TRNS,
-TO(2),M(74),M(73),M(72),M(71),M(70),
-0xe1,M(69),M(68),M(67),M(66),M(65),TO(0),
+ M(79),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+0x2b,M(78),M(77),M(76),M(75),M(74),KC_TRNS,
+TO(2),M(73),M(72),M(71),M(70),M(69),
+0xe1,M(68),M(67),M(66),M(65),M(64),TO(0),
 0xe4,0xe3,0xe6,0x56,0x56,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-DLT(3, 0x2c),0x4c,KC_TRNS,
+M(63),0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,TO(1),KC_TRNS,KC_TRNS,KC_TRNS,0x87,
 KC_TRNS,M(91),M(90),M(89),M(88),M(87),0x38,
@@ -123,7 +123,7 @@ KC_TRNS,0x0b,0x21,LSFT(0x36),RSFT(0x37),M(81),0xe5,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,0x2a,DLT(3, 0x58) ),
+KC_TRNS,0x2a,M(80) ),
 [6] = KEYMAP(  
  KC_TRNS,0x1e,0x1f,0x20,0x21,0x22,KC_TRNS,
 KC_TRNS,0x34,RSFT(0x36),RSFT(0x37),RSFT(0x13),RSFT(0x1c),KC_TRNS,
@@ -145,7 +145,7 @@ KC_TRNS,KC_TRNS,KC_TRNS ),
 [7] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,M(56),M(55),M(54),0x2d,0x2e,KC_TRNS,
-KC_TRNS,0x20,0x34,0x15,0x23,0x1b,
+KC_TRNS,0x20,0x34,0x04,0x23,0x1b,
 KC_TRNS,0x24,0x25,M(53),0x36,0x26,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
@@ -153,8 +153,8 @@ KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,M(64),M(63),M(62),0x22,M(61),KC_TRNS,
-0x19,0x1d,0x04,M(60),0x0d,KC_TRNS,
+KC_TRNS,M(62),M(61),M(60),0x22,0x56,KC_TRNS,
+0x19,0x1d,0x04,LSFT(0x24),0x0d,KC_TRNS,
 KC_TRNS,0x1e,0x11,M(59),M(58),M(57),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
@@ -579,11 +579,22 @@ break;
     
 
     case 83:
-        //CLT8
-//CLT8
-//CLT8
-clt_layer = 8;
-process_combo_lt(OSL(8), record);
+        //zi
+if(!record->event.pressed){
+if(!clt_pressed){
+register_code(0x07);
+
+unregister_code(0x07);
+
+register_code(0x2f);
+
+unregister_code(0x2f);
+
+}else{
+_send_key(clt_layer,record->event.key);
+clt_pressed = false;
+}
+}
 break;
         break;
     
@@ -623,6 +634,14 @@ break;
     
 
     case 80:
+        //CLT8 ret
+clt_layer = 8;
+process_combo_lt(0x58, record);
+break;
+        break;
+    
+
+    case 79:
         //switch
 
         if(record->event.pressed){
@@ -638,7 +657,7 @@ layer_state = 0;
         break;
     
 
-    case 79:
+    case 78:
         //mo
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -655,7 +674,7 @@ break;
         break;
     
 
-    case 78:
+    case 77:
         //ni
 //ru
 if(!record->event.pressed){
@@ -673,7 +692,7 @@ break;
         break;
     
 
-    case 77:
+    case 76:
         //ha
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -690,7 +709,7 @@ break;
         break;
     
 
-    case 76:
+    case 75:
         //te
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -707,7 +726,7 @@ break;
         break;
     
 
-    case 75:
+    case 74:
         //de
 //zi
 if(!record->event.pressed){
@@ -729,7 +748,7 @@ break;
         break;
     
 
-    case 74:
+    case 73:
         //ka
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -746,15 +765,24 @@ break;
         break;
     
 
-    case 73:
-        //CLT 8
-clt_layer = 8;
-process_combo_lt(OSL(8), record);
+    case 72:
+        //su
+if(!record->event.pressed){
+if(!clt_pressed){
+register_code(0x15);
+
+unregister_code(0x15);
+
+}else{
+_send_key(clt_layer,record->event.key);
+clt_pressed = false;
+}
+}
 break;
         break;
     
 
-    case 72:
+    case 71:
         //CLT7
 //CLT(7, OSL(7))
 clt_layer = 7;
@@ -763,7 +791,7 @@ break;
         break;
     
 
-    case 71:
+    case 70:
         //na
 //te
 if(!record->event.pressed){
@@ -781,7 +809,7 @@ break;
         break;
     
 
-    case 70:
+    case 69:
         //ru
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -798,7 +826,7 @@ break;
         break;
     
 
-    case 69:
+    case 68:
         //ko
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -815,7 +843,7 @@ break;
         break;
     
 
-    case 68:
+    case 67:
         //ga
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -836,7 +864,7 @@ break;
         break;
     
 
-    case 67:
+    case 66:
         //da
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -857,7 +885,7 @@ break;
         break;
     
 
-    case 66:
+    case 65:
         //ta
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -874,7 +902,7 @@ break;
         break;
     
 
-    case 65:
+    case 64:
         //xyo
 if(!record->event.pressed){
 if(!clt_pressed){
@@ -894,8 +922,16 @@ break;
         break;
     
 
+    case 63:
+        //CLT8 space
+clt_layer = 8;
+process_combo_lt(0x2c, record);
+break;
+        break;
+    
 
-    case 64:
+
+    case 62:
         //xo
 
         if(record->event.pressed){
@@ -913,7 +949,7 @@ unregister_code(0xe5);
         break;
     
 
-    case 63:
+    case 61:
         //pu
 
         if(record->event.pressed){
@@ -932,7 +968,7 @@ unregister_code(0x30);
         break;
     
 
-    case 62:
+    case 60:
         //bu
 
         if(record->event.pressed){
@@ -949,47 +985,6 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        
-        }
-        break;
-    
-
-    case 61:
-        //pi
-
-        if(record->event.pressed){
-            //timer_place_holder
-        }else{
-            
-        if(!record->event.pressed){
-            register_code(0x19);
-
-unregister_code(0x19);
-
-register_code(0x30);
-
-unregister_code(0x30);
-
-        }
-        
-        }
-        break;
-    
-
-    case 60:
-        //zi
-
-        if(record->event.pressed){
-
-            register_code(0x07);
-
-unregister_code(0x07);
-
-register_code(0x2f);
-
-unregister_code(0x2f);
-
-        
         
         }
         break;
@@ -1033,7 +1028,21 @@ unregister_code(0xe1);
     
 
     case 57:
-        //xya
+        //pi
+
+        if(record->event.pressed){
+
+            register_code(0x19);
+
+unregister_code(0x19);
+
+register_code(0x30);
+
+unregister_code(0x30);
+
+        
+        
+        }
         break;
     
 
