@@ -3,6 +3,21 @@ uint16_t clt_layer = 0;
 bool clt_pressed = false;
 uint16_t clt_timer = 0;
 
+// For modified mizunara thumb key key layer 
+// shifting.
+//
+// Added to use clt emitter like a lct receiver.
+// When another CLT emitter is pressed while a clt 
+// emitter key is still down, this
+// value is set to true and process_combo_lt
+// returns false.
+//
+// A macro calling process_combo_lt can 
+// loot at that return value and act on that.
+// No GUI editor support.
+// For hand coding only.
+bool clt_interrupted = false;
+uint16_t clt_layer2 = 0;//needed to shift layer after middle finger key shifted layer.
 
 // action key cannot be used to in combination with macro
 /*uint16_t prv_key_down_time = 0;*/
@@ -56,13 +71,21 @@ uint16_t clt_timer = 0;
  * save whether or not send CLT single tap keycode. The decision is
  * made based on whether another key was pressed after CLT key press.
  * */
-void process_combo_lt(uint16_t keycode, keyrecord_t *record){
+bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
   if(record->event.pressed){
     layer_on(clt_layer);
     clt_pressed = true;
     clt_timer = pre_dlt_idling_time;
+    return true;
   }else{
     layer_off(clt_layer);
+    if(clt_interrupted){
+      layer_off(clt_layer);
+      layer_off(clt_layer2);
+      clt_interrupted = false;
+      clt_pressed = false;
+      return false;
+    }
     if(CLT_ACCEPTABLE_DELAY > \
         (TIMER_DIFF_16(clt_timer,pre_pre_dlt_idling_time))\
         //check if no key press after CLT key press
@@ -104,6 +127,7 @@ void process_combo_lt(uint16_t keycode, keyrecord_t *record){
       clt_pressed = false;
     }
   }
+  return true;
 }
 
 

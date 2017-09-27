@@ -78,12 +78,11 @@ class MacroComposer:
         if dc is None:
             dc = ""
         if lc is None:
-            hc = ""
+            lc = ""
 
-        code = ''
         if(lc == ""):
             # Triggerd on tap only
-            return self._generate_code_for_tap_only()
+            return self.generate_simple_tap_macro(self._tap_code )
         else:
             # Triggered on hold and another macro executed on tap
             return self._generate_code_for_hold_and_tag()
@@ -109,17 +108,6 @@ class MacroComposer:
 
         return dc.replace( self.code_place_holder, c)
 
-    def _generate_code_for_tap_only(self):
-        tc = self._tap_code
-        dc = self._default_code
-
-        # always executed on release
-        code = """
-        if(!record->event.pressed){
-            %s
-        }
-        """%tc
-        return dc.replace(self.code_place_holder,code)
 
     @staticmethod
     def is_contain_macro_gui_timer(macro_code):
@@ -154,6 +142,18 @@ class MacroComposer:
             'break;'
             ]
         return '\n'.join(c)
+
+    @staticmethod
+    def generate_simple_tap_macro(code):
+        tc = code
+        # always executed on release
+        code = """
+        if(record->event.pressed){
+            %s
+        }
+        """%tc
+        return code
+
 
 if __name__ == "__main__":
     o = MacroComposer()

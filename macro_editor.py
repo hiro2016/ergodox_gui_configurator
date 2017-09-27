@@ -35,7 +35,7 @@ class MacroEditor(GUIBase):
         L = QLabel("Create a simple macro that sends \n"
                    "your keystrokes" )
         hl.addWidget(L)
-        self.recorder_button = b = QPushButton(
+        self.single_tap_only_macro_button = b = QPushButton(
             QIcon(),"Record your keystrokes as macro")
         hl.addWidget(b)
         tl.addLayout(hl)
@@ -108,7 +108,8 @@ class MacroEditor(GUIBase):
 
 
     def __init_listeners(self):
-        self.recorder_button.clicked.connect(self.show_macro_recorder_gui)
+        self.single_tap_only_macro_button.clicked.connect(
+            self.show_single_tap_only_macro_recorder_gui)
         self.create_dfm_button.clicked.connect(self.show_dfm_generator_wizard)
 
         self.create_combo_emitter_button.clicked.connect(
@@ -140,16 +141,14 @@ class MacroEditor(GUIBase):
         self.code = d["macro"]
         self.code_view_text_edit.setPlainText(self.code)
 
-    def show_macro_recorder_gui(self):
+    def show_single_tap_only_macro_recorder_gui(self):
         mr = MacroRecorderGUI()
         mr.show()
         mr.exec_()
         d = mr.getData()
-        c = MacroComposer()
-        c.set_tap_code(d["macro"])
-        self.code = c.generate()
+        self.code =MacroComposer.generate_simple_tap_macro(d["macro"])
         if self.code is not None and self.code != "":
-            self.code_view_text_edit.setPlainText(self.code)
+            self.code_view_text_edit.setPlainText(self.code.strip())
 
 
     def getData(self):
