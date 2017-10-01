@@ -1,4 +1,4 @@
-#define CLT_ACCEPTABLE_DELAY 150
+#define CLT_ACCEPTABLE_DELAY 180
 uint16_t clt_layer = 0;
 bool clt_pressed = false;
 uint16_t clt_timer = 0;

@@ -405,6 +405,18 @@ class CentralWidget(QWidget):
         with open(dest, "w") as f:
             f.write(data)
 
+    def move_current_tab_to_layer(self, layer):
+        self.tabs
+        current_index = self.tab_w.currentIndex()
+        current_tab = self.tabs[current_index]
+        swap_target = self.tabs[layer]
+        self.tab_w.removeTab(current_index)
+        self.tab_w.removeTab(layer)
+        self.tab_w.insertTab(layer, current_tab, "layer%s"%layer)
+        self.tab_w.insertTab(current_index, swap_target, 'layer%s'%current_index)
+        self.tabs[current_index] = swap_target
+        self.tabs[layer] = current_tab
+
 
 
 

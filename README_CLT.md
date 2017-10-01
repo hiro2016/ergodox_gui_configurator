@@ -2,42 +2,38 @@
 ##### Pressing two keys together rather than hold shift/layer-key then press another key
 
 
-### Background and what CLT macro function does  
-Inputting an non-latin literal often requires multiple key strokes to input a single 
-literal.  
-Some input systems use multiple keys as OSL keys and make those OSL keys themselves 
-subject to the effect of other OSL keys.  
+### What CLT macro function does  
+Basically same as combo, but done with layer_toggle and macro. 
 
-e.g.  
-
- - press A inputs `あ`
- - press Y then A inputs `や`  
- - press G then Y and then A inputs `ぎゃ` 
- 
-`y` is an OSL key and at the same time its role changes when preceded by another OSL 
-key press.
- 
- 
-Some other systems use constant dedicated OSL keys that have a constant role in all layers.  
-
-e.g. 
-
- - press A inputs `た`
- - press right shift with A inputs `ぬ`  
- 
-   
-Methods involve constant dedicated OSL keys generally accepts OSL key presses to be delayed 
-to some extend meaning:  
-  
-e.g. 
+    Press K key and D key sends D key press in another layer
+    Press D key and K key sends D key press in another layer as the above  
+    # two key presses must occure within 200ms
     
-    press A and then press right shift inputs `ぬ`
-    press right shift and then a inputs `ぬ`
+Code:  
     
-Delaying OSL key press does not change the result.
-
- 
-CLT macro function is written to mimic the above mentioned behaviour.
+        case 6:
+          // macro for K key
+          // CLT emitter
+          clt_layer = 1;//layer to switch to when pressed
+          uint16_t kc = KC_K;//keycode to send when not combo 
+          process_combo_lt(kc, record);
+          break;
+        case 7:
+          // A macro for D key.
+          if(!record->event.pressed){
+            if( (!clt_pressed) ){
+              // excuted when not combo
+                register_code(KC_A);
+                unregister_code(KC_A);
+            }else{
+                // sending a D key tap in layer 1
+                _send_key(clt_layer, record->event.key);
+                clt_pressed = false;
+            }
+          }
+          break;
+      }
+    
   
 
 # How to use  
@@ -46,6 +42,8 @@ Include the following files in your `keymap.c`
     #include "delayed_lt.c"
     #include "delayed_lt_macro_support.c"
     #include "combo_lt.c"
+    
+Insert ` if(!process_action_delayed_lt(keycode,record)) return false;` to your process_record_user.  
     
 And hand code!  
 
@@ -101,54 +99,53 @@ in the same position as the receiver key you have just configured.
   
 Configure it to send a different key sequence; if you have 
 configured the receiver key to register `t@`, then this time maybe 
-configure the key to register `t` alone.  
+configure the key to register `t`.  
   
    
 ### Done  
 Compile, flash and test.  
 When the thumb key and the receiver key is pressed down together, `t` should be sent.   
-When thumb key alone is topped enter should be sent.  
-When receiver key alone is tapped, `t@` should be sent.   
+When the thumb key alone is tapped enter should be sent.  
+When the receiver key alone is tapped, `t@` should be sent.   
 And the order of key presses should not matter.  
 
 
+### A more Advanced example
 
-## Why CLT macro function is a function to be used in macro and not an action code  
-Many non-latin literals are not bound to a single scancode/virtual-keycode
-but to a sequence of scancodes;inputting them requires macro.  
-Since in QMK or in TMK a macro cannot be used with another action code, creating 
-CLT action code for latin alphabets is possible, but doing so for non-latin 
-alphabets is not practical.
+CLT emitter that is also a receiver.
+    
+    if(record->event.pressed){
+        clt_layer = 7;
+    }
+    // When not combo, set one shot layer.
+    if(!process_combo_lt(OSL(7), record)){
+        //Called only when clt_inerrupted is set to true.
+        _send_key(clt_layer, record->event.key);
+    }
+    break;
+    
+    
+CLT emitter that interacts with the above:  
 
+    // CLT emitter that interrupts another CLT emitter  
+    if(clt_pressed){
+        //handle case where another clt key is already pressed down.
+        if(record->event.pressed){
+            clt_interrupted = true;
+            clt_layer2 = clt_layer;
+            // The other CLt key should send a corresponding key in layer9 when up.
+            clt_layer = 9;
+        }
+    }else{
+        if(record->event.pressed) {clt_layer = 9;}
+    }
 
-## A macro code example for people would rather hand code    
-
-        case 6:
-          //Constant dedicated OSL key
-          clt_layer = 1;//layer to switch to when pressed
-          uint16_t kc = KC_SPACE;//keycode to send when tapped alone
-          process_combo_lt(kc, record);
-          break;
-        case 7:
-          // A macro for non-OSL key.
-          // When tapped alone registers A.
-          // When tapped with a key to which M(6) is bound, 
-          // registers either a macro or keycode found in
-          // clt_layer in the same position.
-          if(!record->event.pressed){
-            if( (!clt_pressed) ){
-              //simple tap
-                register_code(KC_A);
-                unregister_code(KC_A);
-            }else{
-                //clt key pressed after this macro key was pressed, 
-                //send keycode in another layer
-                _send_key(clt_layer, record->event.key);
-                clt_pressed = false;
-            }
-          
-          }
-          break;
-      }
+    if(!process_combo_lt(0x2c, record)){
+    //this key is released before another CLT key
+        clt_interrupted = true;
+    }
+    break;
 
 
+CLT was not written with the above behaviour in mind, so the code is a little 
+forced to say the least but works.

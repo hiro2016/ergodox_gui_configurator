@@ -4,7 +4,7 @@ from PyQt5 import QtCore, Qt, QtGui
 from PyQt5.QtCore import QRect, QProcess, QDir
 from PyQt5.QtGui import QFont, QIcon, QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QAction, QHBoxLayout, QSizePolicy, QPushButton, \
-    QToolBar, QPlainTextEdit
+    QToolBar, QPlainTextEdit, QDialog
 
 import central_widget
 from configWidget import *
@@ -83,6 +83,8 @@ class MainWindow(QMainWindow):
         configure = QAction(QIcon(),"Configure", self)
         configure.triggered.connect(self.open_config_window)
 
+        swap_tabs= QAction(QIcon(),"Swap layers", self)
+        swap_tabs.triggered.connect(self.swap_layers)
         # menubar
         # menubar = self.menuBar()
         # menubar.setFont(QFont().setPointSize(12))
@@ -94,6 +96,7 @@ class MainWindow(QMainWindow):
         tb.setFloatable(False)
         tb.addAction(open_file)
         tb.addAction(save_file)
+        tb.addAction(swap_tabs)
         tb.addAction(configure)
         tb.addAction(compile_file)
         tb.addAction(quit_this)
@@ -103,6 +106,38 @@ class MainWindow(QMainWindow):
     def open_config_window(self):
         self.config_widget = w = ConfigWidget()
         w.show()
+
+    def swap_layers(self):
+        d = QDialog()
+        vl =QVBoxLayout()
+        hl = QHBoxLayout()
+        l = QLabel("Move current tab to layer: ")
+        e =QLineEdit()
+        hl.addWidget(l)
+        hl.addWidget(e)
+        vl.addLayout(hl)
+
+        # Buttons
+        hl = QHBoxLayout()
+        b1 = QPushButton('Cancel')
+        b1.clicked.connect(lambda b: d.close())
+        b2 = QPushButton('OK')
+        def ok():
+            d.close()
+            layer = int(e.text())
+            self.centralWidget().move_current_tab_to_layer(layer)
+
+        b2.clicked.connect(ok)
+        hl.addWidget(b1)
+        hl.addWidget(b2)
+        vl.addLayout(hl)
+        d.setLayout(vl)
+
+
+        d.show()
+        d.exec_()
+
+
 
     def generate_keymap_c(self):
         self.w = w= QWidget()
