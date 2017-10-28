@@ -70,10 +70,10 @@ OPT_DEFS += -DBOOTLOADER_SIZE=512
 # Build Options
 #   comment out to disable the options.
 #
-
+TAP_DANCE_ENABLE = no 
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
-CONSOLE_ENABLE= no 
+CONSOLE_ENABLE=yes
 DEBUG_ENABLE=no
 COMMAND_ENABLE = no# Commands for debug and configuration
