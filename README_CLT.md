@@ -43,7 +43,7 @@ Include the following files in your `keymap.c`
     #include "delayed_lt_macro_support.c"
     #include "combo_lt.c"
     
-Insert ` if(!process_action_delayed_lt(keycode,record)) return false;` to your process_record_user.  
+Insert `if(record->event.pressed) last_keypressed=record->event.key;` and ` if(!process_action_delayed_lt(keycode,record)) return false;` to your process_record_user.  
     
 And hand code!  
 
@@ -142,7 +142,7 @@ CLT emitter that interacts with the above:
 
     if(!process_combo_lt(0x2c, record)){
     //this key is released before another CLT key
-        clt_interrupted = true;
+        if(clt_pressed) clt_interrupted = true;
     }
     break;
 

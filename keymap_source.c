@@ -47,6 +47,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(record->event.pressed) last_keypressed = record->event.key;
   if(!process_action_delayed_lt(keycode,record)) return false;
 
   switch (keycode) {
