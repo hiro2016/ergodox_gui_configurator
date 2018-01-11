@@ -515,6 +515,8 @@ bool inline process_action_delayed_lt(uint16_t keycode, keyrecord_t *record){
       //if modifier key is being pressed down, do not start dlt action.
       if(dlt_no_layer_toggle_while_modifier_on && \
            keyboard_report->mods != 0){
+        //for detecting shifts use 
+        //`keyboard_report->mods == 2`//32 for rshift
         register_code(keycode & 0xff);
         //only sigle key press sent unlike in macro. 
         unregister_code(keycode & 0xff);

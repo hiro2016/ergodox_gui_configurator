@@ -4,7 +4,7 @@ from PyQt5 import QtCore, Qt, QtGui
 from PyQt5.QtCore import QRect, QProcess, QDir
 from PyQt5.QtGui import QFont, QIcon, QKeySequence
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QAction, QHBoxLayout, QSizePolicy, QPushButton, \
-    QToolBar, QPlainTextEdit, QDialog
+    QToolBar, QPlainTextEdit, QDialog, QInputDialog, QMessageBox
 
 import central_widget
 from configWidget import *
@@ -85,6 +85,13 @@ class MainWindow(QMainWindow):
 
         swap_tabs= QAction(QIcon(),"Swap layers", self)
         swap_tabs.triggered.connect(self.swap_layers)
+
+
+        import_one_layer= QAction(QIcon(),"import one layer", self)
+        import_one_layer.triggered.connect(self.import_one_layer)
+
+        save_current_layer= QAction(QIcon(),"Save current layer as", self)
+        save_current_layer.triggered.connect(self.save_current_layer_as)
         # menubar
         # menubar = self.menuBar()
         # menubar.setFont(QFont().setPointSize(12))
@@ -98,6 +105,10 @@ class MainWindow(QMainWindow):
         tb.addAction(save_file)
         tb.addAction(swap_tabs)
         tb.addAction(configure)
+
+        tb.addAction(import_one_layer)
+        tb.addAction(save_current_layer)
+
         tb.addAction(compile_file)
         tb.addAction(quit_this)
         self.addToolBar(QtCore.Qt.TopToolBarArea, tb)
@@ -106,6 +117,48 @@ class MainWindow(QMainWindow):
     def open_config_window(self):
         self.config_widget = w = ConfigWidget()
         w.show()
+
+    def save_current_layer_as(self):
+        if self.centralWidget() is None:
+            return
+        w = self.centralWidget()
+        tab_index = w.get_selected_tab_index();
+        path, type = QFileDialog.getSaveFileName(
+            self,
+            "save file as",
+            get_exe_path(),
+            "Ergodox Keymap files (*.ekm)"
+        )
+        if path[-4:] != ".ekm":
+            path += ".ekm"
+        self.centralWidget()\
+            .save_one_keymap_layer(path,tab_index)
+
+    def import_one_layer(self):
+        w = self.centralWidget();
+        if w is None:
+            return
+        path, type = QFileDialog.getOpenFileName(
+            self, "select a file",get_exe_path(),"Ergodox Keymap files (*.ekm)")
+        source_layer=self._get_user_input_int('enter source layer(e.g. 1 etc)')
+        target_layer=self._get_user_input_int('enter target layer(e.g. 1 etc)')
+        if (source_layer< 0) or (target_layer < 0):
+            return
+
+        w.clear_layer_at(target_layer)
+        w.load_one_layer_at(path,source_layer,target_layer)
+
+    def _get_user_input_int(self, message):
+        text, ok = QInputDialog.getText(
+            self, 'input dialog',message)
+        if not ok:
+            return
+        try:
+            index=int(text)
+        except Exception as e:
+            QMessageBox.about(self,"Error","invalid input: "+text)
+            return -1
+        return index
 
     def swap_layers(self):
         d = QDialog()

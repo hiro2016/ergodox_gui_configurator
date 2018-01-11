@@ -42,7 +42,7 @@ class Tab(QWidget):
 
     def __init_keyboard_widgets(self):
         """
-        Creates and add widgets that represent right and left halves of
+        Creates and add widgets that represents right and left halves of
         the keyboard.
 
         add field members:
@@ -353,6 +353,10 @@ class CentralWidget(QWidget):
             self.tab_w.addTab(t, 'layer ' + str(c))
             self.tabs.append(t)
 
+    def get_selected_tab_index(self):
+        return self.tab_w.currentIndex()
+
+
     def setFixedHeight(self, p_int):
         super().setFixedHeight(p_int)
         self.tab_w.setFixedHeight(p_int)
@@ -374,6 +378,19 @@ class CentralWidget(QWidget):
         with open(path,"wb") as f:
             pickle.dump(layers,f)
 
+    def save_one_keymap_layer(self,path,index):
+        layers = [self.tabs[index].get_keymap_data()]
+        with open(path,"wb") as f:
+            pickle.dump(layers,f)
+
+    def clear_layer_at(self,index):
+        t = Tab()
+        self.tabs.pop(index)
+        self.tabs.insert(index,t)
+        self.tab_w.removeTab(index)
+        self.tab_w.insertTab(index,t, 'layer ' + str(index))
+
+
 
     def load_keymap(self, path):
         """
@@ -385,6 +402,13 @@ class CentralWidget(QWidget):
             layers = pickle.load(f)
             for i, l in enumerate(layers):
                 self.tabs[i].set_keymap_data(l)
+
+    def load_one_layer_at(self,path,sorce_layer:int, target_layer:int):
+        with open(path,"rb") as f:
+            layers = pickle.load(f)
+            l = layers[sorce_layer]
+            self.tabs[target_layer].set_keymap_data(l)
+
 
     def load_keymapc_from_and_write_to(self, source, dest)->dict:
         """
