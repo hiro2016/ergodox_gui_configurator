@@ -2,11 +2,10 @@ from collections import defaultdict
 
 class MacroIDPool:
     """
-    Not ideal place but moved from keymap_to_code_transforemer
-    due to dependency issue;python seems not that good at
-    circular dependency
+    This is not an ideal place but moved from keymap_to_code_transforemer
+    due to dependency issue;python does not like circular dependencies.
     """
-    pool = [ n for n in range(10,100)]
+    pool = [ n for n in range(10,128)]
     @staticmethod
     def get_id():
         return MacroIDPool.pool.pop(len(MacroIDPool.pool)-1)
@@ -22,7 +21,7 @@ class MacroIDPool:
         todo come up with a better design.
         :return:
         """
-        MacroIDPool.pool =[ n for n in range(10,100)]
+        MacroIDPool.pool =[ n for n in range(10,128)]
 
 class KeyConfDictParser:
     """
