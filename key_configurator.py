@@ -223,7 +223,7 @@ class KeyConfigurator(GUIBase):
 
         # add macro name as comment to macro code
         if any(k == "macro" for k in d5.keys()):
-            d5[MacroEditor.key_macro] = '//' + macro_name + '\n'+\
+            d5[MacroEditor.key_macro] = '// ' + macro_name + ' \n'+\
                                         d5[MacroEditor.key_macro]
 
         d.update(d2)
