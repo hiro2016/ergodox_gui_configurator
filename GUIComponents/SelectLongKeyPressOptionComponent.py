@@ -9,7 +9,6 @@ class SelectLongKeyPressOptionComponent(QVBoxLayout):
     qmk_options = {
         "None":None,
         "LT": "LT",
-        "DLT": "DLT",
         "Shift(SFT_T)":"SFT_T",
         "Control(CTL_T)":"CTL_T",
         "Alt":"ALT_T"

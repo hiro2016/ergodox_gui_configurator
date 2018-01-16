@@ -430,14 +430,17 @@ class CentralWidget(QWidget):
             f.write(data)
 
     def move_current_tab_to_layer(self, layer):
-        self.tabs
+        print(self.tab_w.count())
         current_index = self.tab_w.currentIndex()
         current_tab = self.tabs[current_index]
         swap_target = self.tabs[layer]
+
         self.tab_w.removeTab(current_index)
-        self.tab_w.removeTab(layer)
-        self.tab_w.insertTab(layer, current_tab, "layer%s"%layer)
+        # InsertTab moves tab when the tab object already is in the widget.
+        # Calling removeTab again results in one less tab.
         self.tab_w.insertTab(current_index, swap_target, 'layer%s'%current_index)
+        self.tab_w.insertTab(layer, current_tab, "layer%s"%layer)
+
         self.tabs[current_index] = swap_target
         self.tabs[layer] = current_tab
 

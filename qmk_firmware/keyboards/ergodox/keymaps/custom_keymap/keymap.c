@@ -264,7 +264,27 @@ layer_move(1);
     
 
     case 125:
-        //' "
+        // ; : 
+// ; : 
+if(record->event.pressed){
+
+if(keyboard_report->mods & (2|32)){
+uint8_t temp = keyboard_report->mods;
+unregister_mods(temp);
+register_code(0x34);
+unregister_code(0x34);
+register_mods(temp);
+}else{
+register_code(0x33);
+unregister_code(0x33);
+}
+}
+        break;
+    
+
+    case 124:
+        // ' " 
+//' "
 //' "
 if(record->event.pressed){
 if(keyboard_report->mods & (2|32)){
@@ -277,23 +297,6 @@ register_code(0xe1);
 register_code(0x24);
 unregister_code(0x24);
 unregister_code(0xe1);
-}
-}
-        break;
-    
-
-    case 124:
-        //; :
-if(record->event.pressed){
-if(keyboard_report->mods&(2|32)){
-uint8_t temp = keyboard_report->mods&(2|32);
-unregister_mods(temp);
-register_code(0x34);
-unregister_code(0x34);
-register_mods(temp);
-}else{
-register_code(0x33);
-unregister_code(0x33);
 }
 }
         break;
