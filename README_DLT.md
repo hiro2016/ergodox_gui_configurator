@@ -7,7 +7,7 @@ e.g.
 
         Press A key -> Signal for A key reaches your system
         
-##### Keyboards with layers can send different signals for the same key press
+##### Keyboards with layers can send different signals with the same key 
 e.g.  
 
         Hold a function key and press A key -> Signal for LEFT
@@ -16,7 +16,9 @@ e.g.
 Also  
 
  - There can be multiple function keys or layer keys.  
- - Function keys or layer keys can be like a Caps lock key 
+ - Function keys or layer keys can be like a Caps lock key and stay effective 
+ for multiple key presses. 
+ 
 
 
 ### What is LT  
@@ -24,8 +26,8 @@ LT is a qmk action code.
 It allows you to use a single key for input purpose and as a layer key. 
 
 ##### How does it work?
-LT key looks at how long you are holding the key and decide whether to act as a layer key
- or as a normal key.  
+A key that has LT assigned to it looks at how long you are holding the key 
+down and decides whether to act as a layer key or as a normal key.  
 e.g.  
 
         Hold J key, tap D, Release J -> Signal for ESC
@@ -38,21 +40,20 @@ e.g.
      
         Hold LT(layer6,J) key, D key press, Release J key, Release D key -> Signals for J and D 
         
-No matter how long you were holding J key, premature TL key release send signals 
-in your current layer.
+No matter how long you were holding J key, a premature LT key release sends 
+the key code found in the layer that is currently selected.
 
 #### DLT limitations 
 Unlike LT, DLT evaluates the hold duration at DLT key release time and makes the 
 decision when premature DLT key release occurs.   
-Nevertheless, people hold down some keys longer that 200ms with some fingers 
-while typing a English word.  
   
-Spending 250ms for holding one key and then pressing 
-another key is bearable but not enjoyable. 
-#### Solution and yet another issue
-If some fingers like to hold keys longer than others, then setting tapping term
-for each finger should solve the problem. Since encoding more than two arguments
-in a keycode is not possible, macro must be used.
+Setting the threshold value too low results in a lot of 
+unwanted temporary layer switches.  
+Setting it too high means having to hold DLT key for a very long time.   
+  
+Configuring DLT thresholds is a pain.  
+  
+#### Setting different DLT threshold and others for each key 
 
     case 2:
           if(record->event.pressed){
@@ -60,27 +61,30 @@ in a keycode is not possible, macro must be used.
             //DLT key press & tap threashold
             dlt_threshold = 200;
             
-            //DLT key press & key press threashold
+            //DLT key press & key press threashold(DLT key released before the other)
             dlt_threshold_key_not_up = 200;
             
-            //Key press interval between DLT key and the key before
+            // Key press interval between DLT key and the key before
+            // There is an unconcious waiting time before switching layers.
+            // The variable below is for taking that into consideration.
             dlt_pre_keypress_idling =90;
             
-            //If the interval is less than dlt_pre_keypress_idling, 
-            //your dlt key hold duration is increased by the 
-            //dlt_pre_keypress_idling value.
+            //If the waiting/idling time before DLT key press is less than 
+            //the value defined above(dlt_pre_keypress_idling), 
+            //substract the value below from the actual time the dlt 
+            //key was held down. 
             dlt_hold_decreased_by = 60;
             
-            //If the interval is greater than dlt_pre_keypress_idling, 
-            //you dlt key hold duration is increased by the 
+            //If the waiting time is greater than dlt_pre_keypress_idling, 
+            //add the value below to the actual time the dlt key was held down.
             //dlt_pre_keypress_idling value.
             dlt_hold_increased_by =25;
             
             //Makes DLT not tolerate premature DLT key release for 
-            //Keys pressed with the same hand. 
+            //Keys pressed with the same keyboard half. 
             dlt_restrict_same_hand_dlt_action = true;
             
-            // While shift, ctrl, alt, gui keys are pressed, 
+            // While shift, ctrl, alt, gui keys are held down, 
             //do not switch layer
             dlt_no_layer_toggle_while_modifier_on = true;
             
