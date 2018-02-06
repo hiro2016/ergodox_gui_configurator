@@ -13,6 +13,7 @@ class MacroRecorderGUI(GUIBase):
     available via getData method
     """
     key_macro = 'macro'
+    macro_type = "simple_macro"
     def __init__(self):
         super(MacroRecorderGUI, self).__init__()
         self.__init_gui()

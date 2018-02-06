@@ -149,3 +149,32 @@ CLT emitter that interacts with the above:
 
 CLT was not written with the above behaviour in mind, so the code is a little 
 forced to say the least but works.
+  
+
+******
+## bugs  
+
+### Input sequence reversed due to difference in `register_key` call timing.  
+e.g. `r key down, then w key down, r key up, then w key up`  
+  
+The above should input rw, but when the bug kicks in, it inputs "wr".  
++ Cause  
+register_code is called at key up time for r.  
+register_code is called at key down time for w.  
+  
++ Why is this bug a big deal  
+CLT Emitter is used to temporarily change layer and CLT receptor is a macro that does things at key release time.  
++ Given:  
+A user input of: `R key press, CLT key press, W key press`
+R key bound to CLT receptor marco.  
+W in temporarily toggled on layer calls register_code at key down time.  
+  
+Mess!!  
+
++ Solution  
+Should use a first in first out queue like data structure to handle this.
+At CLT emitter key press time, evaluate whether queued CLT receptor should be handled and if such is the case, filter user's actual CLT Receptor key release.
+  
+
+
+

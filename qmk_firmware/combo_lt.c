@@ -1,4 +1,8 @@
-#define CLT_ACCEPTABLE_DELAY 180 
+#include "input_que.c"
+//#define CLT_ACCEPTABLE_DELAY 60
+#define CLT_ACCEPTABLE_DELAY 30
+#define CLT_DEBUG_PRINT
+
 uint16_t clt_layer = 0;
 bool clt_pressed = false;
 uint16_t clt_timer = 0;
@@ -42,15 +46,33 @@ void clt_send_key(uint16_t keycode){
         /*[>register_code16 did not work<]*/
         /*[>register_code16(keycode);<]*/
         /*[>unregister_code16(keycode);<]*/
-        print("os\n");
+#ifdef CLT_DEBUG_PRINT
+        print("clt_send_key called(onesht_layer)\n");
+#endif
         action_t action;
         action.code = ACTION_LAYER_ONESHOT(keycode);
         /*//order matters*/
         layer_on(action.layer_tap.val);
         set_oneshot_layer(action.layer_tap.val,ONESHOT_START);
         clear_oneshot_layer_state(ONESHOT_PRESSED);//key up
-      }else{
-        print("rc\n");
+      } else if(QK_MACRO <= keycode && keycode <QK_MACRO_MAX){
+#ifdef CLT_DEBUG_PRINT
+        print("clt_send_key(macro) called(not oneshot)\n");
+#endif
+        keyrecord_t record;
+        action_t action;
+        action.code = keycode;
+        record.event.key = (keypos_t){128,128};//passing a random number set
+        record.event.pressed = true;
+        record.event.time = timer_read();
+        action_get_macro(&record,action.func.id, action.func.id);
+        record.event.pressed = false;
+        action_get_macro(&record,action.func.id, action.func.id);
+      } else{
+#ifdef CLT_DEBUG_PRINT
+        print("clt_send_key(usage id) called(not oneshot)\n");
+#endif
+
         register_code(keycode & 0xff);
         unregister_code(keycode & 0xff);
         clear_keyboard();
@@ -58,9 +80,9 @@ void clt_send_key(uint16_t keycode){
 }
 
 int clt_get_state(keyrecord_t *record){
-  print_val_dec(last_keypressed);
-  print_val_dec(record->event.key);
-  print_val_dec(clt_interrupted);
+  /*print_val_dec(last_keypressed);*/
+  /*print_val_dec(record->event.key);*/
+  /*print_val_dec(clt_interrupted);*/
     if(clt_interrupted){
       return CLT_EMITTER_INTERRUPTED;
     }else if(LAST_TWO_KEYPRESSES_OCCURED_WITHIN_INTERVAL
@@ -75,14 +97,63 @@ int clt_get_state(keyrecord_t *record){
       //by the receptor key release event, so do nothing.
       return CLT_EMITTER_TAP_DELAYED;
     }else if(IS_KEYPOS_SAME(last_keypressed, record->event.key)) {
-      // laste recorded keypress and this key release are for the same key.
+      // last recorded keypress and this key release are for the same key.
       // No key pressed while this clt emitter key down 
       // or immidiately before the key down 
       return CLT_EMITTER_ALONE_TAPPED;
     }
+  //Emitter key is pressed first to change layer.
   return CLT_EMITTER_TAP_BEFORE_RECEPTOR;
 }
         
+
+
+void clt_send_keycode_in_que_up_to(uint16_t id){
+  //do nothing if the input has already been handled/registered.
+  if(!is_in_input_que(id)) return;
+
+  for(uint8_t count = 4; count>0;--count){
+    quantum_state_input v = shift_input();
+    // macro id 0 is assumed not used.
+    // In this context, 0 denotes nothing.
+    if(v.id == 0) continue; 
+    if(v.id == id){
+      if(timer_elapsed(v.time)>CLT_ACCEPTABLE_DELAY){
+        print("at clt_send_keycode_in_que_up_to, state: clt layer on\n");
+        clt_send_key(v.default_keycode);
+      }else{
+        clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
+        print("at clt_send_keycode_in_que_up_to, state: clt layer off/n");
+      }
+      return;
+    }
+    clt_send_key(v.default_keycode);
+  }
+}
+void clt_send_keycode_in_que(uint16_t time){
+
+  // start handling from oldest
+  for(uint8_t count = 4; count>0;--count){
+    quantum_state_input v = shift_input();
+    print_val_dec(v.id);
+    if(v.id == 0) continue;
+    //last input
+    if(count == 1){
+      bool use_default = timer_elapsed(v.time)>CLT_ACCEPTABLE_DELAY;
+      if(use_default){
+        print("sending default key code");
+        clt_send_key(v.default_keycode);
+      }else{
+        print("sending toggled layer key code");
+        clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
+      }
+      return;
+    }
+    //other than the last
+    clt_send_key(v.default_keycode);
+  }
+}
+
 
 // action key cannot be used to in combination with macro
 /*uint16_t prv_key_down_time = 0;*/
@@ -99,7 +170,7 @@ int clt_get_state(keyrecord_t *record){
 /*
  * combo key press patters.
 *  main combo key ----
-*  combo partner macro key press ++++
+*  combo receptor macro key press ++++
 * Cases to consider:
 *
 *     1. 
@@ -124,21 +195,26 @@ int clt_get_state(keyrecord_t *record){
 * from macro is a bit of trouble, giving up making this 
 * an action code.
 *
-* combo partner macro has to do:
+* combo receptor macro has to do:
 *   1. register_code or call another macro
 *
-* For cases 2 and 3, partner macro should check 
-* clt_pressed and clt_timer and decide and do 
-* things; partner macro is also responsible to set ctl_pressed
+* For cases 2 and 3, receptor macro should check 
+* clt_pressed and clt_timer and do 
+* things; receptor macro should take care of setting ctl_pressed
 * to false.
  *
- * for case 1 and 4, normal layer switching takes care of everything
+ * With case 1 and 4, normal layer switching takes care of everything
  * save whether or not send CLT single tap keycode. The decision is
  * made based on whether another key was pressed after CLT key press.
  * */
 bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
 
   if(record->event.pressed){
+    //send everything in the que
+#ifdef CLT_DEBUG_PRINT
+    print("clt key: event.pressed is true\n");
+#endif
+    clt_send_keycode_in_que(timer_read());
     layer_on(clt_layer);
     clt_pressed = true;
     clt_timer = pre_dlt_idling_time;
@@ -147,7 +223,10 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
   layer_off(clt_layer);
   switch(clt_get_state(record)){
     case CLT_EMITTER_INTERRUPTED:
-      print("clt_i\n");
+
+#ifdef CLT_DEBUG_PRINT
+      print("clt_emitter_interrupted\n");
+#endif
       // if CLT emitter that is to be interrupted 
       // has been released, this should not be called.
       // If CLT emitter interruptor get return value false
@@ -166,10 +245,15 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
       //case 2 and 3. if macro key is already up, then clt_pressed 
       //is already set to false. Otherwise it will be set to false, 
       //by the macro key release event, so do nothing.
-      print("sm");
+
+#ifdef CLT_DEBUG_PRINT
+      print("clt_emitter_tap_delayed clt emitter key is pressed after receptor.\n");
+#endif
       return true;
     case CLT_EMITTER_ALONE_TAPPED:
-      print("clt==p");
+#ifdef CLT_DEBUG_PRINT
+      print("CLT key alone is tapped\n");
+#endif
       // No key pressed while the key down 
       // or immidiately before the key down 
       // Below is not gonna work, caller is macro
@@ -181,13 +265,32 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
       clt_pressed = false;
       return true;
     case CLT_EMITTER_TAP_BEFORE_RECEPTOR:
-      print("4");
+#ifdef CLT_DEBUG_PRINT
+      print("CLT key is pressed and then receptor key \
+is pressed before clt key up.\n");
+#endif
       clt_pressed = false;
       return true;
     default:
+#ifdef CLT_DEBUG_PRINT
       print("should never be called");
+#endif
+      break;
   }
   return true;
+}
+
+void process_combo_lt_receptor(keyrecord_t *record,uint16_t id, uint16_t keycode ){
+  // id is a macro id;ranges from 0 to 255.
+  // should reserve 255, 254 for normal input and functions.
+  if(record->event.pressed){
+    //id, default keycode, keypos, keypressed time
+    enque_input(id, keycode ,record->event.key, timer_read());
+  }
+  if(!record->event.pressed){
+      //id, whether to send default keycode
+      clt_send_keycode_in_que_up_to(id);
+  }
 }
 
 

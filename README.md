@@ -169,3 +169,49 @@ incomplete; in type-to-configure-mode pressing some keys
 may crash the script.  
 The code is ugly beyond words.  
 
+### Update note  
+***
++ Decided to split CLT receptor code output into to macro codes:
+    e.g.  
+    
+        //macro 1
+        case 1:  
+            ...
+            //calls macro 2
+            break;
+        case 2:
+            ...
+            break;
+            
+    This new approach makes generated code a little more readable. 
+    And makes GUIConfigurator a lot more unreadable.  
+    My original configurator design assumed:
+     1. each macro generator does not reference it's own id  
+     2. each macro gets macro id at compile time and not when key configuration is done.
+     3. each configuratior's macro generation script generates only one macro.  
+     
+    All the three no longer hold.  
+    And now given that dict is a dictionary object containing a set of 
+    configuration values for a single keyboard key:  
+    + `dict[key_macro]` 
+    Returns dict  
+    +  `dict[key_macro][key_macro_ids]`  
+    Returns ids used by the key configurator;now up to two ids are 
+    used but only the first is referenced from KEYMAP macro.  
+    + `dict[MacroEdior.key_macro][key_macro_code]`  
+    Returns the code to be inserted into `action_get_macro` for a single macro call.
+    + `dict[MacroEdior.key_macro][key_macro_type]`  
+    Returns which macro generation script was used to generate the macro.  
+      
+      
+## Todo  
+Using an unique dictionary object to hold a configuration value set 
+for each key is cool but getting and setting is a lot of work.   
+Ensure:
+ 1. Using KeyDictParser to get values.
+ 2. Write a dictionary generator to make sure dict objects are initialized properly.  
+ 3. Introduce dict_key.py file to have all dict keys in one place.
+    
+    
+    
+     

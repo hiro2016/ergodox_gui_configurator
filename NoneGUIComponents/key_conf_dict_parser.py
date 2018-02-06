@@ -1,30 +1,18 @@
 from collections import defaultdict
 
-class MacroIDPool:
-    """
-    This is not an ideal place but moved from keymap_to_code_transforemer
-    due to dependency issue;python does not like circular dependencies.
-    """
-    pool = [ n for n in range(10,128)]
-    @staticmethod
-    def get_id():
-        return MacroIDPool.pool.pop(len(MacroIDPool.pool)-1)
+from NoneGUIComponents.macro_id_pool import MacroIDPool
+from NoneGUIComponents.dict_keys import *
 
-    @staticmethod
-    def reset():
-        """
-        Not a good design but when Keymap object
-        attempt to generate KEYMAP and macro code
-        more than once, this method needs to be called.
-        So ids no that are no longer used become available.
-
-        todo come up with a better design.
-        :return:
-        """
-        MacroIDPool.pool =[ n for n in range(10,128)]
 
 class KeyConfDictParser:
     """
+    ***!!!WARNING!!!**
+    Currently fetches macro id from MacroIDPool if given dict contains a macro
+    and if it does not have an id assigned yet.
+    If you are just using this class to peek what's inside of a dict, you must
+    release the id.
+    *******
+
     An individual key's configuration is
     stored in dict object;this is to
     make pickling easier.
@@ -55,8 +43,20 @@ class KeyConfDictParser:
         self.modifier_mask = d["modifier_mask"]
         self.modifier_mask2 = d["modifier_mask2"]
         self.keyname = d['keyname']
-        self.macro_code = d['macro']
-        self.macro_name = d['macro_name']
+
+        self.macro_code = d[key_macro]
+        # now macro_code should be dict
+        if type(self.macro_code) is dict:
+            t = self.macro_code
+            self.macro_ids = t[key_macro_ids]
+            self.macro_name = t[key_macro_name]
+            self.macro_type = t[key_macro_type]
+            self.macro_code = t[key_macro_code]
+        else:
+            self.macro_ids = []
+            self.macro_name = d[key_macro_name]
+            self.macro_type = ""
+
 
         for atr in self.__dict__.keys():
             if getattr(self,atr) is None:
@@ -86,31 +86,26 @@ class KeyConfDictParser:
         #     self.macro_name = ''
         #
         # self.macro_id = None
-        if self.macro_code != "":
-            self.macro_id = MacroIDPool.get_id()
 
     def is_macro(self):
-        if self.macro_code != "":
+        if self.macro_code.strip() != "":
             return True
         return False
 
-    def to_macro_code(self):
-        if self.macro_code == "":
-            raise ValueError(
-                "dict contained Non or null for "
-                "macro has not been provided")
+    def assign_id_if_no_id_bound(self):
+        # to be removed, handle old macro code generation script that
+        # do not assign a macro id.
+        if self.is_macro() and self.macro_type == "" and len(self.macro_ids) == 0:
+            id = MacroIDPool.get_id()
+            self.macro_ids.append(id)
+            case_statement  = "case %s:\n" % (id)
+            self.macro_code = case_statement + self.macro_code + "\n break;"
 
-        code = """
-    case %s:
-        %s
-        break;
-    """% (self.macro_id,self.macro_code.strip())
-        return code
 
     def to_keymap_element(self):
-        if self.macro_code != "":
-            return "M(%d)" % self.macro_id
-
+        if self.is_macro():
+            self.assign_id_if_no_id_bound()
+            return "M(%s)"%(self.macro_ids[0])
         data = self.hid_usage_id
         # TT, TG, RESET, etc
         if self.special_action != "":
@@ -151,6 +146,14 @@ class KeyConfDictParser:
         s += "\n"
         return s
 
+    def get_macro_id_count(self):
+        return len(self.macro_ids)
+
+    def release_macro_ids(self):
+        if len(self.macro_ids) == 0:
+            return
+        MacroIDPool.mark_as_not_in_use(self.macro_ids)
+
 
 if "__main__" == __name__:
     macro = \
@@ -161,10 +164,8 @@ if "__main__" == __name__:
     p = KeyConfDictParser({'macro':macro})
     print(p.is_macro())
     print(p.to_keymap_element())
-    print(p.to_macro_code())
 
 
     p = KeyConfDictParser({'hid_usage_id':"0x10"})
     print(p.is_macro())
     print(p.to_keymap_element())
-    # print(p.to_macro_code())

@@ -7,15 +7,15 @@ from PyQt5.QtWidgets import QVBoxLayout, QApplication, QHBoxLayout, QLabel, QPus
     QComboBox, QWidget, QCheckBox, QTextEdit
 
 from GUIComponents.macro_recorder_gui import MacroRecorderGUI
-from NoneGUIComponents.macro_composer import MacroComposer
+from NoneGUIComponents.dict_keys import *
 
 
-class ComboReceiverMacroGW(GUIBase):
+class ComboReceptorMacroGW(GUIBase):
     """
     """
-    key_macro = 'macro'
+    macro_type = "clt_receptor"
     def __init__(self):
-        super(ComboReceiverMacroGW, self).__init__()
+        super(ComboReceptorMacroGW, self).__init__()
         self.__init_gui()
         self.__init_listener()
         self.generated_macro_code = ''
@@ -67,12 +67,7 @@ class ComboReceiverMacroGW(GUIBase):
         tapped_alone_time_macro = self.tapped_alone_macro_text_edit.toPlainText()
         c = [
             'if(!record->event.pressed){',
-                'if(!clt_pressed){',
                 tapped_alone_time_macro,
-                '}else{',
-                    '_send_key(clt_layer,record->event.key);',
-                    'clt_pressed = false;',
-                '}',
             '}',
             'break;'
         ]
@@ -90,7 +85,7 @@ class ComboReceiverMacroGW(GUIBase):
         s.show()
         s.exec_()
         self.tapped_alone_macro_text_edit.setText(
-            s.getData()[MacroRecorderGUI.key_macro])
+            s.getData()[key_macro])
 
     def save(self):
         self.generated_macro_code = self.generate_code()
@@ -114,14 +109,14 @@ class ComboReceiverMacroGW(GUIBase):
 
     def getData(self):
         return {
-            self.key_macro: self.generated_macro_code,
+            key_macro: self.generated_macro_code,
         }
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    w = ComboReceiverMacroGW()
+    w = ComboReceptorMacroGW()
     w.show()
     r = app.exec_()
     print(w.getData())
-    print(w.getData()[ComboReceiverMacroGW.key_macro])
+    print(w.getData()[key_macro])
     sys.exit(r)

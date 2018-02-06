@@ -143,6 +143,7 @@ class MacroComposer:
             ]
         return '\n'.join(c)
 
+
     @staticmethod
     def generate_simple_tap_macro(code):
         tc = code

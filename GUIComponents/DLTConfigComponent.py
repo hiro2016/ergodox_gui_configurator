@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import  QVBoxLayout, QApplication, QHBoxLayout, QLabel, QPu
     QComboBox, QWidget, QCheckBox
 
 from NoneGUIComponents.macro_composer import MacroComposer
+from NoneGUIComponents.dict_keys import *
 
 
 
@@ -15,8 +16,7 @@ from NoneGUIComponents.macro_composer import MacroComposer
 class DLTConfigComponent(GUIBase):
     """
     """
-    key_macro = 'macro'
-    key_macro_name = 'macro_name'
+    macro_type = 'dlt'
     def __init__(self):
         super(DLTConfigComponent, self).__init__()
         self.__init_gui()
@@ -28,15 +28,6 @@ class DLTConfigComponent(GUIBase):
     def __init_gui(self):
         self.main_v_layout = ml = QVBoxLayout()
 
-        # name
-        hl = QHBoxLayout()
-        l = QLabel("macro name")
-        self._set_width_to_50(l)
-        hl.addWidget(l)
-        self.macro_name = e = QLineEdit()
-        hl.addWidget(e)
-        ml.addLayout(hl)
-        ml.addWidget(self.create_horizontal_separator())
 
         # keycode
         hl = QHBoxLayout()
@@ -246,12 +237,8 @@ class DLTConfigComponent(GUIBase):
             font_size += 1
 
     def getData(self):
-        name = self.macro_name.text()
-        if name is None or name == '':
-            name = 'Undefined'
         return {
-            self.key_macro: self.generated_macro_code,
-            self.key_macro_name: name
+            key_macro: self.generated_macro_code
         }
 
 

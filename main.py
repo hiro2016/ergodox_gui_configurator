@@ -273,12 +273,10 @@ class MainWindow(QMainWindow):
             return
         path, type = QFileDialog.getOpenFileName(
             self, "select a file",get_exe_path(),"Ergodox Keymap files (*.ekm)")
-        print(path)
         self._setContralWidget()
         self.centralWidget().load_keymap(path)
 
     def _generate_keymap_c_file(self):
-        print('_generate_keymap_c called')
         j = os.path.join
         source = j(get_exe_path(), "keymap_source.c")
         out_path = j(get_exe_path(),'keymap.c')
@@ -312,7 +310,6 @@ class MainWindow(QMainWindow):
             while True:
                 p.waitForReadyRead()
                 line = str(bytes(p.readLine()).decode('utf-8'))
-                print(line)
                 console.appendPlainText(line)
                 QApplication.processEvents()
                 if p.atEnd():

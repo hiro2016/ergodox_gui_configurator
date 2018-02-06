@@ -283,7 +283,7 @@ void _send_key(uint32_t layer, keypos_t key ){
     action.code = ACTION_LAYER_ONESHOT(keycode);
     //order matters
     layer_on(action.layer_tap.val);
-    set_oneshot_layer(4,ONESHOT_START);
+    set_oneshot_layer(layer,ONESHOT_START);
     clear_oneshot_layer_state(ONESHOT_PRESSED);//key up
     return;
 

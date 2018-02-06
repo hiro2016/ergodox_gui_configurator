@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QVBoxLayout
+from NoneGUIComponents.dict_keys import *
 
 class SelectSpecialActionComponent(QVBoxLayout):
     # For adding hid usag ids, look at:
@@ -88,14 +89,23 @@ class SelectSpecialActionComponent(QVBoxLayout):
 
     def getData(self) -> dict:
         # prevents key error later
-        data = {'special_action':None,'special_action_param':None}
+        data = {
+            'special_action':None,
+            'special_action_param':None
+        }
         ct = self.special_action_combo_box.currentText()
         if ct is None or str(ct) == "None":
             return data
 
         data["special_action"] = v = self.qmk_options[ct]
+        param = None
         if self.special_actions_param_combo_box.isEnabled():
-            data["special_action_param"] = self.special_actions_param_combo_box.currentText()
+            data["special_action_param"] = param= self.special_actions_param_combo_box.currentText()
+        if (ct is not None) and (str(ct) != "None"):
+            data[key_key_name] = ct
+            if param is not None:
+                data[key_key_name] += "("+param+")"
+
         return data
 
     def onCurrentTextChanged(self, txt):

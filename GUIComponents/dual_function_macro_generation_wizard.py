@@ -17,6 +17,7 @@ class DualFunctionMacroGW(GUIBase):
     available via getData method
     todo macro generation code needs to be separated from gui.
     """
+    macro_type = "dual_function"
     def __init__(self):
         super(DualFunctionMacroGW, self).__init__()
         self.__init_gui()

@@ -12,8 +12,11 @@ from PyQt5.QtGui import QFont, QTextCursor, QFontMetrics, QIcon
 from PyQt5.QtWidgets import QWidget, QDialog, QHBoxLayout, QPlainTextEdit, QSizePolicy, QFileDialog, QVBoxLayout, \
     QLabel, QTextEdit, QApplication, QComboBox, QBoxLayout, QRadioButton, QFrame, QPushButton
 
-from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser, MacroIDPool
+from NoneGUIComponents.key_conf_dict_generator import KeyConfDictGenerator
+from NoneGUIComponents.macro_id_pool import MacroIDPool
 from macro_editor import MacroEditor
+from NoneGUIComponents.dict_keys import *
+
 
 
 class KeyCodeViewer(GUIBase):
@@ -62,17 +65,20 @@ class KeyConfigurator(GUIBase):
     What key should perform that is not managed by this script.
     """
 
-    def __init__(self, previous=None):
+    def __init__(self, previous={}):
         super(KeyConfigurator,self).__init__()
         self.previous_config = {} if previous is None else previous
         self.__init_gui()
-        self.macro_data = {}
+        if previous is None:
+            previous = {}
+
+        if key_macro in previous.keys():
+            self.macro_data = self.previous_config[key_macro]
+        else:
+            self.macro_data = {}
         self.data_to_return_on_getData = None
 
     def __init_gui(self):
-        # todo fix this, calling KeyConfParser fetches ID here needlessly
-        MacroIDPool.reset()
-        p = KeyConfDictParser(self.previous_config)
         self.main_v_layout = QVBoxLayout()
 
         # fetches user input
@@ -85,7 +91,7 @@ class KeyConfigurator(GUIBase):
                              "to configure")
         top_label.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         ihl.addWidget(top_label)
-        rb = QRadioButton()
+        self.first_radio_button = rb = QRadioButton()
         rb.setChecked(True)
 
         ihl.addWidget(rb)
@@ -114,7 +120,7 @@ class KeyConfigurator(GUIBase):
         hl.setSpacing(10)
         # label
         ihl = QHBoxLayout()
-        rb = QRadioButton()
+        self.second_radio_button = rb = QRadioButton()
         top_label = QLabel("Choose from list")
         top_label.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         ihl.addWidget(top_label)
@@ -144,7 +150,7 @@ class KeyConfigurator(GUIBase):
         hl.setSpacing(10)
         # label
         ihl = QHBoxLayout()
-        rb = QRadioButton()
+        self.third_radio_button =rb = QRadioButton()
         rb.toggled.connect(self.third_radio_button_toggled)
         top_label = QLabel("Assign macro")
         top_label.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
@@ -166,25 +172,8 @@ class KeyConfigurator(GUIBase):
         iivl.addLayout(iihl)
 
         iihl = QHBoxLayout() #bottom row of iivl
-        # Let user assign marco key name
-        hl = QHBoxLayout()
-        hl.setSpacing(10)
-        l = QLabel('Name of your macro')
-        hl.addWidget(l)
-        self.macro_name_line_edit = e = QLineEdit()
-        e.setText(p.macro_name)
-        e.setEnabled(False)
-        hl.addWidget(e)
-        iivl.addLayout(iihl)
-        iihl.addLayout(hl)
-        hl.addWidget(self.create_horizontal_separator())
 
-        #DLT configuration button
-        self.open_dlt_config_widget = b = QPushButton(
-            "Set this key as DLT key")
-        b.clicked.connect(self.configure_as_dlt_key)
-        self.addItem(b)
-        hl.addWidget(self.create_horizontal_separator())
+
 
 
 
@@ -199,38 +188,45 @@ class KeyConfigurator(GUIBase):
         hl.addWidget(b)
         self.addItem(hl)
 
-    def configure_as_dlt_key(self):
-        c = DLTConfigComponent()
-        c.show()
-        c.exec_()
-        m = c.getData()
-        if m is not None or m != '':
-            self.macro_data = m
-            self.macro_name_line_edit.setText(m[DLTConfigComponent.key_macro_name])
-            self.save()
 
     def save(self):
-        d = self.main_keypress_interceptor.getData()
-        d2 = self.select_long_key_press_option_componont.getData()
-        d3 = self.select_special_action.getData()
-        d4 = self.select_modifier_mask_component.getData()
-        d5 = self.macro_data
-        macro_name = self.macro_name_line_edit.text()
-        if macro_name:
-            d5['macro_name'] = macro_name
+        # three types of outputs:
+        # 1. macro
+        # 2. usage id guessed from user input
+        # 3. usage id chosen by user via drop down menu.
+        g = KeyConfDictGenerator()
+
+        # usage id guessed from user input
+        if self.first_radio_button.isChecked():
+            g.main_keypress_interceptor = \
+                self.main_keypress_interceptor.getData()
+            g.select_modifier_mask_component = \
+                self.select_modifier_mask_component.getData()
+
+        # usage id chosen by user via drop down menu.
+        if self.second_radio_button.isChecked():
+            g.select_special_action = \
+                self.select_special_action.getData()
+
+        # For when key is configured either via user input or via dropdown menu.
+        if self.first_radio_button.isChecked() \
+                or self.second_radio_button.isChecked():
+            g.select_long_key_press_option_component =  \
+                self.select_long_key_press_option_componont.getData()
+
+        # macro
+        if self.third_radio_button.isChecked():
+            g.set_macro_dict(self.macro_data)
         else:
-            d5['macro_name'] = 'undefined'
+            # release macro ids
+            p = KeyConfDictParser(self.previous_config)
+            if p.get_macro_id_count() > 0:
+                for id in p.macro_ids:
+                    MacroIDPool.mark_as_not_in_use(id)
 
-        # add macro name as comment to macro code
-        if any(k == "macro" for k in d5.keys()):
-            d5[MacroEditor.key_macro] = '// ' + macro_name + ' \n'+\
-                                        d5[MacroEditor.key_macro]
 
-        d.update(d2)
-        d.update(d3)
-        d.update(d4)
-        d.update(d5)
-        self.data_to_return_on_getData = d
+
+        self.data_to_return_on_getData = g.to_dict()
         self.close()
 
     def cancel(self):
@@ -254,19 +250,9 @@ class KeyConfigurator(GUIBase):
         self.select_special_action.setEnabled(not state)
         self.select_long_key_press_option_componont.setEnabled(not state)
         self.assign_macro_button.setEnabled(state)
-        self.macro_name_line_edit.setEnabled(state)
 
     def start_macro_wizard(self):
-        macro = None
-        if self.macro_data is not None and self.macro_data != "":
-            for k in self.macro_data.keys():
-                macro = self.macro_data[k]
-
-        if macro is not None and macro != "":
-            e = MacroEditor(self.macro_data[MacroEditor.key_macro])
-        else:
-            p = KeyConfDictParser(self.previous_config)
-            e = MacroEditor(p.macro_code)
+        e = MacroEditor(self.previous_config)
         e.show()
         e.exec_()
         self.macro_data = e.getData()

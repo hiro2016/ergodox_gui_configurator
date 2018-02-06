@@ -3,13 +3,11 @@ from threading import Timer
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QObject, pyqtSignal
-from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QTextEdit, QLabel, QSizePolicy, QLineEdit, QApplication, QWidget
 import sys
 
-from GUIComponents.GUIBase import GUIBase
 from NoneGUIComponents import keypress_observer
-from PyQt5.QtGui import QFont, QTextCursor, QFontMetrics, QIcon
+from NoneGUIComponents.dict_keys import *
 
 from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
 
@@ -227,15 +225,20 @@ class KeyPressInterceptorComponent(QVBoxLayout, QObject):
 
     def getData(self) -> dict:
         data = {
-            "hid_usage_id":self.hid_usage_id_display.text(),
-            "keyname":self.key_name.text()
+            key_hid_usage_id :self.hid_usage_id_display.text(),
+            key_key_name:self.key_name.text()
         }
         return data
 
     def setEnabled(self,state):
         self.key_name.setEnabled(state)
         self.literal_input_te.setEnabled(state)
-        if state: self.setFocus()
+        if state:
+            self.setFocus()
+            self.connect_keypress_observer()
+        else:
+            self.disconnect_keypress_observer()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

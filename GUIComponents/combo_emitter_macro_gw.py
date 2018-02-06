@@ -14,6 +14,7 @@ from NoneGUIComponents.macro_composer import MacroComposer
 
 class ComboEmitterMacroGW(GUIBase):
     key_macro = 'macro'
+    macro_type = "clt_emitter"
     def __init__(self):
         super(ComboEmitterMacroGW, self).__init__()
         self.__init_gui()

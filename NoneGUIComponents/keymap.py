@@ -1,3 +1,4 @@
+from NoneGUIComponents.key_conf_dict_parser import KeyConfDictParser
 class Keymap:
     """
     Data container.
@@ -47,6 +48,50 @@ class Keymap:
         else:
             self.right_hand_keymap[row][col] = data
 
+    def update_key_data(self, old_data, new_data):
+        """
+        Find key to update by providing old key configuration.
+        :param old_data:
+        :param new_data:
+        :return:
+        """
+        if old_data is None:
+            return
+        if new_data is None:
+            return
+        for r, row in enumerate(self.left_hand_keymap):
+            for c,item in enumerate(row):
+                if item is not None:
+                    if set(old_data)==set(item):
+                        self.left_hand_keymap[r][c] = new_data
+        for r, row in enumerate(self.right_hand_keymap):
+            for c,item in enumerate(row):
+                if item is not None:
+                    if set(old_data)==set(item):
+                        self.right_hand_keymap[r][c] = new_data
+
+
+    def get_all_keys_data(self):
+        r = []
+        for row in self.left_hand_keymap:
+            for e in row:
+                r.append(e)
+        for row in self.right_hand_keymap:
+            for e in row:
+                r.append(e)
+        return r
+
+    def get_all_macro_ids_in_use(self):
+        ids = []
+        for d in self.get_all_keys_data:
+            if d is None:
+                continue
+            p = KeyConfDictParser(d)
+            for id in p.ids:
+                ids.append(id)
+        return ids
+
+
     def get_key(self, hand: "0 for left, 1 for right", row: int, col: int):
         if hand == 0:
             return self.left_hand_keymap[row][col]
@@ -63,6 +108,15 @@ class Keymap:
         """
         :data: what is returned by get_data is
         passed to here when un-pickled.
+
+        The outer layer of pickled data structure represents layers, so:
+
+            keymaps = []
+            with open("file.emk","rb") as f:
+                layers = pickle.load(f)
+                for l in layers:
+                    keymaps.append(Keymap(l))
+
         :return:
         """
         self.right_hand_keymap = data[0]

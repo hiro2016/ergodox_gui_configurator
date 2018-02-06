@@ -16,22 +16,68 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//keymap_place_holder
+[0] = KEYMAP(  
+ RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,M(126),KC_TRNS,M(125),KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,
+KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,
+ 
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,M(127),KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,
+KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS ),
+[1] = KEYMAP(  
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,0x12,KC_TRNS,KC_T,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,
+KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,
+ 
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,
+KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
+    //[1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
+uint16_t timer_t;
+uint16_t timer_comma;
 
-
-//field_member_place_holder
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  // MACRODOWN only works in this function
-      switch(id) {
-        //macro_place_holder
-      }
+  switch(id) {
+    case 127:
+        // a 
+        clt_layer = 1;
+        process_combo_lt(0x04, record);
+        break;
+    case 126:
+      // , 
+      process_combo_lt_receptor(record,126,0x36);
+      break;
+    case 125:
+      // p 
+      process_combo_lt_receptor(record,125,KC_P);
+      break;
+    }
     return MACRO_NONE;
 };
 
