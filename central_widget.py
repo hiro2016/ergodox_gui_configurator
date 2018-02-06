@@ -87,7 +87,7 @@ class Tab(QWidget):
         return self.keymap.get_data()
 
     @staticmethod
-    def _insert_new_line_to_label(button_label):
+    def _line_break_label(button_label):
         """
         :param button_label:
         :return:
@@ -117,7 +117,7 @@ class Tab(QWidget):
                 t = t.replace(p.hid_usage_id,p.keyname)
             else:
                 t = p.keyname
-            t = self._insert_new_line_to_label(t)
+            t = self._line_break_label(t)
             b.setText(t)
             return
 
