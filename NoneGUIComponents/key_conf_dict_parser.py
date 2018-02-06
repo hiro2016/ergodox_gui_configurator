@@ -42,7 +42,7 @@ class KeyConfDictParser:
         self.special_action = d["special_action"]
         self.modifier_mask = d["modifier_mask"]
         self.modifier_mask2 = d["modifier_mask2"]
-        self.keyname = d['keyname']
+        self.keyname = d[key_key_name]
 
         self.macro_code = d[key_macro]
         # now macro_code should be dict
@@ -107,6 +107,7 @@ class KeyConfDictParser:
             self.assign_id_if_no_id_bound()
             return "M(%s)"%(self.macro_ids[0])
         data = self.hid_usage_id
+
         # TT, TG, RESET, etc
         if self.special_action != "":
             data = self.special_action

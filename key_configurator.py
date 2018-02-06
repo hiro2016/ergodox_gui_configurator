@@ -136,7 +136,7 @@ class KeyConfigurator(GUIBase):
         # separator
         self.addItem(self.create_horizontal_separator())
 
-        # Let users configure what the key should send for a long press
+        # Let the user configure what the key should send for a long press
         hl = QHBoxLayout()
         self.select_long_key_press_option_componont = i = \
             SelectLongKeyPressOptionComponent()
@@ -208,9 +208,8 @@ class KeyConfigurator(GUIBase):
             g.select_special_action = \
                 self.select_special_action.getData()
 
-        # For when key is configured either via user input or via dropdown menu.
-        if self.first_radio_button.isChecked() \
-                or self.second_radio_button.isChecked():
+        # For when key is configured via user input.
+        if self.first_radio_button.isChecked():
             g.select_long_key_press_option_component =  \
                 self.select_long_key_press_option_componont.getData()
 
@@ -236,12 +235,14 @@ class KeyConfigurator(GUIBase):
     def first_radio_button_toggled(self, state):
         self.main_keypress_interceptor.setEnabled(state)
         self.select_modifier_mask_component.setEnabled(state)
+        self.select_long_key_press_option_componont.setEnabled(state)
 
     def second_radio_button_toggled(self,state):
         state = state == True
         self.select_special_action.setEnabled(state)
         self.main_keypress_interceptor.setEnabled(not state)
         self.select_modifier_mask_component.setEnabled(not state)
+        self.select_long_key_press_option_componont.setEnabled(not state)
 
     def third_radio_button_toggled(self,state:bool):
         state = state == True

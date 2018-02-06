@@ -17,9 +17,9 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
- M(252),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,M(253),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,0x04,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
@@ -204,7 +204,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 
 
-uint16_t gui_macro_editor_timer_1517860606_153751 = 0;
+
 
 
 
@@ -219,63 +219,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
       switch(id) {
         
-        case 252:
-            
-            if(record->event.pressed){
-            gui_macro_editor_timer_1517860606_153751 = record->event.time;
-        }else{
-            if(200<timer_elapsed(gui_macro_editor_timer_1517860606_153751)){
-                register_code(0x04);
-
-unregister_code(0x04);
-
-register_code(0x12);
-
-unregister_code(0x12);
-
-            }else{
-                register_code(0x18);
-
-unregister_code(0x18);
-
-register_code(0x08);
-
-unregister_code(0x08);
-
-            }
-        }
-            break
-;
-        
-case 253:
-            
-            if(record->event.pressed){
-            register_code(0x04);
-
-unregister_code(0x04);
-
-register_code(0xe1);
-register_code(0x18);
-
-unregister_code(0x18);
-
-register_code(0x12);
-unregister_code(0xe1);
-
-
-unregister_code(0x12);
-
-register_code(0x18);
-
-unregister_code(0x18);
-
-register_code(0x12);
-
-unregister_code(0x12);
-
-        }
-            break
-;
 
 
 
