@@ -27,31 +27,31 @@ KC_TRNS,
 LT(7, 0x2c),0x4c,0x29,
  
  LSFT(0x2d),RSFT(0x2e),RSFT(0x23),RSFT(0x55),RSFT(0x25),LSFT(0x26),LSFT(0x87),
-0x56,0x1c,0x18,LT(9, 0x0c),0x12,0x13,M(127),
-0x0b,0x0d,0x0e,0x0f,M(126),M(125),
+0x56,0x1c,0x18,LT(9, 0x0c),0x12,0x13,M(190),
+0x0b,0x0d,0x0e,0x0f,M(189),M(188),
 TO(7),0x11,0x10,0x36,0x37,CTL_T(0x38),0xe5,
 TO(0),0x50,0x4f,0x51,0x52,
 0x4b,0x65,
 KC_TRNS,
 0x45,0x2a,LT(7, 0x58) ),
 [1] = KEYMAP(  
- 0x35,M(103),M(102),M(101),M(100),M(99),KC_TRNS,
-0x2b,M(98),M(97),M(96),M(95),M(94),TO(1),
-OSL(3),M(93),M(92),M(91),M(90),M(89),
-OSL(8),M(88),M(87),M(86),M(85),M(84),0x56,
+ 0x35,M(181),M(180),M(179),M(178),M(177),KC_TRNS,
+0x2b,M(253),M(251),M(249),M(247),M(245),TO(1),
+OSL(3),M(215),M(217),M(219),M(221),M(223),
+OSL(8),M(213),M(211),M(209),M(207),M(205),0x56,
 0xe4,0xe3,0xe6,TO(9),TO(3),
 0x48,0x4d,
 KC_TRNS,
-M(83),0x4c,0x29,
+M(176),0x4c,0x29,
  
- 0x56,M(124),M(123),M(122),M(121),0x56,0x57,
-0x56,M(120),M(119),M(118),M(117),M(116),M(115),
-M(114),M(113),M(112),M(111),M(110),OSL(9),
-TO(8),M(109),M(108),M(107),M(106),M(105),LT(8, 0x89),
+ 0x56,M(187),M(186),M(185),M(184),0x56,0x57,
+0x56,M(243),M(241),M(239),M(237),M(235),M(183),
+M(225),M(227),M(229),M(231),M(233),OSL(9),
+TO(8),M(203),M(201),M(199),M(197),M(195),LT(8, 0x89),
 TO(0),0x50,0x4f,0x51,0x52,
 0x4b,0x58,
 KC_TRNS,
-0x8b,0x2a,M(104) ),
+0x8b,0x2a,M(182) ),
 [2] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -108,8 +108,8 @@ KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [5] = KEYMAP(  
  KC_TRNS,0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
-KC_TRNS,M(69),0x22,0x0f,RSFT(0x24),0x33,KC_TRNS,
-KC_TRNS,RSFT(0x27),0x20,0x18,M(68),0x10,
+KC_TRNS,M(162),0x22,0x0f,RSFT(0x24),0x33,KC_TRNS,
+KC_TRNS,RSFT(0x27),0x20,0x18,M(161),0x10,
 KC_TRNS,RSFT(0x21),LSFT(0x89),0x87,0x24,RSFT(0x08),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
@@ -117,18 +117,18 @@ KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
  KC_TRNS,0x3f,0x40,0x41,0x42,0x43,0x44,
-KC_TRNS,M(82),M(81),M(80),M(79),M(78),KC_TRNS,
-M(77),M(76),M(75),M(74),KC_TRNS,KC_TRNS,
-KC_TRNS,M(73),M(72),M(71),M(70),0x2f,KC_TRNS,
+KC_TRNS,M(175),M(174),M(173),M(172),M(171),KC_TRNS,
+M(170),M(169),M(168),M(167),KC_TRNS,KC_TRNS,
+KC_TRNS,M(166),M(165),M(164),M(163),0x2f,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x45,KC_TRNS,KC_TRNS ),
 [6] = KEYMAP(  
  KC_TRNS,0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
-KC_TRNS,0x30,M(66),M(65),M(64),M(63),KC_TRNS,
-KC_TRNS,M(62),M(61),M(60),M(59),M(58),
-KC_TRNS,KC_TRNS,M(57),M(56),M(55),M(54),KC_TRNS,
+KC_TRNS,0x30,M(159),M(158),M(157),M(156),KC_TRNS,
+KC_TRNS,M(155),M(154),M(153),M(152),M(151),
+KC_TRNS,KC_TRNS,M(150),M(149),M(148),M(147),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -137,7 +137,7 @@ KC_TRNS,KC_TRNS,KC_TRNS,
  KC_TRNS,0x3f,0x40,0x41,0x42,0x43,0x44,
 KC_TRNS,0x26,0x0c,0x37,0x0d,RSFT(0x22),KC_TRNS,
 0x11,0x23,0x0e,RSFT(0x26),RSFT(0x1d),KC_TRNS,
-KC_TRNS,0x1e,0x25,0x31,0x27,M(67),KC_TRNS,
+KC_TRNS,0x1e,0x25,0x31,0x27,M(160),KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -162,18 +162,18 @@ KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
 [8] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-0x2b,M(39),M(38),0x57,M(37),M(36),TO(1),
-M(35),M(34),M(33),M(32),M(31),M(30),
-OSL(8),M(29),M(28),0x56,M(27),M(26),KC_TRNS,
+0x2b,M(133),M(132),0x57,M(131),M(130),TO(1),
+M(129),M(128),M(127),M(126),M(125),M(124),
+OSL(8),M(123),M(122),0x56,M(121),M(120),KC_TRNS,
 0xe4,0xe3,0xe6,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
- KC_TRNS,KC_TRNS,KC_TRNS,M(53),M(52),KC_TRNS,KC_TRNS,
-KC_TRNS,M(51),M(50),LSFT(0x30),LSFT(0x31),M(49),KC_TRNS,
-M(48),0x55,M(47),M(46),0x54,M(45),
-TO(8),M(44),M(43),M(42),M(41),M(40),OSL(8),
+ KC_TRNS,KC_TRNS,KC_TRNS,M(146),M(145),KC_TRNS,KC_TRNS,
+KC_TRNS,M(144),M(143),LSFT(0x30),LSFT(0x31),M(142),KC_TRNS,
+M(191),0x55,M(141),M(140),M(193),M(139),
+TO(8),M(138),M(137),M(136),M(135),M(134),OSL(8),
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -218,19 +218,8 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
       switch(id) {
-//        case 0:
-//        if (record->event.pressed) {
-//          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-//        }
-//        break;
-//        case 1:
-//        if (record->event.pressed) { // For resetting EEPROM
-//          eeconfig_init();
-//        }
-//        break;
-        
-    case 127:
-        //\ |
+        case 190:
+//\ |
 //\ |
 
 if(record->event.pressed){
@@ -244,11 +233,9 @@ register_code(0x87);
 unregister_code(0x87);
 }
 }
-        break;
-    
-
-    case 126:
-        //; :
+ break;
+case 189:
+//; :
 
 if(record->event.pressed){
 print_val_dec(keyboard_report->mods);
@@ -264,11 +251,9 @@ register_code(0x33);
 unregister_code(0x33);
 }
 }
-        break;
-    
-
-    case 125:
-        //' "
+ break;
+case 188:
+//' "
 //' "
 if(record->event.pressed){
 //print_val_dec(keyboard_report->mods);
@@ -283,11 +268,9 @@ clear_keyboard();
 unregister_mods(2);
 }
 }
-        break;
-    
-
-    case 124:
-        //[
+ break;
+case 187:
+//[
 if(record->event.pressed){
             register_code(0x39);
 
@@ -302,11 +285,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 123:
-        //]
+ break;
+case 186:
+//]
 if(record->event.pressed){
             register_code(0x39);
 
@@ -321,11 +302,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 122:
-        //(
+ break;
+case 185:
+//(
 if(record->event.pressed){
             register_code(0x39);
 
@@ -343,11 +322,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 121:
-        //)
+ break;
+case 184:
+//)
 if(record->event.pressed){
             register_code(0x39);
 
@@ -365,81 +342,59 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
+ break;
+// ら
 
-    case 120:
-        //ら
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 242:
+ if(!record->event.pressed){
 register_code(0x12);
 
 unregister_code(0x12);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 243:
+ process_combo_lt_receptor(record,243,M(242)); break;
+// ち
 
-    case 119:
-        //ち
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 240:
+ if(!record->event.pressed){
 register_code(0x04);
 
 unregister_code(0x04);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 241:
+ process_combo_lt_receptor(record,241,M(240)); break;
+// く
 
-    case 118:
-        //く
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 238:
+ if(!record->event.pressed){
 register_code(0x0b);
 
 unregister_code(0x0b);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 239:
+ process_combo_lt_receptor(record,239,M(238)); break;
+// つ
 
-    case 117:
-        //つ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 236:
+ if(!record->event.pressed){
 register_code(0x1d);
 
 unregister_code(0x1d);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 237:
+ process_combo_lt_receptor(record,237,M(236)); break;
+// 、
 
-    case 116:
-        //、
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 234:
+ if(!record->event.pressed){
 register_code(0xe1);
 register_code(0x36);
 
@@ -447,17 +402,12 @@ unregister_code(0x36);
 
 unregister_code(0xe1);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
-
-    case 115:
-        //`
+ case 235:
+ process_combo_lt_receptor(record,235,M(234)); break;
+case 183:
+//`
 if(record->event.pressed){
             register_code(0x39);
 
@@ -475,192 +425,138 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
+ break;
+// は
 
-    case 114:
-        //は
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 224:
+ if(!record->event.pressed){
 register_code(0x09);
 
 unregister_code(0x09);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 225:
+ process_combo_lt_receptor(record,225,M(224)); break;
+// と
 
-    case 113:
-        //と
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 226:
+ if(!record->event.pressed){
 register_code(0x16);
 
 unregister_code(0x16);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 227:
+ process_combo_lt_receptor(record,227,M(226)); break;
+// き
 
-    case 112:
-        //き
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 228:
+ if(!record->event.pressed){
 register_code(0x0a);
 
 unregister_code(0x0a);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 229:
+ process_combo_lt_receptor(record,229,M(228)); break;
+// い
 
-    case 111:
-        //い
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 230:
+ if(!record->event.pressed){
 register_code(0x08);
 
 unregister_code(0x08);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 231:
+ process_combo_lt_receptor(record,231,M(230)); break;
+// ん
 
-    case 110:
-        //ん
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 232:
+ if(!record->event.pressed){
 register_code(0x1c);
 
 unregister_code(0x1c);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 233:
+ process_combo_lt_receptor(record,233,M(232)); break;
+// め
 
-    case 109:
-        //め
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 202:
+ if(!record->event.pressed){
 register_code(0x38);
 
 unregister_code(0x38);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 203:
+ process_combo_lt_receptor(record,203,M(202)); break;
+// そ
 
-    case 108:
-        //そ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 200:
+ if(!record->event.pressed){
 register_code(0x06);
 
 unregister_code(0x06);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 201:
+ process_combo_lt_receptor(record,201,M(200)); break;
+// ね
 
-    case 107:
-        //ね
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 198:
+ if(!record->event.pressed){
 register_code(0x36);
 
 unregister_code(0x36);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 199:
+ process_combo_lt_receptor(record,199,M(198)); break;
+// ほ
 
-    case 106:
-        //ほ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 196:
+ if(!record->event.pressed){
 register_code(0x2d);
 
 unregister_code(0x2d);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 197:
+ process_combo_lt_receptor(record,197,M(196)); break;
+// ・
 
-    case 105:
-        //・
-if(!record->event.pressed){
-if(!clt_pressed){
-register_code(0xe5);
+ case 194:
+ if(!record->event.pressed){
+register_code(0xe1);
 register_code(0x38);
 
 unregister_code(0x38);
 
-unregister_code(0xe5);
+unregister_code(0xe1);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
-
-    case 104:
-        //clt(5,ret)
+ case 195:
+ process_combo_lt_receptor(record,195,M(194)); break;
+case 182:
+//clt(5,ret)
 clt_layer = 5;
 process_combo_lt(0x58, record);
 break;
-        break;
-    
-
-    case 103:
-        //?
+ break;
+case 181:
+//?
 if(record->event.pressed){
             register_code(0x39);
 
@@ -678,11 +574,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 102:
-        ///
+ break;
+case 180:
+///
 if(record->event.pressed){
             register_code(0x39);
 
@@ -697,11 +591,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 101:
-        //~
+ break;
+case 179:
+//~
 if(record->event.pressed){
             register_code(0x39);
 
@@ -719,11 +611,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 100:
-        //「
+ break;
+case 178:
+//「
 if(record->event.pressed){
             register_code(0xe1);
 register_code(0x30);
@@ -733,11 +623,9 @@ unregister_code(0x30);
 unregister_code(0xe1);
 
         }
-        break;
-    
-
-    case 99:
-        //」
+ break;
+case 177:
+//」
 if(record->event.pressed){
             register_code(0xe1);
 register_code(0x31);
@@ -747,13 +635,11 @@ unregister_code(0x31);
 unregister_code(0xe1);
 
         }
-        break;
-    
+ break;
+// 。
 
-    case 98:
-        //。
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 252:
+ if(!record->event.pressed){
 register_code(0xe1);
 register_code(0x37);
 
@@ -761,173 +647,122 @@ unregister_code(0x37);
 
 unregister_code(0xe1);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 253:
+ process_combo_lt_receptor(record,253,M(252)); break;
+// か
 
-    case 97:
-        //か
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 250:
+ if(!record->event.pressed){
 register_code(0x17);
 
 unregister_code(0x17);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 251:
+ process_combo_lt_receptor(record,251,M(250)); break;
+// た
 
-    case 96:
-        //た
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 248:
+ if(!record->event.pressed){
 register_code(0x14);
 
 unregister_code(0x14);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 249:
+ process_combo_lt_receptor(record,249,M(248)); break;
+// こ
 
-    case 95:
-        //こ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 246:
+ if(!record->event.pressed){
 register_code(0x05);
 
 unregister_code(0x05);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 247:
+ process_combo_lt_receptor(record,247,M(246)); break;
+// さ
 
-    case 94:
-        //さ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 244:
+ if(!record->event.pressed){
 register_code(0x1b);
 
 unregister_code(0x1b);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 245:
+ process_combo_lt_receptor(record,245,M(244)); break;
+// う
 
-    case 93:
-        //う
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 214:
+ if(!record->event.pressed){
 register_code(0x21);
 
 unregister_code(0x21);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 215:
+ process_combo_lt_receptor(record,215,M(214)); break;
+// し
 
-    case 92:
-        //し
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 216:
+ if(!record->event.pressed){
 register_code(0x07);
 
 unregister_code(0x07);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 217:
+ process_combo_lt_receptor(record,217,M(216)); break;
+// て
 
-    case 91:
-        //て
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 218:
+ if(!record->event.pressed){
 register_code(0x1a);
 
 unregister_code(0x1a);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 219:
+ process_combo_lt_receptor(record,219,M(218)); break;
+// け
 
-    case 90:
-        //け
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 220:
+ if(!record->event.pressed){
 register_code(0x34);
 
 unregister_code(0x34);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 221:
+ process_combo_lt_receptor(record,221,M(220)); break;
+// せ
 
-    case 89:
-        //せ
-//undefined
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 222:
+ if(!record->event.pressed){
 register_code(0x13);
 
 unregister_code(0x13);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 223:
+ process_combo_lt_receptor(record,223,M(222)); break;
+// .
 
-    case 88:
-        //.
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 212:
+ if(!record->event.pressed){
 register_code(0x39);
 
 unregister_code(0x39);
@@ -940,96 +775,69 @@ register_code(0x39);
 
 unregister_code(0x39);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 213:
+ process_combo_lt_receptor(record,213,M(212)); break;
+// ひ
 
-    case 87:
-        //ひ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 210:
+ if(!record->event.pressed){
 register_code(0x19);
 
 unregister_code(0x19);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 211:
+ process_combo_lt_receptor(record,211,M(210)); break;
+// す
 
-    case 86:
-        //す
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 208:
+ if(!record->event.pressed){
 register_code(0x15);
 
 unregister_code(0x15);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 209:
+ process_combo_lt_receptor(record,209,M(208)); break;
+// ふ
 
-    case 85:
-        //ふ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 206:
+ if(!record->event.pressed){
 register_code(0x1f);
 
 unregister_code(0x1f);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
+ case 207:
+ process_combo_lt_receptor(record,207,M(206)); break;
+// へ
 
-    case 84:
-        //へ
-if(!record->event.pressed){
-if(!clt_pressed){
+ case 204:
+ if(!record->event.pressed){
 register_code(0x2e);
 
 unregister_code(0x2e);
 
-}else{
-_send_key(clt_layer,record->event.key);
-clt_pressed = false;
-}
 }
 break;
-        break;
-    
-
-    case 83:
-        //clt(6,space)
+ case 205:
+ process_combo_lt_receptor(record,205,M(204)); break;
+case 176:
+//clt(6,space)
 clt_layer = 6;
 process_combo_lt(0x2c, record);
 break;
-        break;
-    
+ break;
 
 
 
-
-    case 82:
-        //ぱ
+case 175:
+//ぱ
 if(record->event.pressed){
             register_code(0x09);
 
@@ -1040,11 +848,9 @@ register_code(0x30);
 unregister_code(0x30);
 
         }
-        break;
-    
-
-    case 81:
-        //ぢ
+ break;
+case 174:
+//ぢ
 if(record->event.pressed){
             register_code(0x04);
 
@@ -1055,11 +861,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 80:
-        //ぐ
+ break;
+case 173:
+//ぐ
 if(record->event.pressed){
             register_code(0x0b);
 
@@ -1070,11 +874,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 79:
-        //づ
+ break;
+case 172:
+//づ
 if(record->event.pressed){
             register_code(0x1d);
 
@@ -1085,11 +887,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 78:
-        //ぴ
+ break;
+case 171:
+//ぴ
 if(record->event.pressed){
             register_code(0x19);
 
@@ -1100,11 +900,9 @@ register_code(0x30);
 unregister_code(0x30);
 
         }
-        break;
-    
-
-    case 77:
-        //ば
+ break;
+case 170:
+//ば
 if(record->event.pressed){
             register_code(0x09);
 
@@ -1115,11 +913,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 76:
-        //ど
+ break;
+case 169:
+//ど
 if(record->event.pressed){
             register_code(0x16);
 
@@ -1130,11 +926,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 75:
-        //ぎ
+ break;
+case 168:
+//ぎ
 if(record->event.pressed){
             register_code(0x0a);
 
@@ -1145,11 +939,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 74:
-        //ぽ
+ break;
+case 167:
+//ぽ
 if(record->event.pressed){
             register_code(0x2d);
 
@@ -1160,11 +952,9 @@ register_code(0x30);
 unregister_code(0x30);
 
         }
-        break;
-    
-
-    case 73:
-        //ぷ
+ break;
+case 166:
+//ぷ
 if(record->event.pressed){
             register_code(0x1f);
 
@@ -1175,11 +965,9 @@ register_code(0x30);
 unregister_code(0x30);
 
         }
-        break;
-    
-
-    case 72:
-        //ぞ
+ break;
+case 165:
+//ぞ
 if(record->event.pressed){
             register_code(0x06);
 
@@ -1190,11 +978,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 71:
-        //ぺ
+ break;
+case 164:
+//ぺ
 if(record->event.pressed){
             register_code(0x2e);
 
@@ -1205,11 +991,9 @@ register_code(0x30);
 unregister_code(0x30);
 
         }
-        break;
-    
-
-    case 70:
-        //ぼ
+ break;
+case 163:
+//ぼ
 if(record->event.pressed){
             register_code(0x2d);
 
@@ -1220,11 +1004,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 69:
-        //ぁ
+ break;
+case 162:
+//ぁ
 if(record->event.pressed){
             register_code(0xe5);
 register_code(0x20);
@@ -1234,11 +1016,9 @@ unregister_code(0x20);
 unregister_code(0xe5);
 
         }
-        break;
-    
-
-    case 68:
-        //ゅ
+ break;
+case 161:
+//ゅ
 if(record->event.pressed){
             register_code(0xe1);
 register_code(0x25);
@@ -1248,11 +1028,9 @@ unregister_code(0x25);
 unregister_code(0xe1);
 
         }
-        break;
-    
-
-    case 67:
-        //ぉ
+ break;
+case 160:
+//ぉ
 if(record->event.pressed){
             register_code(0xe5);
 register_code(0x23);
@@ -1262,11 +1040,9 @@ unregister_code(0x23);
 unregister_code(0xe5);
 
         }
-        break;
-    
-
-    case 66:
-        //が
+ break;
+case 159:
+//が
 if(record->event.pressed){
             register_code(0x17);
 
@@ -1277,11 +1053,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 65:
-        //だ
+ break;
+case 158:
+//だ
 if(record->event.pressed){
             register_code(0x14);
 
@@ -1292,11 +1066,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 64:
-        //ご
+ break;
+case 157:
+//ご
 if(record->event.pressed){
             register_code(0x05);
 
@@ -1307,11 +1079,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 63:
-        //ざ
+ break;
+case 156:
+//ざ
 if(record->event.pressed){
             register_code(0x1b);
 
@@ -1322,11 +1092,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 62:
-        //ヴ
+ break;
+case 155:
+//ヴ
 if(record->event.pressed){
             register_code(0x21);
 
@@ -1337,11 +1105,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 61:
-        //じ
+ break;
+case 154:
+//じ
 if(record->event.pressed){
             register_code(0x07);
 
@@ -1352,11 +1118,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 60:
-        //で
+ break;
+case 153:
+//で
 if(record->event.pressed){
             register_code(0x1a);
 
@@ -1367,11 +1131,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 59:
-        //げ
+ break;
+case 152:
+//げ
 if(record->event.pressed){
             register_code(0x34);
 
@@ -1382,11 +1144,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 58:
-        //ぜ
+ break;
+case 151:
+//ぜ
 if(record->event.pressed){
             register_code(0x13);
 
@@ -1397,11 +1157,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 57:
-        //び
+ break;
+case 150:
+//び
 if(record->event.pressed){
             register_code(0x19);
 
@@ -1412,11 +1170,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 56:
-        //ず
+ break;
+case 149:
+//ず
 if(record->event.pressed){
             register_code(0x15);
 
@@ -1427,11 +1183,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 55:
-        //ぶ
+ break;
+case 148:
+//ぶ
 if(record->event.pressed){
             register_code(0x1f);
 
@@ -1442,11 +1196,9 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
-
-    case 54:
-        //べ
+ break;
+case 147:
+//べ
 if(record->event.pressed){
             register_code(0x2e);
 
@@ -1457,12 +1209,10 @@ register_code(0x2f);
 unregister_code(0x2f);
 
         }
-        break;
-    
+ break;
 
-
-    case 53:
-        //{
+case 146:
+//{
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1480,11 +1230,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 52:
-        //}
+ break;
+case 145:
+//}
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1502,11 +1250,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 51:
-        //`
+ break;
+case 144:
+//`
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1524,11 +1270,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 50:
-        //#
+ break;
+case 143:
+//#
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1546,11 +1290,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 49:
-        //'
+ break;
+case 142:
+//'
 //'
 if(record->event.pressed){
             register_code(0x39);
@@ -1569,30 +1311,28 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 48:
-        //backslash
-if(record->event.pressed){
+ break;
+// backslash
+case 191:
+            
+            if(record->event.pressed){
             register_code(0x39);
 
 unregister_code(0x39);
 
-register_code(0x38);
+register_code(0x87);
 
-unregister_code(0x38);
+unregister_code(0x87);
 
 register_code(0x39);
 
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 47:
-        //(
+            break
+;
+case 141:
+//(
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1610,11 +1350,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 46:
-        //)
+ break;
+case 140:
+//)
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1632,11 +1370,28 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
+ break;
+// /
+case 193:
+            
+            if(record->event.pressed){
+            register_code(0x39);
 
-    case 45:
-        //"
+unregister_code(0x39);
+
+register_code(0x38);
+
+unregister_code(0x38);
+
+register_code(0x39);
+
+unregister_code(0x39);
+
+        }
+            break
+;
+case 139:
+//"
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1654,11 +1409,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 44:
-        //^
+ break;
+case 138:
+//^
 //^
 if(record->event.pressed){
             register_code(0x39);
@@ -1674,11 +1427,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 43:
-        //$
+ break;
+case 137:
+//$
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1696,11 +1447,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 42:
-        //[
+ break;
+case 136:
+//[
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1715,11 +1464,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 41:
-        //]
+ break;
+case 135:
+//]
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1734,11 +1481,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 40:
-        //.
+ break;
+case 134:
+//.
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1753,22 +1498,18 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 39:
-        //¥
+ break;
+case 133:
+//¥
 if(record->event.pressed){
             register_code(0x89);
 
 unregister_code(0x89);
 
         }
-        break;
-    
-
-    case 38:
-        //<
+ break;
+case 132:
+//<
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1786,11 +1527,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 37:
-        //?
+ break;
+case 131:
+//?
 
 if(record->event.pressed){
             register_code(0x39);
@@ -1809,11 +1548,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 36:
-        //@
+ break;
+case 130:
+//@
 //@
 if(record->event.pressed){
             register_code(0x39);
@@ -1829,11 +1566,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 35:
-        //_
+ break;
+case 129:
+//_
 //_
 //_
 if(record->event.pressed){
@@ -1853,11 +1588,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 34:
-        //%
+ break;
+case 128:
+//%
 //%
 //%
 if(record->event.pressed){
@@ -1877,11 +1610,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 33:
-        //|
+ break;
+case 127:
+//|
 //|
 //|
 if(record->event.pressed){
@@ -1901,11 +1632,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 32:
-        //=
+ break;
+case 126:
+//=
 //=
 //=
 if(record->event.pressed){
@@ -1925,11 +1654,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 31:
-        //!
+ break;
+case 125:
+//!
 //!
 //!
 if(record->event.pressed){
@@ -1949,11 +1676,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 30:
-        //~
+ break;
+case 124:
+//~
 //~
 //~
 if(record->event.pressed){
@@ -1973,11 +1698,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 29:
-        //_
+ break;
+case 123:
+//_
 //_
 //_
 //_
@@ -1998,11 +1721,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 28:
-        //>
+ break;
+case 122:
+//>
 //>
 //>
 if(record->event.pressed){
@@ -2022,11 +1743,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 27:
-        //and
+ break;
+case 121:
+//and
 //and
 //and
 //&
@@ -2048,11 +1767,9 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
-
-    case 26:
-        //:
+ break;
+case 120:
+//:
 //:
 //:
 if(record->event.pressed){
@@ -2069,8 +1786,7 @@ register_code(0x39);
 unregister_code(0x39);
 
         }
-        break;
-    
+ break;
 
       }
     return MACRO_NONE;

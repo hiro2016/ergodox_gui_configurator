@@ -82,9 +82,4 @@ class MacroIDPool:
 
 
 if __name__ == "__main__":
-    import sys
-    logging.basicConfig(
-        level=logging.DEBUG,
-        stream=sys.stdout,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     MacroIDPool.mark_as_in_use([53])

@@ -231,6 +231,7 @@ class KeyConfigurator(GUIBase):
     def cancel(self):
         self.data_to_return_on_getData = self.previous_config
         self.close()
+        self.close()
 
     def first_radio_button_toggled(self, state):
         self.main_keypress_interceptor.setEnabled(state)
