@@ -1,7 +1,8 @@
 #include "input_que.c"
 //#define CLT_ACCEPTABLE_DELAY 60
 #define CLT_ACCEPTABLE_DELAY 30
-#define CLT_DEBUG_PRINT
+//#define CLT_ACCEPTABLE_DELAY 0
+//#define CLT_DEBUG_PRINT
 
 uint16_t clt_layer = 0;
 bool clt_pressed = false;
@@ -118,15 +119,23 @@ void clt_send_keycode_in_que_up_to(uint16_t id){
     // In this context, 0 denotes nothing.
     if(v.id == 0) continue; 
     if(v.id == id){
-      if(timer_elapsed(v.time)>CLT_ACCEPTABLE_DELAY){
-        print("at clt_send_keycode_in_que_up_to, state: clt layer on\n");
-        clt_send_key(v.default_keycode);
-      }else{
+      if(timer_elapsed(v.time)<CLT_ACCEPTABLE_DELAY){
         clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
-        print("at clt_send_keycode_in_que_up_to, state: clt layer off/n");
+#ifdef CLT_DEBUG_PRINT
+        print("at clt_send_keycode_in_que_up_to, state: clt layer switch on\n");
+#endif
+      }else{
+        clt_send_key(v.default_keycode);
+#ifdef CLT_DEBUG_PRINT
+        print("at clt_send_keycode_in_que_up_to, state: clt layer switch off/n");
+#endif
       }
       return;
     }
+
+#ifdef CLT_DEBUG_PRINT
+    print("sending default keycode/n");
+#endif
     clt_send_key(v.default_keycode);
   }
 }
@@ -141,10 +150,14 @@ void clt_send_keycode_in_que(uint16_t time){
     if(count == 1){
       bool use_default = timer_elapsed(v.time)>CLT_ACCEPTABLE_DELAY;
       if(use_default){
+#ifdef CLT_DEBUG_PRINT
         print("sending default key code");
+#endif
         clt_send_key(v.default_keycode);
       }else{
+#ifdef CLT_DEBUG_PRINT
         print("sending toggled layer key code");
+#endif
         clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
       }
       return;
@@ -266,8 +279,8 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
       return true;
     case CLT_EMITTER_TAP_BEFORE_RECEPTOR:
 #ifdef CLT_DEBUG_PRINT
-      print("CLT key is pressed and then receptor key \
-is pressed before clt key up.\n");
+      print("CLT emitter key is pressed and then receptor key \
+is pressed before clt emitter key up.\n");
 #endif
       clt_pressed = false;
       return true;
@@ -286,8 +299,7 @@ void process_combo_lt_receptor(keyrecord_t *record,uint16_t id, uint16_t keycode
   if(record->event.pressed){
     //id, default keycode, keypos, keypressed time
     enque_input(id, keycode ,record->event.key, timer_read());
-  }
-  if(!record->event.pressed){
+  }else{
       //id, whether to send default keycode
       clt_send_keycode_in_que_up_to(id);
   }
