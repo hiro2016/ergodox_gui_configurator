@@ -38,7 +38,7 @@ KC_TRNS,
  M(227),M(226),M(185),M(184),M(183),M(182),M(181),
 0x2b,M(243),M(231),F(1),M(237),M(235),KC_TRNS,
 OSL(2),M(229),M(180),M(179),M(223),M(225),
-OSL(5),M(213),M(215),M(217),M(219),M(221),0x56,
+OSL(5),M(213),M(215),M(217),F(0),M(221),0x56,
 OSL(6),0xe3,0xe6,TG(2),TG(5),
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -200,7 +200,8 @@ KC_TRNS,0x2a,0x58 ),
 
 
 const uint16_t PROGMEM fn_actions[] = {
-[1] = ACTION_FUNCTION_TAP(233)
+[1] = ACTION_FUNCTION_TAP(233),
+[0] = ACTION_FUNCTION_TAP(219),
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -211,9 +212,21 @@ if(record->tap.count>0){
  process_combo_lt_receptor(record,233,M(232)); 
 }else{
   if(record->event.pressed){
-    layer_on(2);
+    layer_on(2);// cursor arrows layer
   }else{
     layer_off(2);
+  }
+ }
+return;
+case 219:
+print_val_dec(record->tap.count);
+if(record->tap.count>0){
+ process_combo_lt_receptor(record,219,M(218)); 
+}else{
+  if(record->event.pressed){
+    layer_on(5);//numpad layer
+  }else{
+    layer_off(5);//numpadlayer
   }
  }
 return;
