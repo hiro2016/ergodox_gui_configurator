@@ -121,8 +121,16 @@ void clt_send_keycode_in_que_up_to(uint16_t id){
     clt_send_key(v.default_keycode);
   }
 }
-void clt_send_keycode_in_que(uint16_t time){
 
+/*
+ * Handles all key press events prior to switching layer so as to
+ * make sure the order of key press dectates the order of key 
+ * inputs rather than the order of key release.
+ *
+ * Returns true if clt receptor key has already been 
+ * pressed within the interval less than CLT_ACCEPTABLE_DELAY.
+ * */
+bool handle_keys_in_que_and_check_clt_action_performed(void){
   // start handling from oldest
   for(uint8_t count = 4; count>0;--count){
     quantum_state_input v = shift_input();
@@ -141,12 +149,13 @@ void clt_send_keycode_in_que(uint16_t time){
         print("sending toggled layer key code");
 #endif
         clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
+        return true;
       }
-      return;
     }
     //other than the last
     clt_send_key(v.default_keycode);
   }
+  return false;
 }
 
 
@@ -209,7 +218,16 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
 #ifdef CLT_DEBUG_PRINT
     print("clt key: event.pressed is true\n");
 #endif
-    clt_send_keycode_in_que(timer_read());
+    // empty all keypress events in qeue and ignore their release events.
+    // If  timer_elapsed(key_press_timestamp_of_qeued_key) < CLT_ACCEPTABLE_DELAY,
+    // send keycode found in clt layer.
+    if(handle_keys_in_que_and_check_clt_action_performed()){
+      // Another key press event found with a timestamp 
+      // sufficiently close to timer_read().
+      //
+      // Prevents sending the keycode; only switches layer.
+      clt_interrupted = true;    
+    }
     layer_on(clt_layer);
     clt_pressed = true;
     clt_timer = pre_dlt_idling_time;
