@@ -7,10 +7,13 @@ Basically same as combo, but done with layer_toggle and macro.
 
     Press K key and D key sends D key press in another layer
     Press D key and K key sends D key press in another layer as the above  
-    # two key presses must occure within 200ms
+    Press D key tap sends D key.
+    Press K key tap sends K key.
+    # two key presses must occure within CLT_ACCEPTABLE_DELAY interval.
     
 Code:  
-    
+
+        
         case 6:
           // macro for K key
           // CLT emitter
@@ -18,18 +21,19 @@ Code:
           uint16_t kc = KC_K;//keycode to send when not combo 
           process_combo_lt(kc, record);
           break;
-        case 7:
-          // A macro for D key.
+        
+        case 193:
+          // If no clt emitter key is pressed  within
+          // CLT_ACCEPTABLE_DELAY interval,
+          // calls M(192) at key release time. 
+          // Otherwise fetches the keycode found at record->event.key 
+          // position in the layer specified by clt_layer and sends it.  
+          process_combo_lt_receptor(record,193,M(192)); 
+          break;
+        case 190:
           if(!record->event.pressed){
-            if( (!clt_pressed) ){
-              // excuted when not combo
-                register_code(KC_A);
-                unregister_code(KC_A);
-            }else{
-                // sending a D key tap in layer 1
-                _send_key(clt_layer, record->event.key);
-                clt_pressed = false;
-            }
+            register_code(KC_A);
+            unregister_code(KC_A);
           }
           break;
       }
@@ -112,7 +116,7 @@ And the order of key presses should not matter.
 
 ### A more Advanced example
 
-CLT emitter that is also a receiver.
+CLT emitter that is also a receptor.
     
     if(record->event.pressed){
         clt_layer = 7;
@@ -154,7 +158,7 @@ forced to say the least but works.
 ******
 ## bugs  
 
-### Input sequence reversed due to difference in `register_key` call timing.  
+### Input sequence reversed due to the difference in `register_key` method call timing.  
 e.g. `r key down, then w key down, r key up, then w key up`  
   
 The above should input rw, but when the bug kicks in, it inputs "wr".  
@@ -163,7 +167,8 @@ register_code is called at key up time for r.
 register_code is called at key down time for w.  
   
 + Why is this bug a big deal  
-CLT Emitter is used to temporarily change layer and CLT receptor is a macro that does things at key release time.  
+CLT Emitter is used to temporarily swap layers and CLT receptor is a macro 
+that does things at key release time.  
 + Given:  
 A user input of: `R key press, CLT key press, W key press`
 R key bound to CLT receptor marco.  
@@ -172,8 +177,10 @@ W in temporarily toggled on layer calls register_code at key down time.
 Mess!!  
 
 + Solution  
-Should use a first in first out queue like data structure to handle this.
-At CLT emitter key press time, evaluate whether queued CLT receptor should be handled and if such is the case, filter user's actual CLT Receptor key release.
+  + Queue the order of clt receptor key presses in `input_que.c`.  
+  + Flush all keypress events in the queue when a layer switch occurs.   
+  + Filter clt receptor key releases that is not in the queue.  
+
   
 
 

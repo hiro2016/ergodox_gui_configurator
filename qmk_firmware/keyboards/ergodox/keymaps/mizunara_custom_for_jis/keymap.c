@@ -207,7 +207,6 @@ const uint16_t PROGMEM fn_actions[] = {
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 switch (id) {
 case 233:
-print_val_dec(record->tap.count);
 if(record->tap.count>0){
  process_combo_lt_receptor(record,233,M(232)); 
 }else{

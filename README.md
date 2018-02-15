@@ -1,3 +1,10 @@
+# todo  
++ Write tests and divide the scripts into modules.  
+Manual testing costs more time. Not sufficient encapsulation.  
++ Define the format of communication between modules.  
+Changing protocol is costly and the lack of it makes code difficult to read.  
+
+
 # Offline Ergodox gui configuration tool for Ubuntu(and just maybe windows)
 ### You can configure your Ergodox for any layout 
 You press a key and this tool guesses what your keyboard sends to the PC and make 
