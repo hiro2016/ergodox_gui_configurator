@@ -1,7 +1,7 @@
 #include "input_que.c"
 //#define CLT_ACCEPTABLE_DELAY 60
 #define CLT_ACCEPTABLE_DELAY 30
-//#define CLT_ACCEPTABLE_DELAY 0
+/*#define CLT_ACCEPTABLE_DELAY 0*/
 //#define CLT_DEBUG_PRINT
 
 uint16_t clt_layer = 0;
@@ -118,24 +118,6 @@ void clt_send_keycode_in_que_up_to(uint16_t id){
     // macro id 0 is assumed not used.
     // In this context, 0 denotes nothing.
     if(v.id == 0) continue; 
-    if(v.id == id){
-      if(timer_elapsed(v.time)<CLT_ACCEPTABLE_DELAY){
-        clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
-#ifdef CLT_DEBUG_PRINT
-        print("at clt_send_keycode_in_que_up_to, state: clt layer switch on\n");
-#endif
-      }else{
-        clt_send_key(v.default_keycode);
-#ifdef CLT_DEBUG_PRINT
-        print("at clt_send_keycode_in_que_up_to, state: clt layer switch off/n");
-#endif
-      }
-      return;
-    }
-
-#ifdef CLT_DEBUG_PRINT
-    print("sending default keycode/n");
-#endif
     clt_send_key(v.default_keycode);
   }
 }
@@ -293,15 +275,22 @@ is pressed before clt emitter key up.\n");
   return true;
 }
 
-void process_combo_lt_receptor(keyrecord_t *record,uint16_t id, uint16_t keycode ){
+void process_combo_lt_receptor(keyrecord_t *record, uint8_t id, uint16_t keycode ){
   // id is a macro id;ranges from 0 to 255.
   // should reserve 255, 254 for normal input and functions.
+#ifdef CLT_DEBUG_PRINT
+  print("----process_combo_lt---\n");
+  print_val_dec(keycode);
+  print_val_dec(id);
+  print_val_dec(record->event.pressed);
+  print_val_dec(record->event.key);
+  print("--------------\n");
+#endif
   if(record->event.pressed){
     //id, default keycode, keypos, keypressed time
     enque_input(id, keycode ,record->event.key, timer_read());
   }else{
-      //id, whether to send default keycode
-      clt_send_keycode_in_que_up_to(id);
+    clt_send_keycode_in_que_up_to(id);
   }
 }
 
