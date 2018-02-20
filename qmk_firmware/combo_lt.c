@@ -43,6 +43,11 @@ enum CLT_STATE{
 };
 
 void clt_send_key(uint16_t keycode){
+			keyrecord_t record;
+			action_t action;
+			action.code = keycode;
+			record.event.pressed = true;
+			record.event.time = timer_read();
       if(keycode >= QK_ONE_SHOT_LAYER && keycode < QK_ONE_SHOT_LAYER_MAX){
         /*[>register_code16 did not work<]*/
         /*[>register_code16(keycode);<]*/
@@ -50,7 +55,6 @@ void clt_send_key(uint16_t keycode){
 #ifdef CLT_DEBUG_PRINT
         print("clt_send_key called(onesht_layer)\n");
 #endif
-        action_t action;
         action.code = ACTION_LAYER_ONESHOT(keycode);
         /*//order matters*/
         layer_on(action.layer_tap.val);
@@ -60,12 +64,7 @@ void clt_send_key(uint16_t keycode){
 #ifdef CLT_DEBUG_PRINT
         print("clt_send_key(macro) called(not oneshot)\n");
 #endif
-        keyrecord_t record;
-        action_t action;
-        action.code = keycode;
-        record.event.key = (keypos_t){128,128};//passing a random number set
-        record.event.pressed = true;
-        record.event.time = timer_read();
+				record.event.key = (keypos_t){128,128};//passing a random number set
         action_get_macro(&record,action.func.id, action.func.id);
         record.event.pressed = false;
         action_get_macro(&record,action.func.id, action.func.id);
@@ -73,10 +72,31 @@ void clt_send_key(uint16_t keycode){
 #ifdef CLT_DEBUG_PRINT
         print("clt_send_key(usage id) called(not oneshot)\n");
 #endif
+				/*process_record(keycode,&record);*/
+				/*record.event.pressed = false;*/
+				/*process_record(keycode,&record);*/
 
-        register_code(keycode & 0xff);
-        unregister_code(keycode & 0xff);
-        /*clear_keyboard();*/
+				// The below is real messy but register_code 
+				// nor register_code16 work for `LSFT(KC_A)`
+				// etc. 
+				// The below does not cover other modifier types.
+				switch(keycode>>8){
+					case(0x2):
+						register_code(KC_LSHIFT);
+						register_code(keycode & 0xff);
+						unregister_code(keycode & 0xff);
+						unregister_code(KC_LSHIFT);
+						break;
+					case(0x12):
+						register_code(KC_LSHIFT);
+						register_code(keycode & 0xff);
+						unregister_code(keycode & 0xff);
+						unregister_code(KC_LSHIFT);
+						break;
+					default:
+						register_code(keycode & 0xff);
+						unregister_code(keycode & 0xff);
+				}
       }
 }
 
