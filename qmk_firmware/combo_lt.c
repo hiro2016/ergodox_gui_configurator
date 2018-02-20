@@ -2,7 +2,7 @@
 //#define CLT_ACCEPTABLE_DELAY 60
 #define CLT_ACCEPTABLE_DELAY 30
 /*#define CLT_ACCEPTABLE_DELAY 0*/
-//#define CLT_DEBUG_PRINT
+#define CLT_DEBUG_PRINT
 
 uint16_t clt_layer = 0;
 bool clt_pressed = false;
@@ -76,7 +76,7 @@ void clt_send_key(uint16_t keycode){
 
         register_code(keycode & 0xff);
         unregister_code(keycode & 0xff);
-        clear_keyboard();
+        /*clear_keyboard();*/
       }
 }
 
@@ -131,28 +131,34 @@ void clt_send_keycode_in_que_up_to(uint16_t id){
  * pressed within the interval less than CLT_ACCEPTABLE_DELAY.
  * */
 bool handle_keys_in_que_and_check_clt_action_performed(void){
+#ifdef CLT_DEBUG_PRINT
+        print("---entered handle_keys_in_que_and_check_clt_action_performed---\n");
+#endif
   // start handling from oldest
   for(uint8_t count = 4; count>0;--count){
     quantum_state_input v = shift_input();
-    print_val_dec(v.id);
+    /*print_val_dec(v.id);*/
     if(v.id == 0) continue;
     //last input
     if(count == 1){
       bool use_default = timer_elapsed(v.time)>CLT_ACCEPTABLE_DELAY;
       if(use_default){
-#ifdef CLT_DEBUG_PRINT
-        print("sending default key code");
-#endif
         clt_send_key(v.default_keycode);
-      }else{
 #ifdef CLT_DEBUG_PRINT
-        print("sending toggled layer key code");
+        print("sent default key code\n");
+        print("---leaving handle_keys_in_que_and_check_clt_action_performed---\n");
 #endif
+        return false;
+      }else{
         clt_send_key(keymap_key_to_keycode(clt_layer, v.keypos));
+#ifdef CLT_DEBUG_PRINT
+        print("sent toggled layer key code\n");
+        print("---leaving handle_keys_in_que_and_check_clt_action_performed---\n");
+#endif
         return true;
       }
     }
-    //other than the last
+    //other than the last key pressed
     clt_send_key(v.default_keycode);
   }
   return false;
@@ -212,44 +218,70 @@ bool handle_keys_in_que_and_check_clt_action_performed(void){
  * made based on whether another key was pressed after CLT key press.
  * */
 bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
+#ifdef CLT_DEBUG_PRINT
+    print("----process_combo_lt_emitter---\n");
+    print("clt key: event.pressed is ");
+    print_val_dec(record->event.pressed);
+#endif
 
   if(record->event.pressed){
     //send everything in the que
-#ifdef CLT_DEBUG_PRINT
-    print("clt key: event.pressed is true\n");
-#endif
     // empty all keypress events in qeue and ignore their release events.
     // If  timer_elapsed(key_press_timestamp_of_qeued_key) < CLT_ACCEPTABLE_DELAY,
     // send keycode found in clt layer.
     if(handle_keys_in_que_and_check_clt_action_performed()){
-      // Another key press event found with a timestamp 
-      // sufficiently close to timer_read().
+      // Another key press event with a timestamp 
+      // sufficiently close to the timer_read() result
+      // found.
       //
-      // Prevents sending the keycode; only switches layer.
+      // Preventing the caller key from sending its defualt keycode
+      // at its release time; only switches layer.
       clt_interrupted = true;    
     }
     layer_on(clt_layer);
     clt_pressed = true;
     clt_timer = pre_dlt_idling_time;
+#ifdef CLT_DEBUG_PRINT
+    print_val_dec(clt_interrupted);
+    print("-----------combo lt emitter end--------------\n");
+#endif
     return true;
   }
+#ifdef CLT_DEBUG_PRINT
+  else{
+    print_val_dec(clt_interrupted);
+  }
+#endif
+
+
   layer_off(clt_layer);
   switch(clt_get_state(record)){
     case CLT_EMITTER_INTERRUPTED:
-
+      // CLT emitter has been interrupted:
+      //  A CLT receptor key has been pressed immidiately before 
+      //  CLT emitter key or immidiately after.  
+      //
+      // The release of CLT emitter key that called this function
+      // should not register_code the defualt keycode. 
+      //
+      // defualt keycode is only `register_code`ed when uninterrupted:
 #ifdef CLT_DEBUG_PRINT
-      print("clt_emitter_interrupted\n");
+      print("clt_emitter_interrupted, not taped alone\n");
 #endif
-      // if CLT emitter that is to be interrupted 
-      // has been released, this should not be called.
-      // If CLT emitter interruptor get return value false
-      // for process_combo_lt, then the emitter to be 
-      // interrupted has not been released yet.
+      // If CLT emitter is released before the interruptor, 
+      // primarily CLT receptor, this blocj is not called.
+      //
       layer_off(clt_layer);
       layer_off(clt_layer2);
       clt_interrupted = false;
       clt_pressed = false;
-      clear_keyboard();
+      /*clear_keyboard();*/
+      // The return value of for process_combo_lt has been false
+      // means the emitter to be interrupted has not been released 
+      // yet.
+#ifdef CLT_DEBUG_PRINT
+    print("---------exiting process_combo_lt_emitter----------------\n");
+#endif
       return false;
     case CLT_EMITTER_TAP_DELAYED:
       //another key was pressed immidiately before CLT emitter key and the
@@ -261,6 +293,7 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
 
 #ifdef CLT_DEBUG_PRINT
       print("clt_emitter_tap_delayed clt emitter key is pressed after receptor.\n");
+      print("---------exiting process_combo_lt_emitter----------------\n");
 #endif
       return true;
     case CLT_EMITTER_ALONE_TAPPED:
@@ -276,6 +309,9 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
       /*unregister_code16(keycode & 0xff);*/
       clt_send_key(keycode);
       clt_pressed = false;
+#ifdef CLT_DEBUG_PRINT
+      print("---------exiting process_combo_lt_emitter----------------\n");
+#endif
       return true;
     case CLT_EMITTER_TAP_BEFORE_RECEPTOR:
 #ifdef CLT_DEBUG_PRINT
@@ -283,6 +319,9 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
 is pressed before clt emitter key up.\n");
 #endif
       clt_pressed = false;
+#ifdef CLT_DEBUG_PRINT
+      print("---------exiting process_combo_lt_emitter----------------\n");
+#endif
       return true;
     default:
 #ifdef CLT_DEBUG_PRINT
@@ -290,6 +329,9 @@ is pressed before clt emitter key up.\n");
 #endif
       break;
   }
+#ifdef CLT_DEBUG_PRINT
+      print("---------exiting process_combo_lt_emitter----------------\n");
+#endif
   return true;
 }
 
@@ -297,7 +339,7 @@ void process_combo_lt_receptor(keyrecord_t *record, uint8_t id, uint16_t keycode
   // id is a macro id;ranges from 0 to 255.
   // should reserve 255, 254 for normal input and functions.
 #ifdef CLT_DEBUG_PRINT
-  print("----process_combo_lt---\n");
+  print("----process_combo_lt_receptor---\n");
   print_val_dec(keycode);
   print_val_dec(id);
   print_val_dec(record->event.pressed);
