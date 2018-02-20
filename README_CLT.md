@@ -69,21 +69,24 @@ pressed with this key.
 ![Alt text](clt_emitter_config.png?raw=false "Key configurator")     
     
 Save your macro by clicking numerous save buttons and name your macro and then 
-again save.    
+again save.      
 ![Alt text](key_configurator.png?raw=false "Key configurator")    
-
-
+  
+  
 Now Layer key has been taken care of.
 
 
 #### Configure receiver key
 At configurator's main window, click a key.   
 When the pop up window appears, click `Start macro wizard` button.  
-Then click `create a combo receiver macro` button from the list below. 
+Then click `create a combo receiver macro` button from the list below.   
+  
 ![Alt text](macro_wizard.png?raw=false "Key configurator")    
+  
 
-Click `record macro` to record your tapped alone time macro.    
+Click `record macro` to record your tapped alone time macro.      
 ![Alt text](clt_receiver_config.png?raw=false "Key configurator")      
+  
   
 Click `Start recording` button and perform key strokes the macro should copy.
     
@@ -122,10 +125,7 @@ CLT emitter that is also a receptor.
         clt_layer = 7;
     }
     // When not combo, set one shot layer.
-    if(!process_combo_lt(OSL(7), record)){
-        //Called only when clt_inerrupted is set to true.
-        _send_key(clt_layer, record->event.key);
-    }
+    process_combo_lt(OSL(7), record);
     break;
     
     
@@ -144,10 +144,7 @@ CLT emitter that interacts with the above:
         if(record->event.pressed) {clt_layer = 9;}
     }
 
-    if(!process_combo_lt(0x2c, record)){
-    //this key is released before another CLT key
-        if(clt_pressed) clt_interrupted = true;
-    }
+    process_combo_lt(0x2c, record);
     break;
 
 
@@ -158,7 +155,7 @@ forced to say the least but works.
 ******
 ## bugs  
 
-### Input sequence reversed due to the difference in `register_key` method call timing.  
+### Fixed: Input sequence reversed due to the difference in `register_key` method call timing.  
 e.g. `r key down, then w key down, r key up, then w key up`  
   
 The above should input rw, but when the bug kicks in, it inputs "wr".  
