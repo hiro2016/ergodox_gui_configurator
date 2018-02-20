@@ -262,14 +262,14 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
       //  CLT emitter key or immidiately after.  
       //
       // The release of CLT emitter key that called this function
-      // should not register_code the defualt keycode. 
+      // should not call register_code. 
       //
       // defualt keycode is only `register_code`ed when uninterrupted:
 #ifdef CLT_DEBUG_PRINT
       print("clt_emitter_interrupted, not taped alone\n");
 #endif
       // If CLT emitter is released before the interruptor, 
-      // primarily CLT receptor, this blocj is not called.
+      // primarily CLT receptor, this block is not called.
       //
       layer_off(clt_layer);
       layer_off(clt_layer2);
@@ -282,7 +282,7 @@ bool process_combo_lt(uint16_t keycode, keyrecord_t *record){
 #ifdef CLT_DEBUG_PRINT
     print("---------exiting process_combo_lt_emitter----------------\n");
 #endif
-      return false;
+      return true; // released event is consumed here, do nothing downstream.
     case CLT_EMITTER_TAP_DELAYED:
       //another key was pressed immidiately before CLT emitter key and the
       //time approximity is close enough to treat two key press events as a 
