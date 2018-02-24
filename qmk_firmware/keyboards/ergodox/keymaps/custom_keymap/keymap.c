@@ -17,55 +17,55 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
- M(250),0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
-0x2b,M(249),0x36,LT(9, 0x37),0x13,0x1c,0x39,
+ M(252),0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
+0x2b,M(251),0x36,LT(2, 0x37),0x13,0x1c,0x39,
 LSFT(0x87),0x04,0x12,SFT_T(0x08),DLT(4, 0x18),0x0c,
-0xe1,M(248),0x14,0x0d,M(247),0x1b,TO(3),
-0xe4,0xe3,0xe6,TO(9),TO(5),
+0xe1,M(250),0x14,0x0d,M(249),0x1b,TO(3),
+0xe4,0xe3,0xe6,TO(2),TO(5),
 TO(5),TO(3),
 KC_TRNS,
-M(246),0x4c,0x29,
+M(248),0x4c,0x29,
  
  0x2d,KC_TRNS,KC_TRNS,0x57,KC_TRNS,LALT(LSFT(0x1b)),0x87,
 TO(3),0x09,0x0a,LT(2, 0x06),0x15,0x0f,0x38,
 0x07,DLT(4, 0x0b),SFT_T(0x17),0x11,0x16,0x2d,
 TO(1),0x05,0x10,0x1a,0x19,CTL_T(0x1d),0xe5,
 TO(0),0x50,0x4f,0x51,0x52,
-0x4b,0x4e,
+0x4b,KC_TRNS,
 KC_TRNS,
-0x2b,0x2a,M(251) ),
+0x2b,0x2a,M(253) ),
 [1] = KEYMAP(  
- M(226),M(185),M(184),M(183),M(182),M(181),M(180),
+ M(227),M(226),M(185),M(184),M(183),M(182),M(181),
 0x2b,M(243),M(231),M(233),M(237),M(235),KC_TRNS,
-OSL(6),M(229),M(179),M(178),M(223),M(225),
+OSL(6),M(229),M(180),M(179),M(223),M(225),
 OSL(5),M(213),M(215),M(217),M(219),M(221),0x56,
 OSL(6),0xe3,0xe6,TO(9),TO(5),
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-M(253),0x4c,0x29,
+M(178),0x4c,0x29,
  
- M(245),M(244),M(241),M(240),M(239),0x56,0x57,
+ M(247),M(246),M(245),M(244),M(241),0x56,0x57,
 TO(6),M(195),M(193),M(191),M(189),M(187),0x38,
-M(197),M(199),M(238),M(227),M(201),OSL(6),
+M(197),M(199),M(240),M(239),M(201),OSL(6),
 KC_TRNS,M(211),M(209),M(207),M(205),M(203),0xe5,
-TO(0),0x50,0x4f,0x51,0x52,
-0x4b,0x00,
+TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+0x4b,0x93,
 KC_TRNS,
-0x2b,0x2a,M(252) ),
+0x2b,0x2a,M(238) ),
 [2] = KEYMAP(  
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,M(175),0x36,M(174),KC_TRNS,KC_TRNS,
-KC_TRNS,0x24,M(173),0x1f,0x26,0x25,
-KC_TRNS,0x56,0x56,0x56,0x56,KC_TRNS,KC_TRNS,
+ 0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
+KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x58,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TO(0),
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,0x31,0x04,0x38,KC_TRNS,KC_TRNS,
-0x1e,0x11,M(177),0x0f,M(176),KC_TRNS,
-KC_TRNS,KC_TRNS,0x56,0x2d,0x2d,0x2d,KC_TRNS,
+ RESET,0x41,0x42,0x43,0x44,0x45,KC_TRNS,
+KC_TRNS,KC_TRNS,0x4b,0x52,LCTL(0x54),KC_TRNS,KC_TRNS,
+KC_TRNS,0x50,0x51,0x4f,KC_TRNS,KC_TRNS,
+TO(1),KC_TRNS,0x4e,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -99,8 +99,8 @@ KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,M(172),0x54,M(171),KC_TRNS,KC_TRNS,
-0x4c,M(170),0x87,M(169),0x39,KC_TRNS,
+KC_TRNS,KC_TRNS,M(177),0x54,M(176),KC_TRNS,KC_TRNS,
+0x4c,M(175),0x87,M(174),0x39,KC_TRNS,
 KC_TRNS,KC_TRNS,0x05,0x09,0x1d,KC_TRNS,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
@@ -118,7 +118,7 @@ KC_TRNS,
  
  0x56,0x56,0x53,0x54,0x55,0x56,LSFT(0x38),
 0x34,0x55,0x5f,0x60,0x61,0x2d,0x87,
-0x62,0x5c,0x5d,0x5e,0x57,M(168),
+0x62,0x5c,0x5d,0x5e,0x57,M(173),
 TO(1),0x56,0x59,0x5a,0x5b,0x58,0xe5,
 TO(0),0x62,0x63,0x58,0x58,
 KC_TRNS,KC_TRNS,
@@ -126,72 +126,72 @@ KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
 [6] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-0x2b,M(153),M(152),0x57,M(151),M(150),TO(1),
-M(149),M(148),M(147),M(146),M(145),M(144),
-OSL(8),M(143),M(142),0x56,M(141),M(140),KC_TRNS,
+0x2b,M(158),M(157),0x57,M(156),M(155),TO(1),
+M(154),M(153),M(152),M(151),M(150),M(149),
+OSL(8),M(148),M(147),0x56,M(146),M(145),KC_TRNS,
 0xe4,0xe3,0xe6,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
- KC_TRNS,KC_TRNS,KC_TRNS,M(167),M(166),KC_TRNS,KC_TRNS,
-KC_TRNS,M(165),M(164),LSFT(0x30),LSFT(0x31),M(163),KC_TRNS,
-M(162),0x55,M(161),M(160),0x54,M(159),
-TO(1),M(158),M(157),M(156),M(155),M(154),OSL(8),
+ KC_TRNS,KC_TRNS,KC_TRNS,M(172),M(171),KC_TRNS,KC_TRNS,
+KC_TRNS,M(170),M(169),LSFT(0x30),LSFT(0x31),M(168),KC_TRNS,
+M(167),0x55,M(166),M(165),0x54,M(164),
+TO(1),M(163),M(162),M(161),M(160),M(159),OSL(8),
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 [7] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(133),M(132),0x2d,0x56,KC_TRNS,
+KC_TRNS,0x56,M(138),M(137),0x2d,0x56,KC_TRNS,
 KC_TRNS,0x20,0x34,0x15,0x23,0x1b,
-KC_TRNS,0x56,M(131),M(130),0x2e,0x56,KC_TRNS,
+KC_TRNS,0x56,M(136),M(135),0x2e,0x56,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-M(129),0x4c,KC_TRNS,
+M(134),0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(139),M(138),LSFT(0x24),0x2f,KC_TRNS,
+KC_TRNS,0x56,M(144),M(143),LSFT(0x24),0x2f,KC_TRNS,
 0x19,0x1d,0x15,0x27,0x0d,KC_TRNS,
-KC_TRNS,0x56,M(137),M(136),RSFT(0x25),M(135),KC_TRNS,
+KC_TRNS,0x56,M(142),M(141),RSFT(0x25),M(140),KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,0x2a,M(134) ),
+KC_TRNS,0x2a,M(139) ),
 [8] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,M(118),M(117),M(116),M(115),0x56,KC_TRNS,
+KC_TRNS,M(123),M(122),M(121),M(120),0x56,KC_TRNS,
 KC_TRNS,0x12,0x13,0x27,0x87,0x06,
-KC_TRNS,M(114),RSFT(0x22),M(113),M(112),0x56,KC_TRNS,
+KC_TRNS,M(119),RSFT(0x22),M(118),M(117),0x56,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-M(111),0x4c,KC_TRNS,
+M(116),0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(128),M(127),M(126),0x30,KC_TRNS,
-M(125),M(124),0x34,0x13,M(123),KC_TRNS,
-KC_TRNS,0x56,M(122),M(121),LSFT(0x21),M(120),KC_TRNS,
+KC_TRNS,0x56,M(133),M(132),M(131),0x30,KC_TRNS,
+M(130),M(129),0x34,0x13,M(128),KC_TRNS,
+KC_TRNS,0x56,M(127),M(126),LSFT(0x21),M(125),KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,0x2a,M(119) ),
+KC_TRNS,0x2a,M(124) ),
 [9] = KEYMAP(  
- 0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
-KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x58,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TO(0),
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,M(113),0x36,M(112),KC_TRNS,KC_TRNS,
+KC_TRNS,0x24,M(111),0x1f,0x26,0x25,
+KC_TRNS,0x56,0x56,0x56,0x56,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
- RESET,0x41,0x42,0x43,0x44,0x45,KC_TRNS,
-KC_TRNS,KC_TRNS,0x4b,0x52,LCTL(0x54),KC_TRNS,KC_TRNS,
-KC_TRNS,0x50,0x51,0x4f,KC_TRNS,KC_TRNS,
-TO(1),KC_TRNS,0x4e,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,0x31,0x04,0x38,KC_TRNS,KC_TRNS,
+0x1e,0x11,M(115),0x0f,M(114),KC_TRNS,
+KC_TRNS,KC_TRNS,0x56,0x2d,0x2d,0x2d,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -218,7 +218,7 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
       switch(id) {
-        case 251:
+        case 253:
 //DLT(3,return)
 //DLT(3,return)
 //DLT(3,return)
@@ -235,7 +235,7 @@ uint16_t kc = DLT(3,0x58);
 process_action_delayed_lt_from_macro(kc,record);
 dlt_reset();}
  break;
-case 250:
+case 252:
 //switch
 //switch
 //switch
@@ -248,7 +248,7 @@ layer_move(1);
 
         }
  break;
-case 249:
+case 251:
 // ; : 
 // ; : 
 if(record->event.pressed){
@@ -265,7 +265,7 @@ unregister_code(0x33);
 }
 }
  break;
-case 248:
+case 250:
 // ' " 
 //' "
 //' "
@@ -283,7 +283,7 @@ unregister_code(0xe1);
 }
 }
  break;
-case 247:
+case 249:
 //DLT(5,k)
 if(record->event.pressed){
 uint16_t kc = DLT(5,0x0e);
@@ -298,7 +298,7 @@ uint16_t kc = DLT(0,0x0e);
 process_action_delayed_lt_from_macro(kc,record);
 dlt_reset();}
  break;
-case 246:
+case 248:
 //DLT(3,Space)
 //DLT(3,Space)
 //DLT(3,Space)
@@ -316,7 +316,7 @@ uint16_t kc = DLT(3,0x2c);
 process_action_delayed_lt_from_macro(kc,record);
 dlt_reset();}
  break;
-case 245:
+case 247:
 //`
 if(record->event.pressed){
             register_code(0x39);
@@ -336,7 +336,7 @@ unregister_code(0x39);
 
         }
  break;
-case 244:
+case 246:
 //[
 if(record->event.pressed){
             register_code(0x39);
@@ -353,7 +353,7 @@ unregister_code(0x39);
 
         }
  break;
-case 241:
+case 245:
 //]
 if(record->event.pressed){
             register_code(0x39);
@@ -370,7 +370,7 @@ unregister_code(0x39);
 
         }
  break;
-case 240:
+case 244:
 //(
 if(record->event.pressed){
             register_code(0x39);
@@ -390,7 +390,7 @@ unregister_code(0x39);
 
         }
  break;
-case 239:
+case 241:
 //)
 if(record->event.pressed){
             register_code(0x39);
@@ -497,7 +497,7 @@ unregister_code(0x1c);
 break;
  case 199:
  process_combo_lt_receptor(record,199,M(198)); break;
-case 238:
+case 240:
 //CLT7
 
 if(record->event.pressed){
@@ -508,7 +508,7 @@ if(!process_combo_lt(OSL(7), record)){
 }
 break;
  break;
-case 227:
+case 239:
 //CLT8
 if(record->event.pressed){
 clt_layer = 8;
@@ -596,23 +596,28 @@ unregister_code(0x0e);
 break;
  case 203:
  process_combo_lt_receptor(record,203,M(202)); break;
-// CLT2 ret
+case 238:
+//CLT9 ret
 
 if(clt_pressed){
+//handles a case where a midle finger key is pressed
+//before thumb key.
     if(record->event.pressed){
         clt_interrupted = true;
         clt_layer2 = clt_layer;
-        clt_layer = 2;
+        clt_layer = 9;
     }
 }else{
-    if(record->event.pressed) {clt_layer = 2;}
+    if(record->event.pressed) {clt_layer = 9;}
 }
 if(!process_combo_lt(0x58, record)){
+//this key is released before the mindle finger key
 if(clt_pressed) clt_interrupted = true;
 
 }
 break;
-case 226:
+ break;
+case 227:
 //switch
 //switch
 
@@ -628,7 +633,7 @@ layer_move(0);
         }
         
  break;
-case 185:
+case 226:
 //?
 if(record->event.pressed){
             register_code(0x39);
@@ -648,7 +653,7 @@ unregister_code(0x39);
 
         }
  break;
-case 184:
+case 185:
 //　\　
 if(record->event.pressed){
             register_code(0x39);
@@ -665,7 +670,7 @@ unregister_code(0x39);
 
         }
  break;
-case 183:
+case 184:
 //~
 if(record->event.pressed){
             register_code(0x39);
@@ -685,7 +690,7 @@ unregister_code(0x39);
 
         }
  break;
-case 182:
+case 183:
 //「
 if(record->event.pressed){
             register_code(0xe1);
@@ -697,7 +702,7 @@ unregister_code(0xe1);
 
         }
  break;
-case 181:
+case 182:
 //」
 if(record->event.pressed){
             register_code(0xe1);
@@ -709,7 +714,7 @@ unregister_code(0xe1);
 
         }
  break;
-case 180:
+case 181:
 //=
 if(record->event.pressed){
             register_code(0x39);
@@ -805,7 +810,7 @@ unregister_code(0x17);
 break;
  case 229:
  process_combo_lt_receptor(record,229,M(228)); break;
-case 179:
+case 180:
 //CLT8
 //CLT7
 if(record->event.pressed){
@@ -818,7 +823,7 @@ if(!process_combo_lt(OSL(8), record)){
 }
 break;
  break;
-case 178:
+case 179:
 //CLT7
 //CLT7
 if(record->event.pressed){
@@ -831,7 +836,6 @@ if(!process_combo_lt(OSL(7), record)){
 }
 break;
  break;
-// な
 
  case 222:
  if(!record->event.pressed){
@@ -926,96 +930,31 @@ unregister_code(0xe1);
 break;
  case 221:
  process_combo_lt_receptor(record,221,M(220)); break;
-// CLT2 space
+case 178:
+//CLT9 space
+
 if(clt_pressed){
+//handle case where a midle finger key is pressed
+//before thumb key.
     if(record->event.pressed){
         clt_interrupted = true;
         clt_layer2 = clt_layer;
-        clt_layer = 2;
+        clt_layer = 9;
     }
 }else{
-    if(record->event.pressed) {clt_layer = 2;}
+    if(record->event.pressed) {clt_layer = 9;}
 }
 
 if(!process_combo_lt(0x2c, record)){
+//this key is released before the mindle finger key
 if(clt_pressed) clt_interrupted = true;
 }
 break;
 
+ break;
+
+
 case 177:
-//zi
-if(record->event.pressed){
-            register_code(0x07);
-
-unregister_code(0x07);
-
-register_code(0x2f);
-
-unregister_code(0x2f);
-
-        }
- break;
-case 176:
-//gu
-if(record->event.pressed){
-            register_code(0x0b);
-
-unregister_code(0x0b);
-
-register_code(0x2f);
-
-unregister_code(0x2f);
-
-        }
- break;
-case 175:
-//bi
-if(record->event.pressed){
-            register_code(0x19);
-
-unregister_code(0x19);
-
-register_code(0x2f);
-
-unregister_code(0x2f);
-
-        }
- break;
-case 174:
-//?
-if(record->event.pressed){
-            register_code(0x39);
-
-unregister_code(0x39);
-
-register_code(0xe1);
-register_code(0x38);
-
-unregister_code(0x38);
-
-unregister_code(0xe1);
-
-register_code(0x39);
-
-unregister_code(0x39);
-
-        }
- break;
-case 173:
-//ge
-if(record->event.pressed){
-            register_code(0x34);
-
-unregister_code(0x34);
-
-register_code(0x2f);
-
-unregister_code(0x2f);
-
-        }
- break;
-
-case 172:
 //vim add ;
 if(record->event.pressed){
             register_code(0x29);
@@ -1039,7 +978,7 @@ unregister_code(0x29);
 
         }
  break;
-case 171:
+case 176:
 //IDE aimp
 if(record->event.pressed){
             register_code(0xe6);
@@ -1051,7 +990,7 @@ unregister_code(0xe6);
 
         }
  break;
-case 170:
+case 175:
 //IDE acomp
 if(record->event.pressed){
             register_code(0xe6);
@@ -1063,7 +1002,7 @@ unregister_code(0xe6);
 
         }
  break;
-case 169:
+case 174:
 //vim ac
 if(record->event.pressed){
             register_code(0xe4);
@@ -1075,7 +1014,7 @@ unregister_code(0xe4);
 
         }
  break;
-case 168:
+case 173:
 //' "
 //' "
 if(record->event.pressed){
@@ -1093,7 +1032,7 @@ unregister_mods(2);
 }
 }
  break;
-case 167:
+case 172:
 //{
 if(record->event.pressed){
             register_code(0x39);
@@ -1113,7 +1052,7 @@ unregister_code(0x39);
 
         }
  break;
-case 166:
+case 171:
 //}
 if(record->event.pressed){
             register_code(0x39);
@@ -1133,7 +1072,7 @@ unregister_code(0x39);
 
         }
  break;
-case 165:
+case 170:
 //`
 if(record->event.pressed){
             register_code(0x39);
@@ -1153,7 +1092,7 @@ unregister_code(0x39);
 
         }
  break;
-case 164:
+case 169:
 //#
 if(record->event.pressed){
             register_code(0x39);
@@ -1173,7 +1112,7 @@ unregister_code(0x39);
 
         }
  break;
-case 163:
+case 168:
 //'
 //'
 if(record->event.pressed){
@@ -1194,7 +1133,7 @@ unregister_code(0x39);
 
         }
  break;
-case 162:
+case 167:
 //backslash
 if(record->event.pressed){
             register_code(0x39);
@@ -1211,7 +1150,7 @@ unregister_code(0x39);
 
         }
  break;
-case 161:
+case 166:
 //(
 if(record->event.pressed){
             register_code(0x39);
@@ -1231,7 +1170,7 @@ unregister_code(0x39);
 
         }
  break;
-case 160:
+case 165:
 //)
 if(record->event.pressed){
             register_code(0x39);
@@ -1251,7 +1190,7 @@ unregister_code(0x39);
 
         }
  break;
-case 159:
+case 164:
 //"
 if(record->event.pressed){
             register_code(0x39);
@@ -1271,7 +1210,7 @@ unregister_code(0x39);
 
         }
  break;
-case 158:
+case 163:
 //^
 //^
 if(record->event.pressed){
@@ -1289,7 +1228,7 @@ unregister_code(0x39);
 
         }
  break;
-case 157:
+case 162:
 //$
 if(record->event.pressed){
             register_code(0x39);
@@ -1309,7 +1248,7 @@ unregister_code(0x39);
 
         }
  break;
-case 156:
+case 161:
 //[
 if(record->event.pressed){
             register_code(0x39);
@@ -1326,7 +1265,7 @@ unregister_code(0x39);
 
         }
  break;
-case 155:
+case 160:
 //]
 if(record->event.pressed){
             register_code(0x39);
@@ -1343,7 +1282,7 @@ unregister_code(0x39);
 
         }
  break;
-case 154:
+case 159:
 //.
 if(record->event.pressed){
             register_code(0x39);
@@ -1360,7 +1299,7 @@ unregister_code(0x39);
 
         }
  break;
-case 153:
+case 158:
 //¥
 if(record->event.pressed){
             register_code(0x89);
@@ -1369,7 +1308,7 @@ unregister_code(0x89);
 
         }
  break;
-case 152:
+case 157:
 //<
 if(record->event.pressed){
             register_code(0x39);
@@ -1389,7 +1328,7 @@ unregister_code(0x39);
 
         }
  break;
-case 151:
+case 156:
 //?
 
 if(record->event.pressed){
@@ -1410,7 +1349,7 @@ unregister_code(0x39);
 
         }
  break;
-case 150:
+case 155:
 //@
 //@
 if(record->event.pressed){
@@ -1428,7 +1367,7 @@ unregister_code(0x39);
 
         }
  break;
-case 149:
+case 154:
 //_
 //_
 //_
@@ -1450,7 +1389,7 @@ unregister_code(0x39);
 
         }
  break;
-case 148:
+case 153:
 //%
 //%
 //%
@@ -1472,7 +1411,7 @@ unregister_code(0x39);
 
         }
  break;
-case 147:
+case 152:
 //|
 //|
 //|
@@ -1494,7 +1433,7 @@ unregister_code(0x39);
 
         }
  break;
-case 146:
+case 151:
 //=
 //=
 //=
@@ -1516,7 +1455,7 @@ unregister_code(0x39);
 
         }
  break;
-case 145:
+case 150:
 //!
 //!
 //!
@@ -1538,7 +1477,7 @@ unregister_code(0x39);
 
         }
  break;
-case 144:
+case 149:
 //~
 //~
 //~
@@ -1560,7 +1499,7 @@ unregister_code(0x39);
 
         }
  break;
-case 143:
+case 148:
 //_
 //_
 //_
@@ -1583,7 +1522,7 @@ unregister_code(0x39);
 
         }
  break;
-case 142:
+case 147:
 //>
 //>
 //>
@@ -1605,7 +1544,7 @@ unregister_code(0x39);
 
         }
  break;
-case 141:
+case 146:
 //and
 //and
 //and
@@ -1629,7 +1568,7 @@ unregister_code(0x39);
 
         }
  break;
-case 140:
+case 145:
 //:
 //:
 //:
@@ -1648,7 +1587,7 @@ unregister_code(0x39);
 
         }
  break;
-case 139:
+case 144:
 //pu
 
         if(record->event.pressed){
@@ -1666,7 +1605,7 @@ unregister_code(0x30);
         }
         
  break;
-case 138:
+case 143:
 //bu
 
         if(record->event.pressed){
@@ -1684,7 +1623,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 137:
+case 142:
 //xo
 if(record->event.pressed){
             register_code(0xe1);
@@ -1696,7 +1635,7 @@ unregister_code(0xe1);
 
         }
  break;
-case 136:
+case 141:
 //pe
 
         if(record->event.pressed){
@@ -1714,7 +1653,7 @@ unregister_code(0x30);
         }
         
  break;
-case 135:
+case 140:
 //pi
 if(record->event.pressed){
             register_code(0x19);
@@ -1727,7 +1666,7 @@ unregister_code(0x30);
 
         }
  break;
-case 134:
+case 139:
 //CLT9 return
 if(clt_pressed){
 //handles a case where a midle finger key is pressed
@@ -1747,7 +1686,7 @@ if(clt_pressed) clt_interrupted = true;
 }
 break;
  break;
-case 133:
+case 138:
 //du
 
         if(record->event.pressed){
@@ -1765,7 +1704,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 132:
+case 137:
 //bo
 
         if(record->event.pressed){
@@ -1784,7 +1723,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 131:
+case 136:
 //go
 if(record->event.pressed){
             register_code(0x05);
@@ -1797,7 +1736,7 @@ unregister_code(0x2f);
 
         }
  break;
-case 130:
+case 135:
 //ze
 //ze
 
@@ -1816,7 +1755,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 129:
+case 134:
 //CLT9 space
 if(clt_pressed){
 //handle case where a midle finger key is pressed
@@ -1836,7 +1775,7 @@ if(clt_pressed) clt_interrupted = true;
 }
 break;
  break;
-case 128:
+case 133:
 //po
 
         if(record->event.pressed){
@@ -1854,7 +1793,7 @@ unregister_code(0x30);
         }
         
  break;
-case 127:
+case 132:
 //ba
 
         if(record->event.pressed){
@@ -1871,7 +1810,7 @@ unregister_code(0x2f);
         
 
  break;
-case 126:
+case 131:
 //zu
 
         if(record->event.pressed){
@@ -1889,7 +1828,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 125:
+case 130:
 //gi
 
         if(record->event.pressed){
@@ -1907,7 +1846,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 124:
+case 129:
 //-
 
         if(record->event.pressed){
@@ -1924,7 +1863,7 @@ unregister_code(0xe1);
         }
         
  break;
-case 123:
+case 128:
 //wo
 
         if(record->event.pressed){
@@ -1941,7 +1880,7 @@ unregister_code(0xe1);
         }
         
  break;
-case 122:
+case 127:
 //pa
 if(record->event.pressed){
             register_code(0x09);
@@ -1954,7 +1893,7 @@ unregister_code(0x30);
 
         }
  break;
-case 121:
+case 126:
 //wu
 if(record->event.pressed){
             register_code(0x21);
@@ -1967,7 +1906,7 @@ unregister_code(0x2f);
 
         }
  break;
-case 120:
+case 125:
 //di
 
         if(record->event.pressed){
@@ -1985,7 +1924,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 119:
+case 124:
 //CLT9 return
 if(clt_pressed){
 //handles a case where a midle finger key is pressed
@@ -2005,7 +1944,7 @@ if(clt_pressed) clt_interrupted = true;
 }
 break;
  break;
-case 118:
+case 123:
 //be
 
         if(record->event.pressed){
@@ -2023,7 +1962,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 117:
+case 122:
 //xi
 
         if(record->event.pressed){
@@ -2040,7 +1979,7 @@ unregister_code(0xe5);
         }
         
  break;
-case 116:
+case 121:
 //xa
 
         if(record->event.pressed){
@@ -2057,7 +1996,7 @@ unregister_code(0xe5);
         }
         
  break;
-case 115:
+case 120:
 //do
 
         if(record->event.pressed){
@@ -2075,7 +2014,7 @@ unregister_code(0x2f);
         }
         
  break;
-case 114:
+case 119:
 //be
 if(record->event.pressed){
             register_code(0x2e);
@@ -2088,7 +2027,7 @@ unregister_code(0x2f);
 
         }
  break;
-case 113:
+case 118:
 //zo
 if(record->event.pressed){
             register_code(0x06);
@@ -2101,7 +2040,7 @@ unregister_code(0x2f);
 
         }
  break;
-case 112:
+case 117:
 //za
 if(record->event.pressed){
             register_code(0x1b);
@@ -2114,7 +2053,7 @@ unregister_code(0x2f);
 
         }
  break;
-case 111:
+case 116:
 //CLT9 space
 if(clt_pressed){
 //handle case where a midle finger key is pressed
@@ -2134,7 +2073,78 @@ if(clt_pressed) clt_interrupted = true;
 }
 break;
  break;
+case 115:
+//zi
+if(record->event.pressed){
+            register_code(0x07);
 
+unregister_code(0x07);
+
+register_code(0x2f);
+
+unregister_code(0x2f);
+
+        }
+ break;
+case 114:
+//gu
+if(record->event.pressed){
+            register_code(0x0b);
+
+unregister_code(0x0b);
+
+register_code(0x2f);
+
+unregister_code(0x2f);
+
+        }
+ break;
+case 113:
+//bi
+if(record->event.pressed){
+            register_code(0x19);
+
+unregister_code(0x19);
+
+register_code(0x2f);
+
+unregister_code(0x2f);
+
+        }
+ break;
+case 112:
+//?
+if(record->event.pressed){
+            register_code(0x39);
+
+unregister_code(0x39);
+
+register_code(0xe1);
+register_code(0x38);
+
+unregister_code(0x38);
+
+unregister_code(0xe1);
+
+register_code(0x39);
+
+unregister_code(0x39);
+
+        }
+ break;
+case 111:
+//ge
+if(record->event.pressed){
+            register_code(0x34);
+
+unregister_code(0x34);
+
+register_code(0x2f);
+
+unregister_code(0x2f);
+
+        }
+ break;
       }
     return MACRO_NONE;
 };

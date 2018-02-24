@@ -18,58 +18,64 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
  M(252),0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
-0x2b,M(251),0x36,LT(2, 0x37),0x13,0x1c,0x39,
+0x2b,M(251),0x36,LT(9, 0x37),0x13,0x1c,0x39,
 LSFT(0x87),0x04,0x12,SFT_T(0x08),DLT(4, 0x18),0x0c,
-0xe1,M(250),0x14,0x0d,M(249),0x1b,TO(3),
-0xe4,0xe3,0xe6,TO(2),TO(5),
+0xe1,F(3),
+/*M(250),*/
+0x14,0x0d,M(249),0x1b,TO(3),
+0xe4,0xe3,0xe6,TO(9),TO(5),
 TO(5),TO(3),
 KC_TRNS,
 M(248),0x4c,0x29,
  
  0x2d,KC_TRNS,KC_TRNS,0x57,KC_TRNS,LALT(LSFT(0x1b)),0x87,
-TO(3),0x09,0x0a,LT(2, 0x06),0x15,0x0f,0x38,
+TO(3),0x09,0x0a,LT(9, 0x06),0x15,0x0f,0x38,
 0x07,DLT(4, 0x0b),SFT_T(0x17),0x11,0x16,0x2d,
 TO(1),0x05,0x10,0x1a,0x19,CTL_T(0x1d),0xe5,
 TO(0),0x50,0x4f,0x51,0x52,
 0x4b,KC_TRNS,
 KC_TRNS,
 0x2b,0x2a,M(253) ),
+
+
 [1] = KEYMAP(  
  M(227),M(226),M(185),M(184),M(183),M(182),M(181),
 0x2b,M(243),M(231),F(1),M(237),M(235),KC_TRNS,
-OSL(2),M(229),M(180),M(179),M(223),M(225),
-OSL(5),M(213),M(215),M(217),F(0),M(221),0x56,
-OSL(6),0xe3,0xe6,TG(2),TG(5),
+OSL(6),M(229),M(180),M(179),M(223),M(225),
+0xe1,M(213),M(215),M(217),F(0),M(221),0x56,
+0xe4,0xe3,0xe6,TO(9),TO(5),
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-M(178),0x4c,KC_TRNS,
+M(178),0x4c,0x29,
  
  M(247),M(246),M(245),M(244),M(241),0x56,0x57,
-TO(6),M(195),M(193),M(191),M(189),M(187),0x38,
-M(197),M(199),M(240),M(239),M(201),OSL(3),
+TO(6),M(195),M(193), F(2), M(189),M(187),0x38,
+M(197),M(199),M(240),M(239),M(201),OSL(6),
 KC_TRNS,M(211),M(209),M(207),M(205),M(203),0xe5,
-TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,
+TO(0),0x50,0x4f,0x51,0x52,
+0x4b,0x93,
 KC_TRNS,
-KC_TRNS,0x2a,M(238) ),
-[2] = KEYMAP(  
- 0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
-KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x58,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TO(0),
+0x2b,0x2a,M(238) ),
+[2] = 
+  KEYMAP(  
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,M(113),0x36,M(112),KC_TRNS,KC_TRNS,
+KC_TRNS,0x24,M(111),0x1f,0x26,0x25,
+KC_TRNS,0x56,0x56,0x56,0x56,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
- RESET,0x41,0x42,0x43,0x44,0x45,KC_TRNS,
-KC_TRNS,KC_TRNS,0x4b,0x52,LCTL(0x54),KC_TRNS,KC_TRNS,
-KC_TRNS,0x50,0x51,0x4f,KC_TRNS,KC_TRNS,
-TO(1),KC_TRNS,0x4e,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,0x56,M(144),M(143),LSFT(0x24),0x2f,KC_TRNS,
+0x19,0x1d,0x15,0x27,0x0d,KC_TRNS,
+KC_TRNS,0x56,M(142),M(141),RSFT(0x25),M(140),KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,0x2a,0x58 ),
+KC_TRNS,0x2a,M(139) ),
+
 [3] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,0x89,RSFT(0x36),0x57,LSFT(0x38),0x2f,KC_TRNS,
@@ -152,14 +158,16 @@ KC_TRNS,KC_TRNS,
 KC_TRNS,
 M(134),0x4c,KC_TRNS,
  
+
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(144),M(143),LSFT(0x24),0x2f,KC_TRNS,
-0x19,0x1d,0x15,0x27,0x0d,KC_TRNS,
-KC_TRNS,0x56,M(142),M(141),RSFT(0x25),M(140),KC_TRNS,
+KC_TRNS,KC_TRNS,0x31,0x04,0x38,KC_TRNS,KC_TRNS,
+0x1e,0x11,M(115),0x0f,M(114),KC_TRNS,
+KC_TRNS,KC_TRNS,0x56,0x2d,0x2d,0x2d,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,0x2a,M(139) ),
+KC_TRNS,0x2a,0x58 ),
+
 [8] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,M(123),M(122),M(121),M(120),0x56,KC_TRNS,
@@ -179,58 +187,107 @@ KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,M(124) ),
 [9] = KEYMAP(  
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,M(113),0x36,M(112),KC_TRNS,KC_TRNS,
-KC_TRNS,0x24,M(111),0x1f,0x26,0x25,
-KC_TRNS,0x56,0x56,0x56,0x56,KC_TRNS,KC_TRNS,
+ 0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
+KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x93,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TO(0),
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,0x31,0x04,0x38,KC_TRNS,KC_TRNS,
-0x1e,0x11,M(115),0x0f,M(114),KC_TRNS,
-KC_TRNS,KC_TRNS,0x56,0x2d,0x2d,0x2d,KC_TRNS,
+ RESET,0x41,0x42,0x43,0x44,0x45,KC_TRNS,
+KC_TRNS,KC_TRNS,0x4b,0x52,LCTL(0x54),KC_TRNS,KC_TRNS,
+KC_TRNS,0x50,0x51,0x4f,KC_TRNS,KC_TRNS,
+TO(1),KC_TRNS,0x4e,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
+  
+  
+  
 };
 
 
 const uint16_t PROGMEM fn_actions[] = {
 [1] = ACTION_FUNCTION_TAP(233),
 [0] = ACTION_FUNCTION_TAP(219),
+[2] = ACTION_FUNCTION_TAP(191),
+[3] = ACTION_FUNCTION_TAP(250),// ' when tapped, ctrl when held
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 switch (id) {
-case 233:
-if(record->tap.count>0){
- process_combo_lt_receptor(record,233,M(232)); 
-}else{
-  if(record->event.pressed){
-    layer_on(2);// cursor arrows layer
+  // equivalent of LT(9,は) for CLT receptor
+  case 233:
+  if(record->tap.count>0){
+   process_combo_lt_receptor(record,233,M(232)); 
   }else{
-    layer_off(2);
-  }
- }
-return;
-case 219:
-print_val_dec(record->tap.count);
-if(record->tap.count>0){
- process_combo_lt_receptor(record,219,M(218)); 
-}else{
-  if(record->event.pressed){
-    layer_on(5);//numpad layer
+    if(record->event.pressed){
+      layer_on(9);// cursor arrows layer
+    }else{
+      layer_off(9);
+    }
+   }
+  return;
+  // equivalent of LT(9,し) for CLT receptor
+  case 191:
+  if(record->tap.count>0){
+   process_combo_lt_receptor(record,191,M(190)); 
   }else{
-    layer_off(5);//numpadlayer
+    if(record->event.pressed){
+      layer_on(9);// cursor arrows layer
+    }else{
+      layer_off(9);
+    }
+   }
+  return;
+// equivalent of LT(5,ょ) for CLT receptor
+  case 219:
+  /*print_val_dec(record->tap.count);*/
+    if(record->tap.count>0){
+     process_combo_lt_receptor(record,219,M(218)); 
+    }else{
+      if(record->event.pressed){
+        layer_on(5);//numpad layer
+      }else{
+        layer_off(5);//numpadlayer
+      }
+    }
+    return;
+// equivalent of CTL_T(') 
+  case 250:
+    if(record->tap.count>0){
+    //' "
+      if(record->event.pressed){
+        if(keyboard_report->mods & (2|32)){
+          register_code(0x1f);
+          unregister_code(0x1f);
+        }else{
+          // ' 
+          register_code(0xe1);
+          register_code(0x24);
+          unregister_code(0x24);
+          unregister_code(0xe1);
+        }
+      }
+    }else{
+      // CTL_T
+      if(record->event.pressed){
+        register_code(KC_LCTRL);
+      }else{
+        unregister_code(KC_LCTRL);
+      }
+     }
+    return;
+
+
+
   }
- }
-return;
-}
 };
+
+
 
 
 
@@ -243,8 +300,7 @@ return;
 
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-print_val_dec(id);
-// MACRODOWN only works in this function
+  // MACRODOWN only works in this function
       switch(id) {
         case 253:
 //DLT(3,return)
@@ -465,20 +521,19 @@ unregister_code(0xe5);
 break;
  case 193:
  process_combo_lt_receptor(record,193,M(192)); break;
-// し
 
+// し
  case 190:
  if(!record->event.pressed){
 register_code(0x07);
-
 unregister_code(0x07);
 
 }
 break;
  case 191:
  process_combo_lt_receptor(record,191,M(190)); break;
-// と
 
+// と
  case 188:
  if(!record->event.pressed){
 register_code(0x16);
@@ -633,10 +688,10 @@ if(clt_pressed){
     if(record->event.pressed){
         clt_interrupted = true;
         clt_layer2 = clt_layer;
-        clt_layer = 9;
+        clt_layer = 2;
     }
 }else{
-    if(record->event.pressed) {clt_layer = 9;}
+    if(record->event.pressed) {clt_layer = 2;}
 }
 if(!process_combo_lt(0x58, record)){
 //this key is released before the mindle finger key
@@ -855,10 +910,10 @@ case 179:
 //CLT7
 //CLT7
 if(record->event.pressed){
-clt_layer = 7;
+clt_layer = 2;
 }
 
-if(!process_combo_lt(OSL(7), record)){
+if(!process_combo_lt(OSL(2), record)){
     //Called when thumb key is pressed after this key.
     _send_key(clt_layer, record->event.key);
 }
@@ -967,10 +1022,10 @@ if(clt_pressed){
     if(record->event.pressed){
         clt_interrupted = true;
         clt_layer2 = clt_layer;
-        clt_layer = 9;
+        clt_layer = 7;
     }
 }else{
-    if(record->event.pressed) {clt_layer = 9;}
+    if(record->event.pressed) {clt_layer = 7;}
 }
 
 if(!process_combo_lt(0x2c, record)){

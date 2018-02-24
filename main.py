@@ -83,8 +83,8 @@ class MainWindow(QMainWindow):
         configure = QAction(QIcon(),"Configure", self)
         configure.triggered.connect(self.open_config_window)
 
-        swap_tabs= QAction(QIcon(),"Swap layers", self)
-        swap_tabs.triggered.connect(self.swap_layers)
+        # swap_tabs= QAction(QIcon(),"Swap layers", self)
+        # swap_tabs.triggered.connect(self.swap_layers)
 
 
         import_one_layer= QAction(QIcon(),"import one layer", self)
@@ -103,7 +103,7 @@ class MainWindow(QMainWindow):
         tb.setFloatable(False)
         tb.addAction(open_file)
         tb.addAction(save_file)
-        tb.addAction(swap_tabs)
+        # tb.addAction(swap_tabs)
         tb.addAction(configure)
 
         tb.addAction(import_one_layer)

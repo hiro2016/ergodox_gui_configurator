@@ -218,6 +218,9 @@ Ensure:
  1. Using KeyDictParser to get values.
  2. Write a dictionary generator to make sure dict objects are initialized properly.  
  3. Introduce dict_key.py file to have all dict keys in one place.
+ 
+### bugs  
++ swap layers feature is broken. Add tests before fixing this bug.
     
     
     
