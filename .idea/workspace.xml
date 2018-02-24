@@ -10,28 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README_CLT.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README_CLT.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="140">
-                <caret line="157" column="10" lean-forward="false" selection-start-line="157" selection-start-column="10" selection-end-line="157" selection-end-column="10" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -46,7 +25,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/keycode_viewer.py" />
         <option value="$PROJECT_DIR$/ConfigWindow.py" />
         <option value="$PROJECT_DIR$/ConfigWidget.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/x11_to_hid_usage_id_map.py" />
@@ -60,9 +38,6 @@
         <option value="$PROJECT_DIR$/NoneGUIComponents/Keymap_to_code_transformer.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/macro_recorder.py" />
         <option value="$PROJECT_DIR$/GUIComponents/SelectModifierMaskComponent.py" />
-        <option value="$PROJECT_DIR$/scripts/kernel_keycode_to_x11_map.py" />
-        <option value="$PROJECT_DIR$/scripts/combine_tables_into_map.py" />
-        <option value="$PROJECT_DIR$/scripts/hid_usb_usage_table_keyboard" />
         <option value="$PROJECT_DIR$/GUIComponents/KeySelector.py" />
         <option value="$PROJECT_DIR$/GUIComponents/dual_function_macro_generation_wizzard.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/keypress_observer.py" />
@@ -89,7 +64,6 @@
         <option value="$PROJECT_DIR$/NoneGUIComponents/keymap_to_code_transformer.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/dict_keys.py" />
         <option value="$PROJECT_DIR$/GUIComponents/KeyPresstInterceptorComponent.py" />
-        <option value="$PROJECT_DIR$/GUIComponents/SelectSpecialActionComponent.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/key_conf_dict_parser.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/key_conf_dict_generator.py" />
         <option value="$PROJECT_DIR$/NoneGUIComponents/macro_id_pool.py" />
@@ -97,6 +71,11 @@
         <option value="$PROJECT_DIR$/central_widget.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/README_CLT.md" />
+        <option value="$PROJECT_DIR$/GUIComponents/SelectSpecialActionComponent.py" />
+        <option value="$PROJECT_DIR$/scripts/hid_usb_usage_table_keyboard" />
+        <option value="$PROJECT_DIR$/scripts/kernel_keycode_to_x11_map.py" />
+        <option value="$PROJECT_DIR$/scripts/combine_tables_into_map.py" />
+        <option value="$PROJECT_DIR$/scripts/README.md" />
       </list>
     </option>
   </component>
@@ -141,7 +120,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,11 +127,27 @@
               <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
               <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
+              <item name="NoneGUIComponents" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
+              <item name="old_11_to_hid_maps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GUIConfigurator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GUIConfigurator" type="462c0819:PsiDirectoryNode" />
+              <item name="scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -161,14 +155,15 @@
     <property name="last_opened_file_path" value="$USER_HOME$/Dropbox/script/SpreadSheet" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/NoneGUIComponents" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/old_11_to_hid_maps" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/GUIComponents" />
       <recent name="$PROJECT_DIR$/NoneGUIComponents" />
       <recent name="$PROJECT_DIR$/scripts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/NoneGUIComponents" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -248,36 +243,36 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <configuration name="key_conf_dict_parser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="combine_tables_into_map" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NoneGUIComponents" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GUIConfigurator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NoneGUIComponents/key_conf_dict_parser.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/combine_tables_into_map.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="keymap_to_code_transformer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="kernel_keycode_to_x11_map" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/NoneGUIComponents" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GUIConfigurator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NoneGUIComponents/keymap_to_code_transformer.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/kernel_keycode_to_x11_map.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -353,18 +348,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.pyxhook" />
       <item index="1" class="java.lang.String" itemvalue="Python.main" />
-      <item index="2" class="java.lang.String" itemvalue="Python.keymap_to_code_transformer" />
-      <item index="3" class="java.lang.String" itemvalue="Python.key_conf_dict_parser" />
-      <item index="4" class="java.lang.String" itemvalue="Python.rename_content" />
-      <item index="5" class="java.lang.String" itemvalue="Python.macro_id_pool" />
+      <item index="2" class="java.lang.String" itemvalue="Python.rename_content" />
+      <item index="3" class="java.lang.String" itemvalue="Python.macro_id_pool" />
+      <item index="4" class="java.lang.String" itemvalue="Python.combine_tables_into_map" />
+      <item index="5" class="java.lang.String" itemvalue="Python.kernel_keycode_to_x11_map" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.macro_id_pool" />
-        <item index="2" class="java.lang.String" itemvalue="Python.rename_content" />
-        <item index="3" class="java.lang.String" itemvalue="Python.key_conf_dict_parser" />
-        <item index="4" class="java.lang.String" itemvalue="Python.keymap_to_code_transformer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.kernel_keycode_to_x11_map" />
+        <item index="2" class="java.lang.String" itemvalue="Python.combine_tables_into_map" />
+        <item index="3" class="java.lang.String" itemvalue="Python.macro_id_pool" />
+        <item index="4" class="java.lang.String" itemvalue="Python.rename_content" />
       </list>
     </recent_temporary>
   </component>
@@ -403,10 +398,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279483" sideWeight="0.49675852" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.67147434" sideWeight="0.5032415" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279483" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5827206" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5815832" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.63004845" sideWeight="0.49027553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25324675" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41911766" sideWeight="0.49675852" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4184168" sideWeight="0.49675852" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39889705" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -440,48 +435,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GUIComponents/GUIBase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="23" column="19" lean-forward="false" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1247971764/PyQt5/QtWidgets/QMainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GUIComponents/SelectModifierMaskComponent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="47" column="22" lean-forward="false" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/get_x11_keycode_table.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-385">
-          <caret line="27" column="37" lean-forward="false" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/kernel_and_x11_keycode_table">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2800">
@@ -489,32 +442,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/combine_tables_into_map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="61" column="30" lean-forward="false" selection-start-line="61" selection-start-column="30" selection-end-line="61" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/x11_to_hid_usage_id_map.py" />
-    <entry file="file://$PROJECT_DIR$/scripts/kernel_keycode_to_x11_map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="60" column="37" lean-forward="false" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/x11_to_hid_usage_id_map.py">
+    <entry file="file://$PROJECT_DIR$/old_11_to_hid_maps/x11_to_hid_usage_id_map2-24.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/hid_usb_usage_table_keyboard">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="198" column="11" lean-forward="false" selection-start-line="198" selection-start-column="11" selection-end-line="198" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -703,13 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NoneGUIComponents/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -721,13 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GUIComponents/SelectSpecialActionComponent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="106" column="49" lean-forward="false" selection-start-line="106" selection-start-column="49" selection-end-line="106" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -767,18 +685,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="224">
             <caret line="212" column="5" lean-forward="false" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
-            <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -790,11 +707,105 @@
     <entry file="file://$PROJECT_DIR$/README_CLT.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="140">
+          <first_editor relative-caret-position="1120">
             <caret line="157" column="10" lean-forward="false" selection-start-line="157" selection-start-column="10" selection-end-line="157" selection-end-column="10" />
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/generate_windows_scancode_to_hid_id_map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/scripts/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/old_11_to_hid_maps/x11_to_hid_usage_id_map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/evtest_out">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2520">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="140">
+            <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NoneGUIComponents/x11_to_hid_usage_id_map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/kernel_keycode_to_x11_map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="104" column="44" lean-forward="true" selection-start-line="104" selection-start-column="44" selection-end-line="104" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/hid_usb_usage_table_keyboard">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3808">
+          <caret line="31" column="24" lean-forward="false" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="20" column="49" lean-forward="true" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/combine_tables_into_map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="118" column="25" lean-forward="true" selection-start-line="118" selection-start-column="25" selection-end-line="118" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUIComponents/SelectSpecialActionComponent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -27,6 +27,10 @@ class SelectSpecialActionComponent(QVBoxLayout):
         'Muhenkan':'0x8b',
         'comma/,':'0x8c',
         'power':'0x00',
+        'PgDown':'00x4e',
+        'PgUp':'00x61',
+        'Hiragana':'00x93',
+        'Katakana':'00x92',
         'RGUI/RWIN': '0xe7'
     }
     osm_options = [
