@@ -1,11 +1,8 @@
 
 
 
-Change log:
-+ v1  
-`T_SFT(t)` and `T_SFT(e)` are now action functions. They both now register shift when the key is held down and register oneshot modifier at its key release time if no other key was pressed while the key had been held down.  
-
-+ v0  
+Change logs:
++ v2  
 ekm file is no longer used to edit `keymap.c`;now the `keymap.c` is hand edited.  
 Layer2 and Layer9 swaped.  
 Then, Layer2 right hand side keymap half is swapped with Layer 7 right hand side half.  
