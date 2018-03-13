@@ -5,8 +5,195 @@
 #include "delayed_lt_macro_support.c"
 #include "combo_lt.c"
 
+
 #define BASE 0 // default layer
 #define SYMB 1 // symbols #define MDIA 2 // media keys
+
+// macro and custom function definitions for Japanese Language input
+//muzunara base layer left top row
+#define JP_MO M(243)
+#define JP_NI M(231)
+#define JP_HA F(1)
+#define JP_TE M(237)
+#define JP_DE M(235)
+
+//muzunara base layer right top row
+
+#define JP_RE M(195)
+#define JP_XTU M(193)
+#define JP_SI F(2)
+#define JP_TO M(189)
+#define JP_E M(187)
+
+
+//muzunara base layer left home row
+#define JP_KA M(229)
+#define JP_LEFT_RING_MIZUNARA M(180)
+#define JP_LEFT_MIDDLE_MIZUNARA M(179)
+#define JP_NA M(223)
+#define JP_RU M(225)
+
+//muzunara base layer right home row
+
+#define JP_KI M(197)
+#define JP_NN M(199)
+#define JP_RIGHT_MIDDLE_MIZUNARA M(240)
+#define JP_RIGHT_RING_MIZUNARA M(239)
+#define JP_I M(201)
+
+//muzunara base layer left bottum row
+
+#define JP_KO M(213)
+#define JP_GA M(215)
+#define JP_DA M(217)
+#define JP_TA F(0)
+#define JP_XYO M(221)
+
+//muzunara base layer right bottum row
+#define JP_KU M(211)
+#define JP_U M(209)
+#define JP_COMMA M(207) 
+#define JP_PERIOD M(205)
+#define JP_NO M(203)
+
+// muzunara right thumb layer left top row
+// びね?
+#define JP_BI M(113)
+#define JP_NE 0x36
+#define JP_QUESTION M(112)
+
+// muzunara right thumb layer right top row
+//-ぷぶゃ゛
+#define JP_PU M(144)
+#define JP_BU M(143)
+#define JP_XYA LSFT(0x24)
+#define JP_DATEN 0x2f
+
+// muzunara right thumb layer left home row
+// やげふよゆ
+
+#define JP_YA 0x24
+#define JP_GE M(111)
+#define JP_FU 0x1f
+#define JP_YO 0x26
+#define JP_YU 0x25
+
+// muzunara right thumb layer right home row
+// ひつすわま
+// 0x19,0x1d,0x15,0x27,0x0d,KC_TRNS,
+#define JP_HI 0x19
+#define JP_TU 0x1d
+#define JP_SU 0x15
+#define JP_WA 0x27
+#define JP_MA 0x0d
+
+// muzunara right thumb layer left bottom row
+// もでょ already defined on base layer
+
+
+// muzunara right thumb layer rigt bottom row
+// -ぉぺゅぴ
+#define JP_XO M(142)
+#define JP_PE M(141)
+#define JP_XYU RSFT(0x25)
+#define JP_PI M(140)
+
+
+
+// muzunara left thumb layer(7) left top row
+// -づぼほ-
+#define JP_DU M(138)
+#define JP_BO M(137)
+#define JP_HO 0x2d
+
+// muzunara left thumb layer(7) right top row
+// むちめ
+
+#define JP_MU 0x31
+#define JP_TI 0x04
+#define JP_ME 0x38
+
+// muzunara left thumb layer(7) left home row
+// あけすおさ
+// KC_TRNS,0x20,0x34,0x15,0x23,0x1b,
+#define JP_A 0x20
+#define JP_KE 0x34
+#define JP_SU 0x15
+#define JP_O 0x23
+#define JP_SA 0x1b
+
+
+// muzunara left thumb layer(7) right home row
+// ぬみじりぐ
+#define JP_NU 0x1e
+#define JP_MI 0x11
+#define JP_ZI M(115)
+#define JP_RI 0x0f
+#define JP_GU M(114)
+
+// muzunara left thumb layer(7) left bottom row
+// ごぜへ
+#define JP_GO M(136)
+#define JP_ZE M(135)
+#define JP_HE 0x2e
+
+
+// muzunara left thumb layer(7) right bottom row
+// くれえ already defined
+
+
+// muzunara left ring finger layer(8) left top row
+// べぃぁど-
+/*KC_TRNS,M(123),M(122),M(121),M(120),0x56,KC_TRNS,*/
+#define JP_XI M(122)
+#define JP_XA M(121)
+#define JP_DO M(120)
+
+// muzunara left ring finger layer(8) right top row
+// ぽばず
+#define JP_PO M(133)
+#define JP_BA M(132)
+#define JP_ZU M(131)
+#define JP_MARU 0x30
+
+
+// muzunara left ring finger layer(8) left home row
+// らせわろそ
+// KC_TRNS,0x12,0x13,0x27,0x87,0x06,
+#define JP_RA 0x12
+#define JP_SE 0x13
+#define JP_WA 0x27
+#define JP_RO 0x87
+#define JP_SO 0x06
+
+// muzunara left ring finger layer(8) right home row
+// ぎーけせを  
+#define JP_GI M(130)
+#define JP_YOKOBOU M(129)
+#define JP_KE 0x34 
+#define JP_SE 0x13 
+#define JP_WO M(128) 
+
+// muzunara left ring finger layer(8) left bottom row
+// べぇぞざ-
+#define JP_BE M(119)
+#define JP_XE RSFT(0x22)
+#define JP_ZO M(118)
+#define JP_ZA M(117)
+
+// muzunara left ring finger layer(8) right bottom row
+// ぱヴぅぢ
+#define JP_PA M(127)
+#define JP_VU M(126)
+#define JP_XU LSFT(0x21)
+#define JP_DI M(125)
+
+
+
+ 
+
+
+
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -18,17 +205,17 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
  M(252),0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
-0x2b,M(251),0x36,LT(9, 0x37),0x13,0x1c,0x39,
-LSFT(0x87),0x04,0x12, F(4), /*SFT_T(0x08),*/ DLT(4, 0x18),0x0c,
+0x2b,M(251),0x36,LT(10, 0x37),0x13,0x1c,0x39,
+LSFT(0x87),0x04,0x12, F(4), DLT(4, 0x18),0x0c,
 0xe1,F(3), 0x14,0x0d,M(249),0x1b,TO(3),
-0xe4,0xe3,0xe6,TO(9),TO(5),
+0xe4,0xe3,0xe6,TO(10),TO(5),
 TO(5),TO(3),
 KC_TRNS,
 M(248),0x4c,0x29,
  
  0x2d,KC_TRNS,KC_TRNS,0x57,KC_TRNS,LALT(LSFT(0x1b)),0x87,
-TO(3),0x09,0x0a,LT(9, 0x06),0x15,0x0f,0x38,
-0x07,DLT(4, 0x0b),F(5), /*SFT_T(0x17),*/ 0x11,0x16,0x2d,
+TO(3),0x09,0x0a,LT(10, 0x06),0x15,0x2d,0x38,
+0x07,DLT(4, 0x0b),F(5), 0x11,0x16,0x0f,
 TO(1),0x05,0x10,0x1a,0x19,CTL_T(0x1d),0xe5,
 TO(0),0x50,0x4f,0x51,0x52,
 0x4b,KC_TRNS,
@@ -38,38 +225,38 @@ TO(0),0x50,0x4f,0x51,0x52,
 
 [1] = KEYMAP(  
  M(227),M(226),M(185),M(184),M(183),M(182),M(181),
-0x2b,M(243),M(231),F(1),M(237),M(235),KC_TRNS,
-OSL(6),M(229),M(180),M(179),M(223),M(225),
-0xe1,M(213),M(215),M(217),F(0),M(221),0x56,
+KC_TAB,OSL(6),JP_NI,JP_HA,JP_TE,JP_DE,KC_TRNS,
+JP_MO,JP_KA,JP_LEFT_RING_MIZUNARA,JP_LEFT_MIDDLE_MIZUNARA,JP_NA,JP_RU,
+KC_LEFT,JP_KO,JP_GA,JP_DA,JP_TA,JP_XYO,0x56,
 0xe4,0xe3,0xe6,TO(9),TO(5),
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 M(178),0x4c,0x29,
  
  M(247),M(246),M(245),M(244),M(241),0x56,0x57,
-TO(6),M(195),M(193), F(2), M(189),M(187),0x38,
-M(197),M(199),M(240),M(239),M(201),OSL(6),
-KC_TRNS,M(211),M(209),M(207),M(205),M(203),0xe5,
+TO(6), JP_RE,JP_XTU,JP_SI,JP_TO,OSL(6),0x38,
+JP_KI,JP_NN,JP_RIGHT_MIDDLE_MIZUNARA,JP_RIGHT_RING_MIZUNARA,JP_I,JP_E,
+KC_TRNS, JP_KU,JP_U,JP_COMMA,JP_PERIOD,JP_NO,0xe5,
 TO(0),0x50,0x4f,0x51,0x52,
 0x4b,0x93,
 0x4e,
 0x2b,0x2a,M(238) ),
+
 [2] = 
   KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,M(113),0x36,M(112),KC_TRNS,KC_TRNS,
-KC_TRNS,0x24,M(111),0x1f,0x26,0x25,
-//nokey,nokey,も,で,ょ,nokey,nokey
-KC_TRNS, KC_TRNS, M(242), M(234),M(220),KC_TRNS,KC_TRNS, 
+KC_TRNS,KC_TRNS,JP_BI,JP_NE,JP_QUESTION,KC_TRNS,KC_TRNS,
+KC_TRNS,JP_YA,JP_GE,JP_FU,JP_YO,JP_YU,
+KC_TRNS, KC_TRNS, JP_MO, JP_DE,JP_XYO,KC_TRNS,KC_TRNS, 
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(144),M(143),LSFT(0x24),0x2f,KC_TRNS,
-0x19,0x1d,0x15,0x27,0x0d,KC_TRNS,
-KC_TRNS,0x56,M(142),M(141),RSFT(0x25),M(140),KC_TRNS,
+KC_TRNS,KC_TRNS,JP_PU,JP_BU,JP_XYU,JP_DATEN,KC_TRNS,
+JP_HI,JP_TU,JP_SU,JP_WA,JP_MA,KC_TRNS,
+KC_TRNS,KC_TRNS,JP_XO,JP_PE,JP_XYU,JP_PI,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -147,11 +334,12 @@ TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
+
 [7] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(138),M(137),0x2d,0x56,KC_TRNS,
-KC_TRNS,0x20,0x34,0x15,0x23,0x1b,
-KC_TRNS,0x56,M(136),M(135),0x2e,0x56,KC_TRNS,
+KC_TRNS,KC_TRNS,JP_DU,JP_BO,JP_HO,KC_TRNS,KC_TRNS,
+KC_TRNS,JP_A,JP_KE,JP_SU,JP_O,JP_SA,
+KC_TRNS,KC_TRNS,JP_GO,JP_ZE,JP_HE,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -159,34 +347,55 @@ M(134),0x4c,KC_TRNS,
  
 
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,0x31,0x04,0x38,KC_TRNS,KC_TRNS,
-0x1e,0x11,M(115),0x0f,M(114),KC_TRNS,
-//nokey,nokey,く,れ,え,nokey,nokey
-KC_TRNS,KC_TRNS,M(210),M(194),M(186),KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,JP_MU,JP_TI,JP_ME,KC_TRNS,KC_TRNS,
+JP_NU,JP_MI,JP_ZI,JP_RI,JP_GU,KC_TRNS,
+KC_TRNS,KC_TRNS,JP_KU,JP_RE,JP_E,KC_TRNS,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
 
-[8] = KEYMAP(  
- KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,M(123),M(122),M(121),M(120),0x56,KC_TRNS,
-KC_TRNS,0x12,0x13,0x27,0x87,0x06,
-KC_TRNS,M(119),RSFT(0x22),M(118),M(117),0x56,KC_TRNS,
+// For right ring finger  
+[8] = KEYMAP(
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,JP_BE,JP_XI,JP_XA,JP_DO,KC_TRNS,KC_TRNS,
+KC_TRNS,JP_RA,JP_SE,JP_WA,JP_RO,JP_SO,
+KC_TRNS,JP_BE,JP_XE,JP_ZO,JP_ZA,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,
+KC_TRNS,
+M(116),0x4c,KC_TRNS,
+ 
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+JP_PI,JP_KU,JP_RE,JP_E,JP_NO,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,
+KC_TRNS,
+KC_TRNS,0x2a,M(124) ),
+// For left ring finger  
+
+[9] = KEYMAP( 
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS, JP_KO,JP_MO,JP_DE,JP_XYO,JP_BE,
+KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 M(116),0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,0x56,M(133),M(132),M(131),0x30,KC_TRNS,
-M(130),M(129),0x34,0x13,M(128),KC_TRNS,
-KC_TRNS,0x56,M(127),M(126),LSFT(0x21),M(125),KC_TRNS,
+KC_TRNS,KC_TRNS,JP_PO,JP_BA,JP_ZU,JP_MARU,KC_TRNS,
+JP_GI,JP_YOKOBOU,JP_KE,JP_SE,JP_WO,KC_TRNS,
+KC_TRNS,KC_TRNS,JP_PA,JP_VU,JP_XU,JP_DI,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,M(124) ),
-[9] = KEYMAP(  
+
+[10] = KEYMAP(  
  0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
 KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x93,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -260,27 +469,27 @@ switch (id) {
      }
     return;
 
-  // equivalent of LT(9,は) for CLT receptor
+  // equivalent of LT(10,は) for CLT receptor
   case 233:
   if(record->tap.count>0){
    process_combo_lt_receptor(record,233,M(232)); 
   }else{
     if(record->event.pressed){
-      layer_on(9);// cursor arrows layer
+      layer_on(10);// cursor arrows layer
     }else{
-      layer_off(9);
+      layer_off(10);
     }
    }
   return;
-  // equivalent of LT(9,し) for CLT receptor
+  // equivalent of LT(10,し) for CLT receptor
   case 191:
   if(record->tap.count>0){
    process_combo_lt_receptor(record,191,M(190)); 
   }else{
     if(record->event.pressed){
-      layer_on(9);// cursor arrows layer
+      layer_on(10);// cursor arrows layer
     }else{
-      layer_off(9);
+      layer_off(10);
     }
    }
   return;
@@ -718,7 +927,7 @@ break;
  case 203:
  process_combo_lt_receptor(record,203,M(202)); break;
 case 238:
-//CLT9 ret
+//CLT6 or ret
 
 if(clt_pressed){
 //handles a case where a midle finger key is pressed
@@ -926,13 +1135,12 @@ break;
  case 229:
  process_combo_lt_receptor(record,229,M(228)); break;
 case 180:
-//CLT8
-//CLT7
+//CLT9
 if(record->event.pressed){
-clt_layer = 8;
+clt_layer = 9;
 }
 
-if(!process_combo_lt(OSL(8), record)){
+if(!process_combo_lt(OSL(9), record)){
     //Called when thumb key is pressed after this key.
     _send_key(clt_layer, record->event.key);
 }
@@ -1046,7 +1254,7 @@ break;
  case 221:
  process_combo_lt_receptor(record,221,M(220)); break;
 case 178:
-//CLT9 space
+//CLT(6) or space
 
 if(clt_pressed){
 //handle case where a midle finger key is pressed
@@ -1782,7 +1990,7 @@ unregister_code(0x30);
         }
  break;
 case 139:
-//CLT9 return
+//CLT6 or return
 if(clt_pressed){
 //handles a case where a midle finger key is pressed
 //before thumb key.
@@ -1871,7 +2079,7 @@ unregister_code(0x2f);
         
  break;
 case 134:
-//CLT9 space
+//CLT6 or space
 if(clt_pressed){
 //handle case where a midle finger key is pressed
 //before thumb key.
@@ -2040,7 +2248,7 @@ unregister_code(0x2f);
         
  break;
 case 124:
-//CLT9 return
+//CLT6 or  return
 if(clt_pressed){
 //handles a case where a midle finger key is pressed
 //before thumb key.
@@ -2169,7 +2377,7 @@ unregister_code(0x2f);
         }
  break;
 case 116:
-//CLT9 space
+//CLT6 or  space
 if(clt_pressed){
 //handle case where a midle finger key is pressed
 //before thumb key.

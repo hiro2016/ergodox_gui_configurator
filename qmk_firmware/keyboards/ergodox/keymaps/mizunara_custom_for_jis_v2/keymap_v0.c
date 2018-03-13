@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
  M(252),0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
 0x2b,M(251),0x36,LT(9, 0x37),0x13,0x1c,0x39,
-LSFT(0x87),0x04,0x12, F(4), /*SFT_T(0x08),*/ DLT(4, 0x18),0x0c,
+LSFT(0x87),0x04,0x12,SFT_T(0x08),DLT(4, 0x18),0x0c,
 0xe1,F(3), 0x14,0x0d,M(249),0x1b,TO(3),
 0xe4,0xe3,0xe6,TO(9),TO(5),
 TO(5),TO(3),
@@ -28,7 +28,7 @@ M(248),0x4c,0x29,
  
  0x2d,KC_TRNS,KC_TRNS,0x57,KC_TRNS,LALT(LSFT(0x1b)),0x87,
 TO(3),0x09,0x0a,LT(9, 0x06),0x15,0x0f,0x38,
-0x07,DLT(4, 0x0b),F(5), /*SFT_T(0x17),*/ 0x11,0x16,0x2d,
+0x07,DLT(4, 0x0b),SFT_T(0x17),0x11,0x16,0x2d,
 TO(1),0x05,0x10,0x1a,0x19,CTL_T(0x1d),0xe5,
 TO(0),0x50,0x4f,0x51,0x52,
 0x4b,KC_TRNS,
@@ -215,51 +215,10 @@ const uint16_t PROGMEM fn_actions[] = {
 [0] = ACTION_FUNCTION_TAP(219),
 [2] = ACTION_FUNCTION_TAP(191),
 [3] = ACTION_FUNCTION_TAP(250),// ' when tapped, ctrl when held
-[4] = ACTION_FUNCTION_TAP(1), // e or OSM(KC_LSFT) on long press
-[5] = ACTION_FUNCTION_TAP(2), // t or OSM(KC_RSFT) on long press
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 switch (id) {
-  // e or OSM(MOD_LSFT)
-  case 1:
-    if(record->tap.count>0){
-      if (record->event.pressed){
-        register_code(0x08); //send e
-        unregister_code(0x08);
-      }
-    }else{
-      //send lshift 
-      if(record->event.pressed){
-        register_code(0xe1);
-      }else{
-        unregister_code(0xe1);
-        if(IS_KEYPOS_SAME(last_keypressed,record->event.key)){
-          set_oneshot_mods(MOD_LSFT);
-        }
-       }
-     }
-    return;
-  // t or OSM(MOD_LSFT)
-  case 2:
-    if(record->tap.count>0){
-      if (record->event.pressed){
-        register_code(KC_T); //send t
-        unregister_code(KC_T);
-      }
-    }else{
-      //send lshift 
-      if(record->event.pressed){
-        register_code(0xe1);
-      }else{
-        unregister_code(0xe1);
-        if(IS_KEYPOS_SAME(last_keypressed,record->event.key)){
-          set_oneshot_mods(MOD_LSFT);
-        }
-       }
-     }
-    return;
-
   // equivalent of LT(9,は) for CLT receptor
   case 233:
   if(record->tap.count>0){
@@ -299,10 +258,10 @@ switch (id) {
     return;
 // equivalent of CTL_T(') 
   case 250:
-    if(record->tap.count>=1){
+    if(record->tap.count>0){
     //' "
       if(record->event.pressed){
-        if((keyboard_report->mods & (2|32))|(get_oneshot_mods() & MOD_LSFT)){
+        if(keyboard_report->mods & (2|32)){
           register_code(0x1f);
           unregister_code(0x1f);
         }else{
@@ -313,7 +272,7 @@ switch (id) {
           unregister_code(0xe1);
         }
       }
-    }else if (record->tap.count == 0){
+    }else{
       // CTL_T
       if(record->event.pressed){
         register_code(KC_LCTRL);
@@ -424,6 +383,9 @@ process_action_delayed_lt_from_macro(kc,record);
 dlt_reset();}
  break;
 case 248:
+//DLT(3,Space)
+//DLT(3,Space)
+//DLT(3,Space)
 //DLT(3,Space)
 if(record->event.pressed){
 uint16_t kc = DLT(3,0x2c);
@@ -2317,5 +2279,4 @@ void matrix_scan_user(void) {
     }
 
 };
-
 
