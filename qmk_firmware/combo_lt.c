@@ -2,7 +2,7 @@
 //#define CLT_ACCEPTABLE_DELAY 60
 #define CLT_ACCEPTABLE_DELAY 30
 /*#define CLT_ACCEPTABLE_DELAY 0*/
-#define CLT_DEBUG_PRINT
+/*#define CLT_DEBUG_PRINT*/
 
 uint16_t clt_layer = 0;
 bool clt_pressed = false;

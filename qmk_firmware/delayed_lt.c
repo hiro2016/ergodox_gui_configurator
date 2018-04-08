@@ -1,4 +1,4 @@
-//#define DLT_DEBUG_PRINT
+/*#define DLT_DEBUG_PRINT*/
 // For controlling threshold and other variables for individual 
 // keys, use macro.
 //
@@ -228,6 +228,7 @@ void _send_key(uint32_t layer, keypos_t key ){
 //void inline _send_key(uint32_t layer, keypos_t key ){
   uint16_t keycode = keymap_key_to_keycode(layer,key);
   action_t action;
+  keyrecord_t record;
   //detect shift.
   //For the time being supporting shift only.
   
@@ -263,7 +264,6 @@ void _send_key(uint32_t layer, keypos_t key ){
       /*register_code16(keycode);*/
       /*unregister_code16(keycode);*/
       /*return;*/
-      keyrecord_t record;
       action.code = keycode;
 
       //cannot remember why prv_keypos, why not key?
@@ -275,6 +275,19 @@ void _send_key(uint32_t layer, keypos_t key ){
       action_get_macro(&record,action.func.id, action.func.id);
       record.event.pressed = false;
       action_get_macro(&record,action.func.id, action.func.id);
+      return;
+  }else if(keycode >= QK_FUNCTION && keycode <QK_FUNCTION_MAX){
+      /*action.code = keycode;*/
+      record.event.key = key;
+      /*action.code = fn_actions[keycode & 0xff];*/
+      action.code = keymap_function_id_to_action( (int)keycode & 0xFFF );
+
+      record.tap.count = 1;
+      record.event.pressed = true;
+      record.event.time = timer_read();
+      action_function(&record,action.func.id, 0);
+      record.event.pressed = false;
+      action_function(&record,action.func.id, 0);
       return;
   }else if(keycode >= QK_ONE_SHOT_LAYER && keycode < QK_ONE_SHOT_LAYER_MAX){
     /*register_code16 did not work*/
@@ -321,26 +334,20 @@ uint8_t inline _get_action_for_delayed_lt_released(uint16_t keycode, keyrecord_t
 
   if(pre_dlt_idling_time > dlt_pre_keypress_idling){
     held_down_time += dlt_hold_increased_by;
-#ifdef DLT_DEBUG_PRINT
-    print("DLT held down time added\n");
-    print_val_dec(held_down_time);
-    print("before addition\n");
-    print_val_dec(held_down_time-dlt_hold_increased_by);
-    print("timers\n");
-    print_val_dec(timer_read());
-    print_val_dec(pre_dlt_idling_time);
-#endif
+/*#ifdef DLT_DEBUG_PRINT*/
+    /*print("DLT held down time added\n");*/
+    /*print("timers\n");*/
+    /*print_val_dec(timer_read());*/
+    /*print_val_dec(pre_dlt_idling_time);*/
+/*#endif*/
   }else{
     held_down_time -= dlt_hold_decreased_by;
-#ifdef DLT_DEBUG_PRINT
-    print("DLT held down time reduced\n");
-    print_val_dec(held_down_time);
-    print("before reduction\n");
-    print_val_dec(held_down_time+dlt_hold_decreased_by);
-    print("timers\n");
-    print_val_dec(timer_read());
-    print_val_dec(pre_dlt_idling_time);
-#endif
+/*#ifdef DLT_DEBUG_PRINT*/
+    /*print("DLT held down time reduced\n");*/
+    /*print("timers\n");*/
+    /*print_val_dec(timer_read());*/
+    /*print_val_dec(pre_dlt_idling_time);*/
+/*#endif*/
   }
 
 

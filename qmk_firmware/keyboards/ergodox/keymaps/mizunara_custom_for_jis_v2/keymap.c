@@ -285,6 +285,8 @@
 #define JIS_COMMA KC_COMM
 #define JIS_SINGLE_OR_DOUBLE_QUOTE_OR_CTRL F(3)
 #define ECLIPSE_EXECUTE LALT(LSFT(0x1b))
+#define DLT4_U M(247)
+#define DLT4_H M(246)
 
 // layer 5
 #define JIS_DLT_K M(249) 
@@ -306,7 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
  M(252),KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_TRNS,
 KC_TAB,JIS_SEMI_COLON_AND_COLON,JIS_COMMA,LT(10, JIS_PERIOD),KC_P,KC_Y,KC_CAPSLOCK,
-JIS_UNDERLINE,KC_A,KC_O, JIS_E_OR_SHIFT, DLT(4, KC_U),KC_I,
+JIS_UNDERLINE,KC_A,KC_O, JIS_E_OR_SHIFT, DLT4_U,KC_I,
 KC_LSHIFT,JIS_SINGLE_OR_DOUBLE_QUOTE_OR_CTRL, KC_Q,KC_J,JIS_DLT_K,KC_X,TO(3),
 KC_LCTRL,KC_LGUI,KC_LALT,TO(10),TO(5),
 TO(5),TO(3),
@@ -315,7 +317,7 @@ M(248),0x4c,0x29,
  
  JIS_MINUS,KC_TRNS,KC_TRNS,JIS_PLUS,KC_TRNS,ECLIPSE_EXECUTE,JIS_BACSLASH,
 TO(3),KC_F,KC_G,LT(10, KC_C),KC_R,KC_L,JIS_SLASH,
-KC_D,DLT(4, KC_H),JIS_T_OR_SHIFT, KC_N,KC_S,JIS_MINUS,
+KC_D,DLT4_H,JIS_T_OR_SHIFT, KC_N,KC_S,JIS_MINUS,
 TO(1),KC_B,KC_M,KC_W,KC_V,CTL_T(KC_Z),KC_RSHIFT,
 TO(0),KC_LEFT,KC_RIGHT,KC_DOWN,KC_UP,
 0x4b,KC_TRNS,
@@ -528,8 +530,8 @@ KC_TRNS,0x2a,0x58 ),
 
 
 const uint16_t PROGMEM fn_actions[] = {
-[1] = ACTION_FUNCTION_TAP(233),
 [0] = ACTION_FUNCTION_TAP(219),
+[1] = ACTION_FUNCTION_TAP(233),
 [2] = ACTION_FUNCTION_TAP(191),
 [3] = ACTION_FUNCTION_TAP(250),// ' when tapped, ctrl when held
 [4] = ACTION_FUNCTION_TAP(1), // e or OSM(KC_LSFT) on long press
@@ -755,43 +757,35 @@ uint16_t kc = DLT(3,0x2c);
 process_action_delayed_lt_from_macro(kc,record);
 dlt_reset();}
  break;
-/*case 247:*/
-/*//`*/
-/*if(record->event.pressed){*/
-            /*register_code(0x39);*/
+case 247:  
+// DLT(4,KC_U)
+if(record->event.pressed){
+  dlt_threshold = 180;
+  dlt_threshold_key_not_up = 180;
+  dlt_hold_decreased_by = 25;
+  dlt_hold_increased_by = 25;
+  dlt_pre_keypress_idling = 85;
+  process_action_delayed_lt_from_macro(DLT(4,KC_U),record);
+}else{
+  process_action_delayed_lt_from_macro(DLT(4,KC_U),record);
+  dlt_reset();
+}
+break;
+case 246:  
+// DLT(4,KC_H)
+if(record->event.pressed){
+  dlt_threshold = 180;
+  dlt_threshold_key_not_up = 180;
+  dlt_hold_decreased_by = 25;
+  dlt_hold_increased_by = 25;
+  dlt_pre_keypress_idling = 85;
+  process_action_delayed_lt_from_macro(DLT(4,KC_H),record);
+}else{
+  process_action_delayed_lt_from_macro(DLT(4,KC_H),record);
+  dlt_reset();
+}
+break;
 
-/*unregister_code(0x39);*/
-
-/*register_code(0xe1);*/
-/*register_code(0x2f);*/
-
-/*unregister_code(0x2f);*/
-
-/*unregister_code(0xe1);*/
-
-/*register_code(0x39);*/
-
-/*unregister_code(0x39);*/
-
-        /*}*/
- /*break;*/
-/*case 246:*/
-/*//[*/
-/*if(record->event.pressed){*/
-            /*register_code(0x39);*/
-
-/*unregister_code(0x39);*/
-
-/*register_code(0x30);*/
-
-/*unregister_code(0x30);*/
-
-/*register_code(0x39);*/
-
-/*unregister_code(0x39);*/
-
-        /*}*/
- /*break;*/
 /*case 245:*/
 /*//]*/
 /*if(record->event.pressed){*/
@@ -2576,6 +2570,7 @@ unregister_code(0x2f);
  break;
       }
     return MACRO_NONE;
+
 };
 
 
