@@ -1,7 +1,5 @@
 #include "ergodox.h"
-/*#include "debug.h"*/
-//#include "debug.h"
-////#include "action_layer.h"
+//#include "action_layer.h"
 //#include "version.h"
 #include "delayed_lt.c"
 #include "delayed_lt_macro_support.c"
@@ -190,112 +188,12 @@
 #define JP_XU LSFT(0x21)
 #define JP_DI M(125)
 
-// JIS KANA symbols(layer6)
-// top most
-#define JP_CURLY_BRACKET_OPEN M(172)
-#define JP_CURLY_BRACKET_CLOSE M(171)
-//top row
-#define JP_YEN M(158)
-#define JP_LESS M(157)
-#define JP_PLUS 0x57
-// already definede #define JP_QUESTION M(156)
-#define JP_AT M(155)
-#define JP_BACKTICK M(170)
-#define JP_SHARP M(169)
-#define JP_KAGIKAKKO_OPEN LSFT(0x30)
-#define JP_KAGIKAKKO_CLOSE LSFT(0x31)
-#define JP_SINGLE_QUOTE M(168)
-
-//home row
-#define JP_UNDERLINE M(154)
-#define JP_PERCENTAGE M(153)
-#define JP_PIPE M(152)
-#define JP_EQUAL M(151)
-#define JP_EXCLAMATION M(150)
-#define JP_TILD M(149)
-
-#define JP_BACKSLASH M(167)
-#define JP_ASTERISK 0x55
-#define JP_PARENTHESE_OPEN M(166)
-#define JP_PARENTHESE_CLOSE M(165)
-#define JP_SLASH 0x54
-#define JP_DOUBLEQUOTE M(164)
-
-//bottom  
-// #define JP_UNDERLINE M(154) already defined
-#define JP_GREATER M(147)
-#define JP_MINUS 0x56
-#define JP_AND M(146)
-#define JP_COLON M(148) // does not work, 145 is for none japanese kana
-
-//^$[].
-#define JP_CARET M(163)
-#define JP_DOLLAR M(162)
-#define JP_SQUARE_BRACKET_OPEN M(161)
-#define JP_SQUARE_BRACKET_CLOSE M(160)
-#define JP_DOT M(159)
-
-
-// JIS symbols(layer3)  
-// top row
-#define JIS_YEN 0x89
-#define JIS_LESS RSFT(0x36) 
-#define JIS_PLUS 0x57 
-#define JIS_QUESTION LSFT(0x38) 
-#define JIS_AT 0x2f 
-
-#define JIS_BACKTICK RSFT(0x2f)
-#define JIS_SHARP RSFT(0x20) 
-#define JIS_CURLY_BRACE_OPEN RSFT(0x30) 
-#define JIS_CURLY_BRACE_CLOSE RSFT(0x31) 
-#define JIS_QUOTE LSFT(0x24)
-
-//home row
-//_%|=!~\*()/"
-#define JIS_UNDERLINE RSFT(0x87)
-#define JIS_PERCENTAGE LSFT(0x22)
-#define JIS_PIPE RSFT(0x89)
-#define JIS_EQUAL LSFT(0x2d)
-#define JIS_EXCLAMATION RSFT(0x1e)
-#define JIS_TILD RSFT(0x2e)
-
-#define JIS_BACSLASH 0x87
-#define JIS_ASTERISK 0x55
-#define JIS_PARENTHES_OPEN RSFT(0x25)
-#define JIS_PARENTHES_CLOSE RSFT(0x26)
-#define JIS_SLASH 0x38
-#define JIS_DOUBLE_QUOTE LSFT(0x1f)
-
-// bottom row
-#define JIS_SEMI_COLON 0x33
-//#define JIS_UNDERLINE
-#define JIS_GREATER LSFT(0x37)
-#define JIS_MINUS 0x56
-#define JIS_AND RSFT(0x23)
-#define JIS_COLON 0x34
-
-//^$[].
-#define JIS_CARET 0x2e
-#define JIS_DOLLAR LSFT(0x21)
-#define JIS_SQUARE_BRACKET_OPEN 0x30
-#define JIS_SQUARE_BRACKET_CLOSE 0x31
-#define JIS_PERIOD 0x37
-
-// extra
-#define JIS_COMMA KC_COMM
-#define JIS_SINGLE_OR_DOUBLE_QUOTE_OR_CTRL F(3)
-#define ECLIPSE_EXECUTE LALT(LSFT(0x1b))
-#define DLT4_U M(247)
-#define DLT4_H M(246)
-
-// layer 5
-#define JIS_DLT_K M(249) 
-#define JIS_E_OR_SHIFT F(4) 
-#define JIS_T_OR_SHIFT F(5) 
-#define JIS_SEMI_COLON_AND_COLON M(251) 
 
 
  
+
+
+
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -306,45 +204,44 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  
- M(252),KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_TRNS,
-KC_TAB,JIS_SEMI_COLON_AND_COLON,JIS_COMMA,LT(10, JIS_PERIOD),KC_P,KC_Y,KC_CAPSLOCK,
-JIS_UNDERLINE,KC_A,KC_O, JIS_E_OR_SHIFT, DLT4_U,KC_I,
-KC_LSHIFT,JIS_SINGLE_OR_DOUBLE_QUOTE_OR_CTRL, KC_Q,KC_J,JIS_DLT_K,KC_X,TO(3),
-KC_LCTRL,KC_LGUI,KC_LALT,TO(10),TO(5),
+ M(252),0x3a,0x3b,0x3c,0x3d,0x3e,KC_TRNS,
+0x2b,M(251),0x36,LT(10, 0x37),0x13,0x1c,0x39,
+LSFT(0x87),0x04,0x12, F(4), DLT(4, 0x18),0x0c,
+0xe1,F(3), 0x14,0x0d,M(249),0x1b,TO(3),
+0xe4,0xe3,0xe6,TO(10),TO(5),
 TO(5),TO(3),
 KC_TRNS,
 M(248),0x4c,0x29,
  
- JIS_MINUS,KC_TRNS,KC_TRNS,JIS_PLUS,KC_TRNS,ECLIPSE_EXECUTE,JIS_BACSLASH,
-TO(3),KC_F,KC_G,LT(10, KC_C),KC_R,KC_L,JIS_SLASH,
-KC_D,DLT4_H,JIS_T_OR_SHIFT, KC_N,KC_S,JIS_MINUS,
-TO(1),KC_B,KC_M,KC_W,KC_V,CTL_T(KC_Z),KC_RSHIFT,
-TO(0),KC_LEFT,KC_RIGHT,KC_DOWN,KC_UP,
+ 0x2d,KC_TRNS,KC_TRNS,0x57,KC_TRNS,LALT(LSFT(0x1b)),0x87,
+TO(3),0x09,0x0a,LT(10, 0x06),0x15,0x2d,0x38,
+0x07,DLT(4, 0x0b),F(5), 0x11,0x16,0x0f,
+TO(1),0x05,0x10,0x1a,0x19,CTL_T(0x1d),0xe5,
+TO(0),0x50,0x4f,0x51,0x52,
 0x4b,KC_TRNS,
 0x4e,
-KC_TAB,0x2a,M(253) ),
+0x2b,0x2a,M(253) ),
 
 
 [1] = KEYMAP(  
  M(227),M(226),M(185),M(184),M(183),M(182),M(181),
-KC_TAB,JP_MO,JP_NI,JP_HA,JP_TE,JP_DE,KC_TRNS,
-OSL(6),JP_KA,JP_LEFT_RING_MIZUNARA,JP_LEFT_MIDDLE_MIZUNARA,JP_NA,JP_RU,
-KC_LEFT,JP_KO,JP_GA,JP_DA,JP_TA,JP_XYO,JIS_MINUS,
-KC_LCTRL,KC_LGUI,KC_LALT,TO(10),TO(5),
+KC_TAB,OSL(6),JP_NI,JP_HA,JP_TE,JP_DE,KC_TRNS,
+JP_MO,JP_KA,JP_LEFT_RING_MIZUNARA,JP_LEFT_MIDDLE_MIZUNARA,JP_NA,JP_RU,
+KC_LEFT,JP_KO,JP_GA,JP_DA,JP_TA,JP_XYO,0x56,
+0xe4,0xe3,0xe6,TO(9),TO(5),
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 M(178),0x4c,0x29,
  
-JP_BACKTICK,JP_SQUARE_BRACKET_OPEN,JP_SQUARE_BRACKET_CLOSE,JP_PARENTHESE_OPEN,JP_PARENTHESE_CLOSE,JP_MINUS,JP_PLUS,
-TO(6), JP_RE,JP_XTU,JP_SI,JP_TO,JP_E,JP_BACKSLASH,
-JP_KI,JP_NN,JP_RIGHT_MIDDLE_MIZUNARA,JP_RIGHT_RING_MIZUNARA,JP_I,OSL(6),
+ M(247),M(246),M(245),M(244),M(241),0x56,0x57,
+TO(6), JP_RE,JP_XTU,JP_SI,JP_TO,OSL(6),0x38,
+JP_KI,JP_NN,JP_RIGHT_MIDDLE_MIZUNARA,JP_RIGHT_RING_MIZUNARA,JP_I,JP_E,
 KC_TRNS, JP_KU,JP_U,JP_COMMA,JP_PERIOD,JP_NO,0xe5,
-TO(0),KC_LEFT,KC_RIGHT,KC_DOWN,KC_UP,
+TO(0),0x50,0x4f,0x51,0x52,
 0x4b,0x93,
 0x4e,
-KC_TAB,0x2a,M(238) ),
+0x2b,0x2a,M(238) ),
 
-// Mizunara right thumb layer
 [2] = 
   KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -357,7 +254,7 @@ KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,KC_TRNS,JP_PU,JP_BU,JP_XYA,JP_DATEN,KC_TRNS,
+KC_TRNS,KC_TRNS,JP_PU,JP_BU,JP_XYU,JP_DATEN,KC_TRNS,
 JP_HI,JP_TU,JP_SU,JP_WA,JP_MA,KC_TRNS,
 KC_TRNS,KC_TRNS,JP_XO,JP_PE,JP_XYU,JP_PI,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -367,29 +264,27 @@ KC_TRNS,0x2a,M(139) ),
 
 [3] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,JIS_YEN,JIS_LESS,JIS_PLUS,JIS_QUESTION,JIS_AT,KC_TRNS,
-JIS_UNDERLINE ,JIS_PERCENTAGE ,JIS_PIPE ,JIS_EQUAL ,JIS_EXCLAMATION ,JIS_TILD,
-JIS_SEMI_COLON,JIS_UNDERLINE,JIS_GREATER,JIS_MINUS,JIS_AND,JIS_COLON,TO(3),
+KC_TRNS,0x89,RSFT(0x36),0x57,LSFT(0x38),0x2f,KC_TRNS,
+RSFT(0x87),LSFT(0x22),RSFT(0x89),LSFT(0x2d),RSFT(0x1e),RSFT(0x2e),
+0x33,RSFT(0x87),LSFT(0x37),0x56,RSFT(0x23),0x34,TO(3),
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
-KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TRNS,JIS_BACKTICK ,JIS_SHARP ,JIS_CURLY_BRACE_OPEN ,JIS_CURLY_BRACE_CLOSE ,JIS_QUOTE,KC_TRNS,
-JIS_BACSLASH ,JIS_ASTERISK ,JIS_PARENTHES_OPEN ,JIS_PARENTHES_CLOSE ,JIS_SLASH ,JIS_DOUBLE_QUOTE,
-TO(1), JIS_CARET,JIS_DOLLAR, JIS_SQUARE_BRACKET_OPEN,JIS_SQUARE_BRACKET_CLOSE, JIS_PERIOD,KC_TRNS,
+ KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+KC_TRNS,RSFT(0x2f),RSFT(0x20),LSFT(0x30),LSFT(0x31),LSFT(0x24),0x56,
+0x87,0x55,RSFT(0x25),RSFT(0x26),0x38,LSFT(0x1f),
+TO(1),0x2e,LSFT(0x21),0x30,0x31,0x37,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
-
-//vim & IDE shortcut layer
 [4] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,0x2f,0x34,0x2a,KC_TRNS,KC_TRNS,
 KC_TRNS,0x58,0x2c,0x29,0x33,KC_TRNS,
-KC_TRNS,KC_TRNS,KC_TAB,0x1c,0x1b,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,0x2b,0x1c,0x1b,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
@@ -403,48 +298,43 @@ TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
-
-// numpad layer
 [5] = KEYMAP(  
- JIS_MINUS,0x1e,JIS_MINUS,JIS_MINUS,JIS_MINUS,JIS_MINUS,JIS_MINUS,
-KC_TAB,JIS_PIPE,KC_A,KC_B,KC_C,LSFT(JIS_COMMA),JIS_LESS,
-0x39,JIS_TILD,JIS_COMMA,JIS_PERIOD,KC_X,JIS_TILD,
-JIS_SEMI_COLON,JIS_AND,KC_D,KC_E,KC_F,JIS_GREATER,TO(3),
-KC_LCTRL,KC_LGUI,KC_LALT,TO(10),TO(5),
+ 0x56,0x1e,0x56,0x56,0x56,0x56,0x56,
+0x2b,LSFT(0x89),0x04,0x05,0x06,LSFT(0x36),0x33,
+0x39,LSFT(0x2e),0x36,0x37,0x1b,LSFT(0x2e),
+0xe1,LSFT(0x23),0x07,0x08,0x09,LSFT(0x37),TO(3),
+0xe4,0xe3,0xe6,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 0x2c,0x4c,0x29,
  
- JIS_MINUS,JIS_MINUS,KC_LNUM,KC_PSLS,KC_PAST,KC_KP_MINUS,JIS_QUESTION,
-TO(1),KC_PAST,KC_P7,KC_P8,KC_P9,KC_PEQL,JIS_BACSLASH,
-KC_P0,KC_P4,KC_P5,KC_P6,JIS_PLUS,JIS_DOUBLE_QUOTE,
-TO(3),JIS_MINUS,KC_P1,KC_P2,KC_P3,KC_PENT,JIS_COLON,
-TO(0),KC_P0,KC_PDOT,KC_PENT,KC_PENT,
+ 0x56,0x56,0x53,0x54,0x55,0x56,LSFT(0x38),
+0x34,0x55,0x5f,0x60,0x61,0x2d,0x87,
+0x62,0x5c,0x5d,0x5e,0x57,M(173),
+TO(1),0x56,0x59,0x5a,0x5b,0x58,0xe5,
+TO(0),0x62,0x63,0x58,0x58,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
-KC_TRNS,0x2a,0x58),
-
-// Kana symbols layer
+KC_TRNS,0x2a,0x58 ),
 [6] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-KC_TAB,JP_YEN,JP_LESS,JP_PLUS,JP_QUESTION,JP_AT,TO(1),
-JP_UNDERLINE,JP_PERCENTAGE,JP_PIPE,JP_EQUAL,JP_EXCLAMATION,JP_TILD,
-OSL(8),JP_UNDERLINE,JP_GREATER,JP_MINUS,JP_AND,JP_COLON,KC_TRNS,
-KC_LCTRL,KC_LGUI,KC_LALT,TO(10),KC_TRNS,
+0x2b,M(158),M(157),0x57,M(156),M(155),TO(1),
+M(154),M(153),M(152),M(151),M(150),M(149),
+OSL(8),M(148),M(147),0x56,M(146),M(145),KC_TRNS,
+0xe4,0xe3,0xe6,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,
  
- KC_TRNS,KC_TRNS,KC_TRNS,JP_CURLY_BRACKET_OPEN,JP_CURLY_BRACKET_CLOSE,KC_TRNS,KC_TRNS,
-KC_TRNS,JP_BACKTICK,JP_SHARP,JP_KAGIKAKKO_OPEN,JP_KAGIKAKKO_CLOSE,JP_SINGLE_QUOTE,KC_TRNS,
-JP_BACKSLASH,JP_ASTERISK,JP_PARENTHESE_OPEN,JP_PARENTHESE_CLOSE,JP_SLASH,JP_DOUBLEQUOTE,
-TO(1),JP_CARET,JP_DOLLAR,JP_SQUARE_BRACKET_OPEN,JP_SQUARE_BRACKET_CLOSE,JP_DOT,OSL(8),
+ KC_TRNS,KC_TRNS,KC_TRNS,M(172),M(171),KC_TRNS,KC_TRNS,
+KC_TRNS,M(170),M(169),LSFT(0x30),LSFT(0x31),M(168),KC_TRNS,
+M(167),0x55,M(166),M(165),0x54,M(164),
+TO(1),M(163),M(162),M(161),M(160),M(159),OSL(8),
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS ),
 
-// Mizunara  left thumb layer
 [7] = KEYMAP(  
  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,JP_DU,JP_BO,JP_HO,KC_TRNS,KC_TRNS,
@@ -465,7 +355,7 @@ KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,0x58 ),
 
-// For mizunara right ring finger  
+// For right ring finger  
 [8] = KEYMAP(
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,JP_BE,JP_XI,JP_XA,JP_DO,KC_TRNS,KC_TRNS,
@@ -484,7 +374,7 @@ TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
 KC_TRNS,
 KC_TRNS,0x2a,M(124) ),
-// For mizunara left ring finger  
+// For left ring finger  
 
 [9] = KEYMAP( 
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -506,7 +396,7 @@ KC_TRNS,
 KC_TRNS,0x2a,M(124) ),
 
 [10] = KEYMAP(  
- KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,0x3f,0x40,
+ 0x3a,0x3b,0x3c,0x3d,0x3e,0x3f,0x40,
 KC_TRNS,KC_TRNS,0x8b,0x35,0x8a,0x93,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,TO(0),
@@ -516,8 +406,8 @@ KC_TRNS,
 0x2c,0x4c,KC_TRNS,
  
  RESET,0x41,0x42,0x43,0x44,0x45,KC_TRNS,
-KC_TRNS,KC_TRNS,0x4b,KC_UP,LCTL(0x54),KC_TRNS,KC_TRNS,
-KC_TRNS,KC_LEFT,KC_DOWN,KC_RIGHT,KC_TRNS,KC_TRNS,
+KC_TRNS,KC_TRNS,0x4b,0x52,LCTL(0x54),KC_TRNS,KC_TRNS,
+KC_TRNS,0x50,0x51,0x4f,KC_TRNS,KC_TRNS,
 TO(1),KC_TRNS,0x4e,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 TO(0),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 KC_TRNS,KC_TRNS,
@@ -530,8 +420,8 @@ KC_TRNS,0x2a,0x58 ),
 
 
 const uint16_t PROGMEM fn_actions[] = {
-[0] = ACTION_FUNCTION_TAP(219),
 [1] = ACTION_FUNCTION_TAP(233),
+[0] = ACTION_FUNCTION_TAP(219),
 [2] = ACTION_FUNCTION_TAP(191),
 [3] = ACTION_FUNCTION_TAP(250),// ' when tapped, ctrl when held
 [4] = ACTION_FUNCTION_TAP(1), // e or OSM(KC_LSFT) on long press
@@ -757,92 +647,100 @@ uint16_t kc = DLT(3,0x2c);
 process_action_delayed_lt_from_macro(kc,record);
 dlt_reset();}
  break;
-case 247:  
-// DLT(4,KC_U)
+case 247:
+//`
 if(record->event.pressed){
-  dlt_threshold = 180;
-  dlt_threshold_key_not_up = 180;
-  dlt_hold_decreased_by = 25;
-  dlt_hold_increased_by = 25;
-  dlt_pre_keypress_idling = 85;
-  process_action_delayed_lt_from_macro(DLT(4,KC_U),record);
-}else{
-  process_action_delayed_lt_from_macro(DLT(4,KC_U),record);
-  dlt_reset();
-}
-break;
-case 246:  
-// DLT(4,KC_H)
+            register_code(0x39);
+
+unregister_code(0x39);
+
+register_code(0xe1);
+register_code(0x2f);
+
+unregister_code(0x2f);
+
+unregister_code(0xe1);
+
+register_code(0x39);
+
+unregister_code(0x39);
+
+        }
+ break;
+case 246:
+//[
 if(record->event.pressed){
-  dlt_threshold = 180;
-  dlt_threshold_key_not_up = 180;
-  dlt_hold_decreased_by = 25;
-  dlt_hold_increased_by = 25;
-  dlt_pre_keypress_idling = 85;
-  process_action_delayed_lt_from_macro(DLT(4,KC_H),record);
-}else{
-  process_action_delayed_lt_from_macro(DLT(4,KC_H),record);
-  dlt_reset();
-}
-break;
+            register_code(0x39);
 
-/*case 245:*/
-/*//]*/
-/*if(record->event.pressed){*/
-            /*register_code(0x39);*/
+unregister_code(0x39);
 
-/*unregister_code(0x39);*/
+register_code(0x30);
 
-/*register_code(0x31);*/
+unregister_code(0x30);
 
-/*unregister_code(0x31);*/
+register_code(0x39);
 
-/*register_code(0x39);*/
+unregister_code(0x39);
 
-/*unregister_code(0x39);*/
+        }
+ break;
+case 245:
+//]
+if(record->event.pressed){
+            register_code(0x39);
 
-        /*}*/
- /*break;*/
-/*case 244:*/
-/*//(*/
-/*if(record->event.pressed){*/
-            /*register_code(0x39);*/
+unregister_code(0x39);
 
-/*unregister_code(0x39);*/
+register_code(0x31);
 
-/*register_code(0xe1);*/
-/*register_code(0x25);*/
+unregister_code(0x31);
 
-/*unregister_code(0x25);*/
+register_code(0x39);
 
-/*unregister_code(0xe1);*/
+unregister_code(0x39);
 
-/*register_code(0x39);*/
+        }
+ break;
+case 244:
+//(
+if(record->event.pressed){
+            register_code(0x39);
 
-/*unregister_code(0x39);*/
+unregister_code(0x39);
 
-        /*}*/
- /*break;*/
-/*case 241:*/
-/*//)*/
-/*if(record->event.pressed){*/
-            /*register_code(0x39);*/
+register_code(0xe1);
+register_code(0x25);
 
-/*unregister_code(0x39);*/
+unregister_code(0x25);
 
-/*register_code(0xe1);*/
-/*register_code(0x26);*/
+unregister_code(0xe1);
 
-/*unregister_code(0x26);*/
+register_code(0x39);
 
-/*unregister_code(0xe1);*/
+unregister_code(0x39);
 
-/*register_code(0x39);*/
+        }
+ break;
+case 241:
+//)
+if(record->event.pressed){
+            register_code(0x39);
 
-/*unregister_code(0x39);*/
+unregister_code(0x39);
 
-        /*}*/
- /*break;*/
+register_code(0xe1);
+register_code(0x26);
+
+unregister_code(0x26);
+
+unregister_code(0xe1);
+
+register_code(0x39);
+
+unregister_code(0x39);
+
+        }
+ break;
 // れ
 
  case 194:
@@ -1439,24 +1337,24 @@ unregister_code(0xe4);
 
         }
  break;
-/*case 173:*/
-/*//' "*/
-/*//' "*/
-/*if(record->event.pressed){*/
+case 173:
+//' "
+//' "
+if(record->event.pressed){
 
-/*if(keyboard_report->mods & (2|32)){*/
-/*register_mods(2);*/
-/*register_code(0x1f);*/
-/*unregister_code(0x1f);*/
-/*unregister_mods(2);*/
-/*}else{*/
-/*register_mods(2);*/
-/*register_code(0x24);*/
-/*unregister_code(0x24);*/
-/*unregister_mods(2);*/
-/*}*/
-/*}*/
- /*break;*/
+if(keyboard_report->mods & (2|32)){
+register_mods(2);
+register_code(0x1f);
+unregister_code(0x1f);
+unregister_mods(2);
+}else{
+register_mods(2);
+register_code(0x24);
+unregister_code(0x24);
+unregister_mods(2);
+}
+}
+ break;
 case 172:
 //{
 if(record->event.pressed){
@@ -1793,7 +1691,9 @@ unregister_code(0x39);
         }
  break;
 case 154:
-// _
+//_
+//_
+//_
 if(record->event.pressed){
             register_code(0x39);
 
@@ -1922,38 +1822,29 @@ unregister_code(0x39);
 
         }
  break;
-//_
-/*case 148:*/
-/*if(record->event.pressed){*/
-            /*register_code(0x39);*/
-
-/*unregister_code(0x39);*/
-
-/*register_code(0xe1);*/
-/*register_code(0x87);*/
-
-/*unregister_code(0x87);*/
-
-/*unregister_code(0xe1);*/
-
-/*register_code(0x39);*/
-
-/*unregister_code(0x39);*/
-
-        /*}*/
- /*break;*/
-
 case 148:
-//colon for japanese kana
-  if(record->event.pressed){
-    register_code(0x39);
-    unregister_code(0x39);
-    register_code(0x34);
-    unregister_code(0x34);
-    register_code(0x39);
-    unregister_code(0x39);
-  }
-   break;
+//_
+//_
+//_
+//_
+if(record->event.pressed){
+            register_code(0x39);
+
+unregister_code(0x39);
+
+register_code(0xe1);
+register_code(0x87);
+
+unregister_code(0x87);
+
+unregister_code(0xe1);
+
+register_code(0x39);
+
+unregister_code(0x39);
+
+        }
+ break;
 case 147:
 //>
 //>
@@ -2001,6 +1892,8 @@ unregister_code(0x39);
         }
  break;
 case 145:
+//:
+//:
 //:
 if(record->event.pressed){
             register_code(0x39);
@@ -2570,7 +2463,6 @@ unregister_code(0x2f);
  break;
       }
     return MACRO_NONE;
-
 };
 
 
